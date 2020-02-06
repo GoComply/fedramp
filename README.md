@@ -1,5 +1,3 @@
-OSCAL-FedRAMP Templater Tool
-
 # Automate Autorization Process
 This tool takes OSCAL formatted System Security Plan and outputs FedRAMP document.
 

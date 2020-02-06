@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/GoComply/oscal-fedramp-templater/pkg/templater"
+	"github.com/GoComply/fedramp/pkg/templater"
 	"github.com/urfave/cli"
 	"os"
 )
@@ -9,7 +9,7 @@ import (
 // Execute ...
 func Execute() error {
 	app := cli.NewApp()
-	app.Name = "oscal-fedramp-templater"
+	app.Name = "fedramp"
 	app.Usage = "OSCAL-FedRAMP Workbench"
 	app.Commands = []cli.Command{
 		convert,

@@ -2,7 +2,7 @@ package templater
 
 import (
 	"fmt"
-	"github.com/GoComply/oscal-fedramp-templater/bundled"
+	"github.com/GoComply/fedramp/bundled"
 	"github.com/docker/oscalkit/pkg/oscal/constants"
 	"github.com/docker/oscalkit/pkg/oscal_source"
 )

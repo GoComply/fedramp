@@ -1,8 +1,8 @@
-`oscal-fedramp-templater` includes work in both the public domain and dependencies that are not.
+`GoComply/fedramp` includes work in both the public domain and dependencies that are not.
 
 ## Source code in the public domain
 
-The remainder of source for `oscal-fedramp-templater` is in the public domain and distributed via CC0 1.0 Universal as follows:
+The remainder of source for `GoComply/fedramp` is in the public domain and distributed via CC0 1.0 Universal as follows:
 
 ### CC0 1.0 Universal
 

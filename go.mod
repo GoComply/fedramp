@@ -1,4 +1,4 @@
-module github.com/GoComply/oscal-fedramp-templater
+module github.com/GoComply/fedramp
 
 go 1.13
 
