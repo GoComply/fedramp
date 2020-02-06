@@ -13,6 +13,7 @@ func Execute() error {
 	app.Usage = "OSCAL-FedRAMP Workbench"
 	app.Commands = []cli.Command{
 		convert,
+		openControl,
 	}
 
 	return app.Run(os.Args)

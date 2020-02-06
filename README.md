@@ -1,5 +1,9 @@
-# Automate Autorization Process
-This tool takes OSCAL formatted System Security Plan and outputs FedRAMP document.
+# FedRAMP - Automate Autorization Process
+This is open source tool that manipulates official FedRAMP assets. Everyone is welcome to contribute!
+
+## Features
+ - take FedRAMP/OSCAL formatted System Security Plan and outputs FedRAMP document
+ - take opencontrol repository and produce FedRAMP/OSCAL formatted System Security Plans
 
 ## User Resources
  - [FedRAMP adopts OSCAL Announcement](https://www.fedramp.gov/FedRAMP-moves-to-automate-the-authorization-process/)
