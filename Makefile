@@ -15,7 +15,7 @@ ifeq ("$(wildcard $(GOPATH)/bin/pkger)","")
 	go get -u -v github.com/markbates/pkger/cmd/pkger
 endif
 
-ci-update-bundled-deps: ci-update-fedramp-templates ci-update-fedramp-templates
+ci-update-bundled-deps: ci-update-fedramp-templates ci-update-fedramp-profiles
 
 ci-update-fedramp-templates:
 	rm bundled/templates/FedRAMP-SSP-*-Baseline-Template.docx
