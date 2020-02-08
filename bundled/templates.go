@@ -18,3 +18,15 @@ func TemplateDOCX(baseline common.BaselineLevel) (pkging.File, error) {
 	}
 	return nil, errors.New("Not supported")
 }
+
+func ProfileOSCAL(baseline common.BaselineLevel) (pkging.File, error) {
+	switch baseline {
+	case common.LevelLow:
+		return pkger.Open("/bundled/profiles/FedRAMP_LOW-baseline_profile.xml")
+	case common.LevelModerate:
+		return pkger.Open("/bundled/profiles/FedRAMP_MODERATE-baseline_profile.xml")
+	case common.LevelHigh:
+		return pkger.Open("/bundled/profiles/FedRAMP_HIGH-baseline_profile.xml")
+	}
+	return nil, errors.New("Not supported")
+}

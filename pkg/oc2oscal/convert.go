@@ -7,6 +7,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/GoComply/fedramp/pkg/fedramp"
+	fc "github.com/GoComply/fedramp/pkg/fedramp/common"
 	"github.com/GoComply/fedramp/pkg/oc2oscal/masonry"
 	"github.com/docker/oscalkit/pkg/oscal/constants"
 	"github.com/docker/oscalkit/types/oscal"
@@ -46,10 +48,14 @@ func Convert(repoUri, outputDirectory string) error {
 
 func convertComponent(component common.Component, metadata ssp.Metadata, outputDirectory string) error {
 	var plan ssp.SystemSecurityPlan
+	baseline, err := fedramp.New(fc.LevelModerate)
+	if err != nil {
+		return err
+	}
 	plan.Id = "TODO"
 	plan.Metadata = &metadata
 	plan.ImportProfile = &ssp.ImportProfile{
-		Href: "https://raw.githubusercontent.com/usnistgov/OSCAL/master/content/fedramp.gov/xml/FedRAMP_MODERATE-baseline_profile.xml",
+		Href: baseline.ProfileURL(),
 	}
 	plan.SystemCharacteristics = convertSystemCharacteristics(component)
 	plan.ControlImplementation = convertControlImplementation(component)
