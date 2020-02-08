@@ -1,0 +1,20 @@
+name: Refresh Docx Templates
+on:
+  schedule:
+  - cron: "0 0 * * 0"
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        uses: mstksg/get-package@v1
+        with:
+                apt-get: wget
+      - name: Refresh FedRAMP .docx Templates
+        run: |
+          make ci-update-fedramp-templates
+      - name: Push to master
+        uses: mikeal/publish-to-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
