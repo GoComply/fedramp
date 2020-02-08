@@ -13,7 +13,11 @@ func Convert(sspSource *oscal_source.OSCALSource, template string) error {
 	if o.DocumentType() != constants.SSPDocument {
 		return fmt.Errorf("Provided OSCAL file is not system-security-plan")
 	}
-	bundled.TemplateDOCX(common.LevelModerate)
+	docx, err := bundled.TemplateDOCX(common.LevelModerate)
+	if err != nil {
+		return err
+	}
+	defer docx.Close()
 
 	return nil
 }

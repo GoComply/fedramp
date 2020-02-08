@@ -38,7 +38,11 @@ var convert = cli.Command{
 	},
 	Action: func(c *cli.Context) error {
 		sspFile, outputFile := c.Args()[0], c.Args()[1]
-		return templater.ConvertFile(sspFile, template, outputFile)
+		err := templater.ConvertFile(sspFile, template, outputFile)
+		if err != nil {
+			return cli.NewExitError(err, 1)
+		}
+		return nil
 	},
 }
 
