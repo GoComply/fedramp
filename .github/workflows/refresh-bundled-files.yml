@@ -1,4 +1,4 @@
-name: Refresh Docx Templates
+name: Refresh Bundled Files
 on:
   schedule:
   - cron: "0 0 * * 0"
@@ -10,10 +10,10 @@ jobs:
       - name: Install dependencies
         uses: mstksg/get-package@v1
         with:
-                apt-get: wget
-      - name: Refresh FedRAMP .docx Templates
+                apt-get: wget libxml2-utils
+      - name: Refresh Bundled Files
         run: |
-          make ci-update-fedramp-templates
+          make ci-update-bundled-deps
       - name: Push to master
         uses: mikeal/publish-to-github-action@master
         env:
