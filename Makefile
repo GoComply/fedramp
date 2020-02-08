@@ -4,7 +4,7 @@ GOBUILD=$(GO) build
 all: build
 
 build: cli/pkged.go
-	$(GOBUILD) ./cli/fedramp.go
+	$(GOBUILD) ./cli/fedramp.go ./cli/pkged.go
 
 cli/pkged.go: pkger README.md
 	pkger -o cli
