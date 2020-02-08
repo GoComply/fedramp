@@ -156,7 +156,7 @@ func staticSystemInformation() *ssp.SystemInformation {
 	var sysinf ssp.SystemInformation
 	sysinf.InformationTypes = []ssp.InformationType{
 		ssp.InformationType{
-			Name:        "Information Type Name",
+			Title:       "Information Type Name",
 			Description: validation_root.MarkupFromPlain("This item is useless nevertheless required."),
 			ConfidentialityImpact: &ssp.ConfidentialityImpact{
 				Base: "fips-199-moderate",

@@ -11,3 +11,5 @@ require (
 	github.com/urfave/cli v1.22.2
 	github.com/xlab/handysort v0.0.0-20150421192137-fb3537ed64a1 // indirect
 )
+
+replace github.com/docker/oscalkit => github.com/isimluk/oscalkit v0.2.1-0.20200208213443-15145c3907c0
