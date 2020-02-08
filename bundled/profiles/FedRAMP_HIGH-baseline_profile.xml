@@ -6,7 +6,6 @@
 		<last-modified>2020-01-28T10:00:00.000-05:00</last-modified>
 		<version>1.2</version>
 		<oscal-version>1.0.0-milestone2</oscal-version>
-
 		<role id="creator">
 			<title>Document creator</title>
 		</role>
@@ -846,7 +845,9 @@
 		</set-parameter>
 		<!-- - - CM-6 - -  -->
 		<set-parameter param-id="cm-6_prm_1">
-			<guideline><p>See CM-6(a) Additional FedRAMP Requirements and Guidance</p></guideline>
+			<guideline>
+				<p>See CM-6(a) Additional FedRAMP Requirements and Guidance</p>
+			</guideline>
 		</set-parameter>
 		<!-- - - CM-6 (1) - -  -->
 		<!-- - - CM-6 (2) - -  -->
@@ -2371,7 +2372,6 @@
 						<p>The service provider defines tests and/or exercises in accordance with NIST Special Publication 800-61 (as amended). For JAB authorization, the service provider provides test plans to the JAB/AO annually. Test plans are approved and accepted by the JAB/AO prior to test commencing.</p>
 					</part>
 				</part>
-
 			</add>
 		</alter>
 		<!-- - - IR-3 (2) - -  -->
