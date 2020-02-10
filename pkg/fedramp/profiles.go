@@ -10,13 +10,13 @@ import (
 )
 
 type Baseline struct {
-	level   common.BaselineLevel
+	Level   common.BaselineLevel
 	profile *profile.Profile
 }
 
 func New(baselineLevel common.BaselineLevel) (*Baseline, error) {
 	var result Baseline
-	result.level = baselineLevel
+	result.Level = baselineLevel
 	file, err := bundled.ProfileOSCAL(baselineLevel)
 	if err != nil {
 		return nil, err
@@ -49,5 +49,5 @@ func AvailableBaselines() ([]Baseline, error) {
 }
 
 func (b *Baseline) ProfileURL() string {
-	return common.ProfileUrls[b.level]
+	return common.ProfileUrls[b.Level]
 }

@@ -61,7 +61,7 @@ func convertComponent(baseline fedramp.Baseline, component common.Component, met
 	}
 	plan.SystemCharacteristics = convertSystemCharacteristics(component)
 	plan.ControlImplementation = convertControlImplementation(component)
-	return writeSSP(plan, outputDirectory+"/"+component.GetKey()+".xml")
+	return writeSSP(plan, outputDirectory+"/"+component.GetKey()+"-fedramp-"+baseline.Level.Name()+".xml")
 }
 
 func convertControlImplementation(component common.Component) *ssp.ControlImplementation {
