@@ -15,7 +15,7 @@ ifeq ("$(wildcard $(GOPATH)/bin/pkger)","")
 	go get -u -v github.com/markbates/pkger/cmd/pkger
 endif
 
-ci-update-bundled-deps: ci-update-fedramp-templates ci-update-fedramp-profiles
+ci-update-bundled-deps: ci-update-fedramp-templates ci-update-fedramp-profiles ci-update-fedramp-catalogs
 
 ci-update-fedramp-templates:
 	rm bundled/templates/FedRAMP-SSP-*-Baseline-Template.docx
@@ -28,3 +28,10 @@ ci-update-fedramp-profiles:
 	$(XMLFORMAT) -o bundled/profiles/FedRAMP_HIGH-baseline_profile.xml bundled/profiles/FedRAMP_HIGH-baseline_profile.xml
 	$(XMLFORMAT) -o bundled/profiles/FedRAMP_MODERATE-baseline_profile.xml bundled/profiles/FedRAMP_MODERATE-baseline_profile.xml
 	$(XMLFORMAT) -o bundled/profiles/FedRAMP_LOW-baseline_profile.xml bundled/profiles/FedRAMP_LOW-baseline_profile.xml
+
+ci-update-fedramp-catalogs:
+	rm bundled/catalogs/FedRAMP_*baseline-resolved-profile_catalog.xml
+	wget -P bundled/catalogs https://raw.githubusercontent.com/usnistgov/OSCAL/master/content/fedramp.gov/xml/FedRAMP_HIGH-baseline-resolved-profile_catalog.xml https://raw.githubusercontent.com/usnistgov/OSCAL/master/content/fedramp.gov/xml/FedRAMP_LOW-baseline-resolved-profile_catalog.xml https://raw.githubusercontent.com/usnistgov/OSCAL/master/content/fedramp.gov/xml/FedRAMP_MODERATE-baseline-resolved-profile_catalog.xml
+	$(XMLFORMAT) -o bundled/catalogs/FedRAMP_HIGH-baseline-resolved-profile_catalog.xml bundled/catalogs/FedRAMP_HIGH-baseline-resolved-profile_catalog.xml
+	$(XMLFORMAT) -o bundled/catalogs/FedRAMP_MODERATE-baseline-resolved-profile_catalog.xml bundled/catalogs/FedRAMP_MODERATE-baseline-resolved-profile_catalog.xml
+	$(XMLFORMAT) -o bundled/catalogs/FedRAMP_LOW-baseline-resolved-profile_catalog.xml bundled/catalogs/FedRAMP_LOW-baseline-resolved-profile_catalog.xml
