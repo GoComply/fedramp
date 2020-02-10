@@ -35,6 +35,19 @@ func New(baselineLevel common.BaselineLevel) (*Baseline, error) {
 	return &result, nil
 }
 
+func AvailableBaselines() ([]Baseline, error) {
+	var result []Baseline
+	var level common.BaselineLevel
+	for level = common.LevelLow; level <= common.LevelHigh; level++ {
+		baseline, err := New(level)
+		if err != nil {
+			return nil, err
+		}
+		result = append(result, *baseline)
+	}
+	return result, nil
+}
+
 func (b *Baseline) ProfileURL() string {
 	return common.ProfileUrls[b.level]
 }

@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/GoComply/fedramp/pkg/fedramp"
-	fc "github.com/GoComply/fedramp/pkg/fedramp/common"
 	"github.com/GoComply/fedramp/pkg/oc2oscal/masonry"
 	"github.com/docker/oscalkit/pkg/oscal/constants"
 	"github.com/docker/oscalkit/types/oscal"
@@ -37,21 +36,24 @@ func Convert(repoUri, outputDirectory string) error {
 	metadata.Version = validation_root.Version("0.0.1")
 	metadata.OscalVersion = validation_root.OscalVersion(constants.LatestOscalVersion)
 
+	fedrampBaselines, err := fedramp.AvailableBaselines()
+	if err != nil {
+		return err
+	}
+
 	for _, component := range workspace.GetAllComponents() {
-		err = convertComponent(component, metadata, outputDirectory)
-		if err != nil {
-			return err
+		for _, baseline := range fedrampBaselines {
+			err = convertComponent(baseline, component, metadata, outputDirectory)
+			if err != nil {
+				return err
+			}
 		}
 	}
 	return nil
 }
 
-func convertComponent(component common.Component, metadata ssp.Metadata, outputDirectory string) error {
+func convertComponent(baseline fedramp.Baseline, component common.Component, metadata ssp.Metadata, outputDirectory string) error {
 	var plan ssp.SystemSecurityPlan
-	baseline, err := fedramp.New(fc.LevelModerate)
-	if err != nil {
-		return err
-	}
 	plan.Id = "TODO"
 	plan.Metadata = &metadata
 	plan.ImportProfile = &ssp.ImportProfile{
