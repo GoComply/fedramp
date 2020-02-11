@@ -10,6 +10,7 @@ import (
 	"github.com/GoComply/fedramp/pkg/fedramp"
 	"github.com/GoComply/fedramp/pkg/oc2oscal/masonry"
 	"github.com/docker/oscalkit/pkg/oscal/constants"
+	"github.com/docker/oscalkit/pkg/oscal_source"
 	"github.com/docker/oscalkit/types/oscal"
 	ssp "github.com/docker/oscalkit/types/oscal/system_security_plan"
 	"github.com/docker/oscalkit/types/oscal/validation_root"
@@ -69,7 +70,21 @@ func convertComponent(baseline fedramp.Baseline, component *Component, metadata 
 	if err != nil {
 		return err
 	}
-	return writeSSP(plan, outputDirectory+"/"+component.GetKey()+"-fedramp-"+baseline.Level.Name()+".xml")
+	filePath := outputDirectory + "/" + component.GetKey() + "-fedramp-" + baseline.Level.Name() + ".xml"
+	err = writeSSP(plan, filePath)
+	if err != nil {
+		return err
+	}
+	return validate(filePath)
+}
+
+func validate(filePath string) error {
+	os, err := oscal_source.Open(filePath)
+	if err != nil {
+		return err
+	}
+	defer os.Close()
+	return os.Validate()
 }
 
 func convertControlImplementation(baseline fedramp.Baseline, component *Component) (*ssp.ControlImplementation, error) {
