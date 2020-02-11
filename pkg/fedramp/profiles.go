@@ -6,12 +6,14 @@ import (
 	"github.com/GoComply/fedramp/pkg/fedramp/common"
 	"github.com/docker/oscalkit/pkg/oscal/constants"
 	"github.com/docker/oscalkit/pkg/oscal_source"
+	"github.com/docker/oscalkit/types/oscal/catalog"
 	"github.com/docker/oscalkit/types/oscal/profile"
 )
 
 type Baseline struct {
 	Level   common.BaselineLevel
 	profile *profile.Profile
+	catalog *catalog.Catalog
 }
 
 func New(baselineLevel common.BaselineLevel) (*Baseline, error) {
@@ -32,6 +34,23 @@ func New(baselineLevel common.BaselineLevel) (*Baseline, error) {
 		return nil, fmt.Errorf("Could not initiate FedRAMP. Expected profile element in %s", file.Name())
 	}
 	result.profile = oscal.Profile
+
+	file, err = bundled.CatalogOSCAL(baselineLevel)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+	source, err = oscal_source.OpenFromReader(file.Name(), file)
+	if err != nil {
+		return nil, err
+	}
+	defer source.Close()
+	oscal = source.OSCAL()
+	if oscal.DocumentType() != constants.CatalogDocument {
+		return nil, fmt.Errorf("Could not initiate FedRAMP. Expected catalog element in %s", file.Name())
+	}
+	result.catalog = oscal.Catalog
+
 	return &result, nil
 }
 
@@ -50,4 +69,12 @@ func AvailableBaselines() ([]Baseline, error) {
 
 func (b *Baseline) ProfileURL() string {
 	return common.ProfileUrls[b.Level]
+}
+
+func (b *Baseline) Controls() []catalog.Control {
+	return b.catalog.Controls
+}
+
+func (b *Baseline) ControlGroups() []catalog.Group {
+	return b.catalog.Groups
 }

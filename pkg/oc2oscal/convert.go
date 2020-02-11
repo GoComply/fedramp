@@ -42,8 +42,12 @@ func Convert(repoUri, outputDirectory string) error {
 	}
 
 	for _, component := range workspace.GetAllComponents() {
+		controls, err := NewComponent(component)
+		if err != nil {
+			return err
+		}
 		for _, baseline := range fedrampBaselines {
-			err = convertComponent(baseline, component, metadata, outputDirectory)
+			err = convertComponent(baseline, controls, metadata, outputDirectory)
 			if err != nil {
 				return err
 			}
@@ -52,34 +56,54 @@ func Convert(repoUri, outputDirectory string) error {
 	return nil
 }
 
-func convertComponent(baseline fedramp.Baseline, component common.Component, metadata ssp.Metadata, outputDirectory string) error {
+func convertComponent(baseline fedramp.Baseline, component *Component, metadata ssp.Metadata, outputDirectory string) error {
 	var plan ssp.SystemSecurityPlan
+	var err error
 	plan.Id = "TODO"
 	plan.Metadata = &metadata
 	plan.ImportProfile = &ssp.ImportProfile{
 		Href: baseline.ProfileURL(),
 	}
 	plan.SystemCharacteristics = convertSystemCharacteristics(component)
-	plan.ControlImplementation = convertControlImplementation(component)
+	plan.ControlImplementation, err = convertControlImplementation(baseline, component)
+	if err != nil {
+		return err
+	}
 	return writeSSP(plan, outputDirectory+"/"+component.GetKey()+"-fedramp-"+baseline.Level.Name()+".xml")
 }
 
-func convertControlImplementation(component common.Component) *ssp.ControlImplementation {
+func convertControlImplementation(baseline fedramp.Baseline, component *Component) (*ssp.ControlImplementation, error) {
 	var ci ssp.ControlImplementation
 	ci.Description = validation_root.MarkupFromPlain("FedRAMP SSP Template Section 13")
 	ci.ImplementedRequirements = make([]ssp.ImplementedRequirement, 0)
-	for _, sat := range component.GetAllSatisfies() {
-		id := convertControlId(sat.GetControlKey())
 
-		ci.ImplementedRequirements = append(ci.ImplementedRequirements, ssp.ImplementedRequirement{
-			ControlId: id,
-			Annotations: []ssp.Annotation{
-				fedrampImplementationStatus(sat.GetImplementationStatus()),
-			},
-			Statements: convertStatements(id, sat.GetNarratives()),
-		})
+	if len(baseline.Controls()) != 0 {
+		return nil, fmt.Errorf("Fedramp %s includes direct controls, those are not implemented yet", baseline.Level.Name())
 	}
-	return &ci
+
+	for _, grp := range baseline.ControlGroups() {
+		if len(grp.Groups) != 0 {
+			return nil, fmt.Errorf("Fedramp %s includes nested control groups (inside group/@id=), those are not implemented yet", baseline.Level.Name(), grp.Id)
+		}
+
+		for _, ctrl := range grp.Controls {
+			sat := component.GetSatisfy(ctrl.Id)
+			if sat == nil {
+				if baseline.Level.Name() == "High" {
+					fmt.Printf("Did not found control response for %s in %s\n", ctrl.Id, component.GetKey())
+				}
+				continue
+			}
+			ci.ImplementedRequirements = append(ci.ImplementedRequirements, ssp.ImplementedRequirement{
+				ControlId: ctrl.Id,
+				Annotations: []ssp.Annotation{
+					fedrampImplementationStatus(sat.GetImplementationStatus()),
+				},
+				Statements: convertStatements(ctrl.Id, sat.GetNarratives()),
+			})
+		}
+	}
+	return &ci, nil
 }
 
 func convertStatements(id string, narratives []common.Section) []ssp.Statement {
@@ -127,7 +151,7 @@ func convertControlId(controlKey string) string {
 
 }
 
-func convertSystemCharacteristics(component common.Component) *ssp.SystemCharacteristics {
+func convertSystemCharacteristics(component *Component) *ssp.SystemCharacteristics {
 	var syschar ssp.SystemCharacteristics
 	syschar.SystemIds = []ssp.SystemId{
 		ssp.SystemId{
