@@ -30,3 +30,15 @@ func ProfileOSCAL(baseline common.BaselineLevel) (pkging.File, error) {
 	}
 	return nil, errors.New("Not supported")
 }
+
+func CatalogOSCAL(baseline common.BaselineLevel) (pkging.File, error) {
+	switch baseline {
+	case common.LevelLow:
+		return pkger.Open("/bundled/catalogs/FedRAMP_LOW-baseline-resolved-profile_catalog.xml")
+	case common.LevelModerate:
+		return pkger.Open("/bundled/catalogs/FedRAMP_MODERATE-baseline-resolved-profile_catalog.xml")
+	case common.LevelHigh:
+		return pkger.Open("/bundled/catalogs/FedRAMP_HIGH-baseline-resolved-profile_catalog.xml")
+	}
+	return nil, errors.New("Not supported")
+}
