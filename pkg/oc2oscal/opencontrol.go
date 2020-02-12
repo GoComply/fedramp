@@ -1,6 +1,7 @@
 package oc2oscal
 
 import (
+	"fmt"
 	"github.com/opencontrol/compliance-masonry/pkg/lib/common"
 )
 
@@ -18,9 +19,9 @@ func NewComponent(component common.Component) (*Component, error) {
 	for _, sat := range component.GetAllSatisfies() {
 		id := convertControlId(sat.GetControlKey())
 
-		//if _, ok := result.satisfies[id]; ok {
-		//	return nil, fmt.Errorf("Duplicate key %s found in component %s", sat.GetControlKey(), component.GetKey())
-		//}
+		if _, ok := result.satisfies[id]; ok {
+			return nil, fmt.Errorf("Duplicate key %s found in component %s", sat.GetControlKey(), component.GetKey())
+		}
 		result.satisfies[id] = sat
 	}
 	return &result, nil
