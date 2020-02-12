@@ -3,17 +3,16 @@ package templater
 import (
 	"github.com/GoComply/fedramp/bundled"
 	"github.com/GoComply/fedramp/pkg/fedramp"
-	"github.com/GoComply/fedramp/pkg/fedramp/common"
 	"github.com/docker/oscalkit/pkg/oscal_source"
 )
 
 func Convert(sspSource *oscal_source.OSCALSource, template string) error {
-	_, err := fedramp.NewSSP(sspSource)
+	plan, err := fedramp.NewSSP(sspSource)
 	if err != nil {
 		return err
 	}
 
-	docx, err := bundled.TemplateDOCX(common.LevelModerate)
+	docx, err := bundled.TemplateDOCX(plan.Level())
 	if err != nil {
 		return err
 	}
