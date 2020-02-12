@@ -116,6 +116,26 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 				},
 				Statements: convertStatements(ctrl.Id, sat.GetNarratives()),
 			})
+
+			for _, subctrl := range ctrl.Controls {
+				if len(subctrl.Controls) != 0 {
+					return nil, fmt.Errorf("3 layers of nested controls detected within %s", subctrl.Id)
+				}
+				sat = component.GetSatisfy(subctrl.Id)
+				if sat == nil {
+					if baseline.Level.Name() == "High" {
+						fmt.Printf("Did not found control response for %s in %s\n", subctrl.Id, component.GetKey())
+					}
+					continue
+				}
+				ci.ImplementedRequirements = append(ci.ImplementedRequirements, ssp.ImplementedRequirement{
+					ControlId: subctrl.Id,
+					Annotations: []ssp.Annotation{
+						fedrampImplementationStatus(sat.GetImplementationStatus()),
+					},
+					Statements: convertStatements(subctrl.Id, sat.GetNarratives()),
+				})
+			}
 		}
 	}
 	return &ci, nil
