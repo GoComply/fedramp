@@ -16,7 +16,7 @@ type Baseline struct {
 	catalog *catalog.Catalog
 }
 
-func New(baselineLevel common.BaselineLevel) (*Baseline, error) {
+func NewBaseline(baselineLevel common.BaselineLevel) (*Baseline, error) {
 	var result Baseline
 	result.Level = baselineLevel
 	file, err := bundled.ProfileOSCAL(baselineLevel)
@@ -58,7 +58,7 @@ func AvailableBaselines() ([]Baseline, error) {
 	var result []Baseline
 	var level common.BaselineLevel
 	for level = common.LevelLow; level <= common.LevelHigh; level++ {
-		baseline, err := New(level)
+		baseline, err := NewBaseline(level)
 		if err != nil {
 			return nil, err
 		}
