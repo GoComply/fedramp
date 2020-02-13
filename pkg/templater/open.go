@@ -45,7 +45,12 @@ func fillInSSP(doc *template.Template, plan *fedramp.SSP) error {
 		if err != nil {
 			return err
 		}
+		responsibleRole, err := table.ResponsibleRole()
+		if err != nil {
+			return err
+		}
 		fmt.Println(name)
+		fmt.Println(responsibleRole)
 	}
 	return nil
 }

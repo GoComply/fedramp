@@ -2,6 +2,7 @@ package template
 
 import (
 	"errors"
+	"fmt"
 	"github.com/jbowtie/gokogiri/xml"
 	"regexp"
 )
@@ -65,4 +66,23 @@ func (csi *ControlSummaryInformation) queryTableHeader() (content string, err er
 	content = nodes[0].Content()
 
 	return
+}
+
+// Represents "Responsible Role" row in the Control Summary Table (usually first row)
+type ResponsibleRole = xml.Node
+
+func (csi *ControlSummaryInformation) ResponsibleRole() (*ResponsibleRole, error) {
+	nodes, err := csi.table.Search(".//w:tc[starts-with(normalize-space(.), 'Responsible Role')]")
+	if err != nil {
+		return nil, err
+	}
+	if len(nodes) != 1 {
+		name, err := csi.ControlName()
+		if err != nil {
+			return nil, err
+		}
+		return nil, fmt.Errorf("Could not find Responsible Role cell in Control Summary Information Table of %s", name)
+	}
+
+	return &nodes[0], nil
 }
