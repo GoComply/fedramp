@@ -3,6 +3,7 @@ package template
 import (
 	"github.com/GoComply/fedramp/bundled"
 	"github.com/GoComply/fedramp/pkg/fedramp/common"
+	"github.com/jbowtie/gokogiri"
 	"github.com/jbowtie/gokogiri/xml"
 	"github.com/opencontrol/doc-template/docx"
 	"io"
@@ -39,6 +40,28 @@ func NewTemplate(level common.BaselineLevel) (*Template, error) {
 
 func NewTemplateFile(filePath string) (*Template, error) {
 	var t Template
+	t.wordDoc = new(docx.Docx)
+	err := t.wordDoc.ReadFile(filePath)
+	if err != nil {
+		return nil, err
+	}
+
+	err = t.parseDocxXml()
+	if err != nil {
+		return nil, err
+	}
 
 	return &t, nil
+}
+
+func (t *Template) parseDocxXml() error {
+	var err error
+	t.xmlDoc, err = gokogiri.ParseXml([]byte(t.wordDoc.GetContent()))
+	if err != nil {
+		return err
+	}
+	xp := t.xmlDoc.DocXPathCtx()
+	xp.RegisterNamespace("w", "http://schemas.openxmlformats.org/wordprocessingml/2006/main")
+	xp.RegisterNamespace("w14", "http://schemas.microsoft.com/office/word/2010/wordml")
+	return nil
 }
