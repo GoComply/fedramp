@@ -65,3 +65,9 @@ func (t *Template) parseDocxXml() error {
 	xp.RegisterNamespace("w14", "http://schemas.microsoft.com/office/word/2010/wordml")
 	return nil
 }
+
+func (t *Template) Save(filePath string) error {
+	xmlContent := t.xmlDoc.String()
+	t.wordDoc.UpdateContent(xmlContent)
+	return t.wordDoc.WriteToFile(filePath, xmlContent)
+}

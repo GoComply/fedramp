@@ -6,18 +6,18 @@ import (
 	"github.com/docker/oscalkit/pkg/oscal_source"
 )
 
-func Convert(sspSource *oscal_source.OSCALSource, tmplt string) error {
+func Convert(sspSource *oscal_source.OSCALSource, outputPath string) error {
 	plan, err := fedramp.NewSSP(sspSource)
 	if err != nil {
 		return err
 	}
 
-	_, err = template.NewTemplate(plan.Level())
+	doc, err := template.NewTemplate(plan.Level())
 	if err != nil {
 		return err
 	}
 
-	return nil
+	return doc.Save(outputPath)
 }
 
 func ConvertFile(oscalSSPFilePath, template, outputPath string) error {
@@ -26,5 +26,5 @@ func ConvertFile(oscalSSPFilePath, template, outputPath string) error {
 		return nil
 	}
 	defer source.Close()
-	return Convert(source, template)
+	return Convert(source, outputPath)
 }
