@@ -9,8 +9,9 @@ import (
 )
 
 type SSP struct {
-	plan     ssp.SystemSecurityPlan
-	baseline *Baseline
+	plan                         ssp.SystemSecurityPlan
+	baseline                     *Baseline
+	implementedRequirementsCache map[string]ssp.ImplementedRequirement
 }
 
 func NewSSP(sspSource *oscal_source.OSCALSource) (*SSP, error) {
@@ -21,6 +22,15 @@ func NewSSP(sspSource *oscal_source.OSCALSource) (*SSP, error) {
 		return nil, fmt.Errorf("Provided OSCAL file is not system-security-plan")
 	}
 	result.plan = *o.SystemSecurityPlan
+
+	if result.plan.ControlImplementation == nil {
+		return nil, fmt.Errorf("SSP is missing control implementation section")
+
+	}
+	result.implementedRequirementsCache = make(map[string]ssp.ImplementedRequirement)
+	for _, ir := range result.plan.ControlImplementation.ImplementedRequirements {
+		result.implementedRequirementsCache[ir.ControlId] = ir
+	}
 
 	baseline := result.Level()
 	if baseline == common.LevelUnknown {
@@ -45,4 +55,16 @@ func (p *SSP) Level() common.BaselineLevel {
 		}
 	}
 	return common.LevelUnknown
+}
+
+func (p *SSP) ResponsibleRoleForControl(controlId string) string {
+	ir, found := p.implementedRequirementsCache[controlId]
+	if !found {
+		return "No information available"
+	}
+	if len(ir.ResponsibleRoles) == 0 {
+		return "No information available"
+	}
+
+	return ir.ResponsibleRoles[0].RoleId
 }

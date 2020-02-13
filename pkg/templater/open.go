@@ -1,7 +1,6 @@
 package templater
 
 import (
-	"fmt"
 	"github.com/GoComply/fedramp/pkg/fedramp"
 	"github.com/GoComply/fedramp/pkg/templater/template"
 	"github.com/docker/oscalkit/pkg/oscal_source"
@@ -41,7 +40,7 @@ func fillInSSP(doc *template.Template, plan *fedramp.SSP) error {
 	}
 
 	for _, table := range tables {
-		name, err := table.ControlName()
+		controlId, err := table.ControlName()
 		if err != nil {
 			return err
 		}
@@ -49,8 +48,8 @@ func fillInSSP(doc *template.Template, plan *fedramp.SSP) error {
 		if err != nil {
 			return err
 		}
-		fmt.Println(name)
-		fmt.Println(responsibleRole)
+		// Implements: 5.2. Responsible Roles and Parameter Assignments
+		responsibleRole.SetValue(plan.ResponsibleRoleForControl(controlId))
 	}
 	return nil
 }

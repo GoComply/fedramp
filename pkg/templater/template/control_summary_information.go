@@ -69,7 +69,9 @@ func (csi *ControlSummaryInformation) queryTableHeader() (content string, err er
 }
 
 // Represents "Responsible Role" row in the Control Summary Table (usually first row)
-type ResponsibleRole = xml.Node
+type ResponsibleRole struct {
+	node xml.Node
+}
 
 func (csi *ControlSummaryInformation) ResponsibleRole() (*ResponsibleRole, error) {
 	nodes, err := csi.table.Search(".//w:tc[starts-with(normalize-space(.), 'Responsible Role')]")
@@ -84,5 +86,15 @@ func (csi *ControlSummaryInformation) ResponsibleRole() (*ResponsibleRole, error
 		return nil, fmt.Errorf("Could not find Responsible Role cell in Control Summary Information Table of %s", name)
 	}
 
-	return &nodes[0], nil
+	return &ResponsibleRole{node: nodes[0]}, nil
+}
+
+func (rr *ResponsibleRole) SetValue(roleName string) error {
+	textNodes, err := rr.node.Search(".//w:t")
+	if err != nil || len(textNodes) < 1 {
+		return errors.New("Cannot find any child text nodes when processing Responsible Role column")
+	}
+	textNodes[0].SetContent(fmt.Sprintf("Responsible Role: %s", roleName))
+
+	return nil
 }
