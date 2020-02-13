@@ -98,3 +98,41 @@ func (rr *ResponsibleRole) SetValue(roleName string) error {
 
 	return nil
 }
+
+type ParameterRow struct {
+	node xml.Node
+}
+
+func (csi *ControlSummaryInformation) ParameterRows() ([]ParameterRow, error) {
+	rows, err := csi.table.Search(".//w:tc[starts-with(normalize-space(.), 'Parameter')]")
+	if err != nil {
+		return nil, err
+	}
+	var result []ParameterRow
+	for _, row := range rows {
+		result = append(result, ParameterRow{
+			node: row,
+		})
+	}
+	return result, nil
+}
+
+func (pr *ParameterRow) ParamId() (string, error) {
+	nodes, err := pr.node.Search(".//w:t[starts-with(normalize-space(.), 'Parameter')]")
+	if err != nil {
+		return "", err
+	}
+	if len(nodes) != 1 {
+		return "", fmt.Errorf("Could not find Parameter text field in Control Summary table")
+	}
+	txt := nodes[0].Content()
+
+	re := regexp.MustCompile(`^Parameter\s+([^:]*):?\s*$`)
+	match := re.FindStringSubmatch(txt)
+	if len(match) == 0 {
+		return "", fmt.Errorf("Could not locate parameter ID in text: '%s'", txt)
+	}
+	id := match[1]
+
+	return id, nil
+}
