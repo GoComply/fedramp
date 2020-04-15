@@ -1,7 +1,6 @@
 package templater
 
 import (
-	"fmt"
 	"github.com/GoComply/fedramp/pkg/fedramp"
 	"github.com/GoComply/fedramp/pkg/templater/template"
 	"github.com/docker/oscalkit/pkg/oscal_source"
@@ -59,12 +58,15 @@ func fillInSSP(doc *template.Template, plan *fedramp.SSP) error {
 			return err
 		}
 
-		for _, paramRow := range paramRows {
-			paramId, err := paramRow.ParamId()
+		for idx, paramRow := range paramRows {
+			controlId, err := paramRow.ControlId()
 			if err != nil {
 				return err
 			}
-			fmt.Println(paramId)
+			err = paramRow.SetValue(plan.ParamValue(controlId, idx+1))
+			if err != nil {
+				return err
+			}
 		}
 	}
 	return nil

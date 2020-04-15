@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/jbowtie/gokogiri/xml"
 	"regexp"
+	"strings"
 )
 
 // ControlSummaryInformation represents single table labeled "Control Summary Information"
@@ -135,4 +136,31 @@ func (pr *ParameterRow) ParamId() (string, error) {
 	id := match[1]
 
 	return id, nil
+}
+
+func (pr *ParameterRow) ControlId() (string, error) {
+	paramId, err := pr.ParamId()
+	if err != nil {
+		return "", err
+	}
+	paramId = strings.ToLower(paramId)
+
+	re := regexp.MustCompile(`([a-z][a-z]-[0-9]+)`)
+	match := re.FindStringSubmatch(paramId)
+	if len(match) == 0 {
+		return "", fmt.Errorf("Could not translate '%s' to NIST-800-53 control id", paramId)
+	}
+	return match[1], nil
+}
+
+func (pr *ParameterRow) SetValue(roleName string) error {
+
+	textNodes, err := pr.node.Search(".//w:t")
+	if err != nil || len(textNodes) < 1 {
+		return errors.New("Cannot find any child text nodes when processing Parametr row")
+	}
+	textNodes[0].SetContent(fmt.Sprintf("%s %s", textNodes[0].Content(), roleName))
+
+	return nil
+
 }

@@ -68,3 +68,17 @@ func (p *SSP) ResponsibleRoleForControl(controlId string) string {
 
 	return ir.ResponsibleRoles[0].RoleId
 }
+
+func (p *SSP) ParamValue(controlId string, index int) string {
+	paramId := fmt.Sprintf("%s_prm_%d", controlId, index)
+	setParam := p.baseline.FindSetParam(paramId)
+	if setParam != nil {
+		if setParam.Value != "" {
+			return string(setParam.Value)
+		}
+		for _, constraint := range setParam.Constraints {
+			return string(constraint.Value)
+		}
+	}
+	return ""
+}

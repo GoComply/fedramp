@@ -78,3 +78,16 @@ func (b *Baseline) Controls() []catalog.Control {
 func (b *Baseline) ControlGroups() []catalog.Group {
 	return b.catalog.Groups
 }
+
+func (b *Baseline) FindSetParam(id string) *profile.SetParameter {
+	if b.profile.Modify == nil {
+		return nil
+	}
+	for _, setParam := range b.profile.Modify.ParameterSettings {
+		if setParam.ParamId == id {
+			return &setParam
+		}
+	}
+	return nil
+
+}
