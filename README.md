@@ -36,8 +36,8 @@ Covert [Open Control](https://open-control.org/) SSPs (in form of [masonry repos
 Covert OSCAL SSP to DOCX Document
 
 ```
-wget https://github.com/ComplianceAsCode/oscal/blob/master/xml/openshift-container-platform-4-fedramp-High.xml
-./fedramp convert ./openshift-container-platform-4-fedramp-High.xml FedRAMP-Low.docx
+wget https://github.com/ComplianceAsCode/oscal/blob/master/xml/openshift-container-platform-4-fedramp-Low.xml
+./fedramp convert ./openshift-container-platform-4-fedramp-Low.xml FedRAMP-Low.docx
 ```
 
 This latest step is not fully complete as you can see, some of the fields in the DOCX being blank. This is work in progress.
