@@ -1,4 +1,4 @@
-# FedRAMP - Automate Autorization Process
+# FedRAMP - Automate Authorization Process
 This is open source tool that manipulates official FedRAMP assets. Everyone is welcome to contribute!
 
 ## Features
