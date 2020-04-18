@@ -95,9 +95,7 @@ func (rr *ResponsibleRole) SetValue(roleName string) error {
 	if err != nil || len(textNodes) < 1 {
 		return errors.New("Cannot find any child text nodes when processing Responsible Role column")
 	}
-	textNodes[0].SetContent(fmt.Sprintf("Responsible Role: %s", roleName))
-
-	return nil
+	return textNodes[0].SetContent(fmt.Sprintf("Responsible Role: %s", roleName))
 }
 
 type ParameterRow struct {
@@ -159,8 +157,5 @@ func (pr *ParameterRow) SetValue(roleName string) error {
 	if err != nil || len(textNodes) < 1 {
 		return errors.New("Cannot find any child text nodes when processing Parametr row")
 	}
-	textNodes[0].SetContent(fmt.Sprintf("%s %s", textNodes[0].Content(), roleName))
-
-	return nil
-
+	return textNodes[0].SetContent(fmt.Sprintf("%s %s", textNodes[0].Content(), roleName))
 }
