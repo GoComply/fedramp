@@ -68,6 +68,15 @@ func fillInSSP(doc *template.Template, plan *fedramp.SSP) error {
 				return err
 			}
 		}
+
+		// Implements: 5.3 Implementation Status
+		implStatus, err := table.ImplementationStatus()
+		if err != nil {
+			return err
+		}
+		if err = implStatus.SetValue(plan.ImplementationStatusForControl(controlId)); err != nil {
+			return err
+		}
 	}
 	return nil
 }

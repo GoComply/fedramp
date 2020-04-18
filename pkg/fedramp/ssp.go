@@ -83,3 +83,17 @@ func (p *SSP) ParamValue(controlId string, index int) string {
 	}
 	return ""
 }
+
+func (p *SSP) ImplementationStatusForControl(controlId string) string {
+	ir, found := p.implementedRequirementsCache[utils.ControlKeyToOSCAL(controlId)]
+	if !found {
+		return "unknown"
+	}
+
+	for _, annotation := range ir.Annotations {
+		if annotation.Name == "implementation-status" && annotation.Ns == "https://fedramp.gov/ns/oscal" {
+			return annotation.Value
+		}
+	}
+	return "unknown"
+}

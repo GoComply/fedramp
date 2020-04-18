@@ -159,3 +159,27 @@ func (pr *ParameterRow) SetValue(roleName string) error {
 	}
 	return textNodes[0].SetContent(fmt.Sprintf("%s %s", textNodes[0].Content(), roleName))
 }
+
+type ImplementationStatus struct {
+	node xml.Node
+}
+
+func (csi *ControlSummaryInformation) ImplementationStatus() (*ImplementationStatus, error) {
+	rows, err := csi.table.Search(".//w:tc[starts-with(normalize-space(.), 'Implementation Status')]")
+	if err != nil {
+		return nil, err
+	}
+	if len(rows) != 1 {
+		name, err := csi.ControlName()
+		if err != nil {
+			return nil, err
+		}
+		return nil, fmt.Errorf("Could not find 'Implementation Status' cell in Control Summary Information Table of %s", name)
+	}
+	return &ImplementationStatus{node: rows[0]}, nil
+}
+
+func (is *ImplementationStatus) SetValue(value string) error {
+	fmt.Println("TODO: setting implementation status to ", value)
+	return nil
+}
