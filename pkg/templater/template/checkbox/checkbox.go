@@ -47,3 +47,15 @@ func findCheckBoxTag(paragraph xml.Node) (xml.Node, error) {
 func (cb *CheckBox) Text() string {
 	return docx_helper.ConcatTextNodes(cb.textNodes)
 }
+
+const (
+	boxChecked    = "☒"
+	boxNotChecked = "☐"
+)
+
+func (cb *CheckBox) SetChecked() {
+	cb.checkMark.AttributeList()[0].SetContent("1")
+	if len(cb.textNodes) > 0 && cb.textNodes[0].Content() == boxNotChecked {
+		cb.textNodes[0].SetContent(boxChecked)
+	}
+}
