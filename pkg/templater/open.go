@@ -74,7 +74,8 @@ func fillInSSP(doc *template.Template, plan *fedramp.SSP) error {
 		if err != nil {
 			return err
 		}
-		if err = implStatus.SetValue(plan.ImplementationStatusForControl(controlId)); err != nil {
+		s := plan.ImplementationStatusForControl(controlId)
+		if err = implStatus.SetValue(s.HumanString()); err != nil {
 			return err
 		}
 	}
