@@ -203,7 +203,7 @@ func parseImplementationStatus(node xml.Node) (is *ImplementationStatus, err err
 	return &ImplementationStatus{node: node, statuses: statuses}, nil
 }
 
-func (is *ImplementationStatus) SetValue(value string) error {
-	fmt.Println("TODO: setting implementation status to ", value)
+func (is *ImplementationStatus) SetValue(newStatus fedramp.ImplementationStatus) error {
+	fmt.Println("TODO: setting implementation status to ", newStatus.HumanString())
 	return nil
 }
