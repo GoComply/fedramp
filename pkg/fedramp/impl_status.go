@@ -1,5 +1,7 @@
 package fedramp
 
+import "strings"
+
 type ImplementationStatus uint8
 
 // implemented, partial, planned, alternate, not-applicable
@@ -26,7 +28,7 @@ var humanString = map[ImplementationStatus]string{
 	StatusImplemented:               "Implemented",
 	StatusPartiallyImplemented:      "Partially implemented",
 	StatusPlanned:                   "Planned",
-	StatusAlternativeImplementation: "Alternative Implementation",
+	StatusAlternativeImplementation: "Alternative implementation",
 	StatusNotApplicable:             "Not applicable",
 }
 
@@ -36,6 +38,15 @@ func StatusFromOSCAL(status string) ImplementationStatus {
 		return StatusNoStatus
 	}
 	return s
+}
+
+func StatusFromDocx(data string) ImplementationStatus {
+	for is, label := range humanString {
+		if strings.Contains(data, label) {
+			return is
+		}
+	}
+	return StatusNoStatus
 }
 
 func (is ImplementationStatus) HumanString() string {

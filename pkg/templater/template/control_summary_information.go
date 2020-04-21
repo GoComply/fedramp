@@ -3,6 +3,8 @@ package template
 import (
 	"errors"
 	"fmt"
+	"github.com/GoComply/fedramp/pkg/fedramp"
+	"github.com/GoComply/fedramp/pkg/templater/template/checkbox"
 	"github.com/jbowtie/gokogiri/xml"
 	"regexp"
 	"strings"
@@ -161,7 +163,8 @@ func (pr *ParameterRow) SetValue(roleName string) error {
 }
 
 type ImplementationStatus struct {
-	node xml.Node
+	node     xml.Node
+	statuses map[fedramp.ImplementationStatus]*checkbox.CheckBox
 }
 
 func (csi *ControlSummaryInformation) ImplementationStatus() (*ImplementationStatus, error) {
@@ -176,7 +179,28 @@ func (csi *ControlSummaryInformation) ImplementationStatus() (*ImplementationSta
 		}
 		return nil, fmt.Errorf("Could not find 'Implementation Status' cell in Control Summary Information Table of %s", name)
 	}
-	return &ImplementationStatus{node: rows[0]}, nil
+	return parseImplementationStatus(rows[0])
+}
+
+func parseImplementationStatus(node xml.Node) (is *ImplementationStatus, err error) {
+	paragraphs, err := node.Search(".//w:p")
+	if err != nil {
+		return
+	}
+	statuses := map[fedramp.ImplementationStatus]*checkbox.CheckBox{}
+	for _, paragraph := range paragraphs {
+		cb, err := checkbox.Parse(paragraph)
+		if err != nil {
+			if _, ok := err.(*checkbox.NotFound); ok {
+				continue
+			}
+			return nil, err
+		}
+		cbStatus := fedramp.StatusFromDocx(cb.Text())
+		statuses[cbStatus] = cb
+	}
+
+	return &ImplementationStatus{node: node, statuses: statuses}, nil
 }
 
 func (is *ImplementationStatus) SetValue(value string) error {
