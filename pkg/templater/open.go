@@ -3,7 +3,7 @@ package templater
 import (
 	"github.com/GoComply/fedramp/pkg/fedramp"
 	"github.com/GoComply/fedramp/pkg/templater/template"
-	"github.com/docker/oscalkit/pkg/oscal_source"
+	"github.com/gocomply/oscalkit/pkg/oscal_source"
 )
 
 func Convert(sspSource *oscal_source.OSCALSource, outputPath string) error {

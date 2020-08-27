@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"github.com/GoComply/fedramp/bundled"
 	"github.com/GoComply/fedramp/pkg/fedramp/common"
-	"github.com/docker/oscalkit/pkg/oscal/constants"
-	"github.com/docker/oscalkit/pkg/oscal_source"
-	"github.com/docker/oscalkit/types/oscal/catalog"
-	"github.com/docker/oscalkit/types/oscal/profile"
+	"github.com/gocomply/oscalkit/pkg/oscal/constants"
+	"github.com/gocomply/oscalkit/pkg/oscal_source"
+	"github.com/gocomply/oscalkit/types/oscal/catalog"
+	"github.com/gocomply/oscalkit/types/oscal/profile"
 )
 
 type Baseline struct {

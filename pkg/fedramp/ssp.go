@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/GoComply/fedramp/pkg/fedramp/common"
 	"github.com/GoComply/fedramp/pkg/utils"
-	"github.com/docker/oscalkit/pkg/oscal/constants"
-	"github.com/docker/oscalkit/pkg/oscal_source"
-	ssp "github.com/docker/oscalkit/types/oscal/system_security_plan"
+	"github.com/gocomply/oscalkit/pkg/oscal/constants"
+	"github.com/gocomply/oscalkit/pkg/oscal_source"
+	ssp "github.com/gocomply/oscalkit/types/oscal/system_security_plan"
 )
 
 type SSP struct {

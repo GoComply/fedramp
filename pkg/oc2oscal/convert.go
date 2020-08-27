@@ -7,11 +7,11 @@ import (
 
 	"github.com/GoComply/fedramp/pkg/fedramp"
 	"github.com/GoComply/fedramp/pkg/oc2oscal/masonry"
-	"github.com/docker/oscalkit/pkg/oscal/constants"
-	"github.com/docker/oscalkit/pkg/oscal_source"
-	"github.com/docker/oscalkit/types/oscal"
-	ssp "github.com/docker/oscalkit/types/oscal/system_security_plan"
-	"github.com/docker/oscalkit/types/oscal/validation_root"
+	"github.com/gocomply/oscalkit/pkg/oscal/constants"
+	"github.com/gocomply/oscalkit/pkg/oscal_source"
+	"github.com/gocomply/oscalkit/types/oscal"
+	ssp "github.com/gocomply/oscalkit/types/oscal/system_security_plan"
+	"github.com/gocomply/oscalkit/types/oscal/validation_root"
 	"github.com/opencontrol/compliance-masonry/pkg/lib/common"
 )
 
