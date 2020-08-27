@@ -58,7 +58,7 @@ func Convert(repoUri, outputDirectory string) error {
 func convertComponent(baseline fedramp.Baseline, component *Component, metadata ssp.Metadata, outputDirectory string) error {
 	var plan ssp.SystemSecurityPlan
 	var err error
-	plan.Id = "TODO"
+	plan.Uuid = "TODO"
 	plan.Metadata = &metadata
 	plan.ImportProfile = &ssp.ImportProfile{
 		Href: baseline.ProfileURL(),
