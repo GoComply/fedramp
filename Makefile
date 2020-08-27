@@ -35,3 +35,8 @@ ci-update-fedramp-catalogs:
 	$(XMLFORMAT) -o bundled/catalogs/FedRAMP_HIGH-baseline-resolved-profile_catalog.xml bundled/catalogs/FedRAMP_HIGH-baseline-resolved-profile_catalog.xml
 	$(XMLFORMAT) -o bundled/catalogs/FedRAMP_MODERATE-baseline-resolved-profile_catalog.xml bundled/catalogs/FedRAMP_MODERATE-baseline-resolved-profile_catalog.xml
 	$(XMLFORMAT) -o bundled/catalogs/FedRAMP_LOW-baseline-resolved-profile_catalog.xml bundled/catalogs/FedRAMP_LOW-baseline-resolved-profile_catalog.xml
+
+vendor:
+	$(GO) mod tidy
+	$(GO) mod vendor
+	$(GO) mod verify

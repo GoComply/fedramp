@@ -1,0 +1,80 @@
+# github.com/Masterminds/vcs v1.13.1
+github.com/Masterminds/vcs
+# github.com/blang/semver v2.2.0+incompatible
+github.com/blang/semver
+# github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d
+github.com/cpuguy83/go-md2man/v2/md2man
+# github.com/fatih/set v0.2.1
+github.com/fatih/set
+# github.com/gobuffalo/here v0.6.0
+github.com/gobuffalo/here
+# github.com/gocomply/oscalkit v0.3.0
+github.com/gocomply/oscalkit/pkg/bundled
+github.com/gocomply/oscalkit/pkg/json_validation
+github.com/gocomply/oscalkit/pkg/oscal/constants
+github.com/gocomply/oscalkit/pkg/oscal_source
+github.com/gocomply/oscalkit/pkg/xml_validation
+github.com/gocomply/oscalkit/pkg/xslt
+github.com/gocomply/oscalkit/types/oscal
+github.com/gocomply/oscalkit/types/oscal/catalog
+github.com/gocomply/oscalkit/types/oscal/component_definition
+github.com/gocomply/oscalkit/types/oscal/nominal_catalog
+github.com/gocomply/oscalkit/types/oscal/profile
+github.com/gocomply/oscalkit/types/oscal/system_security_plan
+github.com/gocomply/oscalkit/types/oscal/validation_common_root
+github.com/gocomply/oscalkit/types/oscal/validation_root
+# github.com/jbowtie/gokogiri v0.0.0-20190301021639-37f655d3078f
+github.com/jbowtie/gokogiri
+github.com/jbowtie/gokogiri/help
+github.com/jbowtie/gokogiri/html
+github.com/jbowtie/gokogiri/util
+github.com/jbowtie/gokogiri/xml
+github.com/jbowtie/gokogiri/xpath
+# github.com/markbates/pkger v0.14.0
+github.com/markbates/pkger
+github.com/markbates/pkger/internal/maps
+github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa
+github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa/filters
+github.com/markbates/pkger/pkging
+github.com/markbates/pkger/pkging/embed
+github.com/markbates/pkger/pkging/mem
+github.com/markbates/pkger/pkging/stdos
+# github.com/opencontrol/compliance-masonry v1.1.6
+github.com/opencontrol/compliance-masonry/internal/constants
+github.com/opencontrol/compliance-masonry/pkg/cli/clierrors
+github.com/opencontrol/compliance-masonry/pkg/cli/get/resources
+github.com/opencontrol/compliance-masonry/pkg/lib
+github.com/opencontrol/compliance-masonry/pkg/lib/certifications
+github.com/opencontrol/compliance-masonry/pkg/lib/certifications/versions/1_0_0
+github.com/opencontrol/compliance-masonry/pkg/lib/common
+github.com/opencontrol/compliance-masonry/pkg/lib/components
+github.com/opencontrol/compliance-masonry/pkg/lib/components/versions/2_0_0
+github.com/opencontrol/compliance-masonry/pkg/lib/components/versions/3_0_0
+github.com/opencontrol/compliance-masonry/pkg/lib/components/versions/3_1_0
+github.com/opencontrol/compliance-masonry/pkg/lib/opencontrol
+github.com/opencontrol/compliance-masonry/pkg/lib/opencontrol/versions/1.0.0
+github.com/opencontrol/compliance-masonry/pkg/lib/result
+github.com/opencontrol/compliance-masonry/pkg/lib/standards
+github.com/opencontrol/compliance-masonry/pkg/lib/standards/versions/1_0_0
+github.com/opencontrol/compliance-masonry/tools/constants
+github.com/opencontrol/compliance-masonry/tools/fs
+github.com/opencontrol/compliance-masonry/tools/mapset
+github.com/opencontrol/compliance-masonry/tools/vcs
+# github.com/opencontrol/doc-template v0.0.0-20190718133209-dc8b9ba59eec
+github.com/opencontrol/doc-template/docx
+# github.com/russross/blackfriday/v2 v2.0.1
+github.com/russross/blackfriday/v2
+# github.com/santhosh-tekuri/jsonschema v0.0.0-20181206154329-5d49c9dfc783
+github.com/santhosh-tekuri/jsonschema
+github.com/santhosh-tekuri/jsonschema/decoders
+github.com/santhosh-tekuri/jsonschema/formats
+github.com/santhosh-tekuri/jsonschema/loader
+github.com/santhosh-tekuri/jsonschema/mediatypes
+# github.com/shurcooL/sanitized_anchor_name v1.0.0
+github.com/shurcooL/sanitized_anchor_name
+# github.com/urfave/cli v1.22.2
+github.com/urfave/cli
+# gopkg.in/yaml.v2 v2.3.0
+gopkg.in/yaml.v2
+# vbom.ml/util v0.0.0-20180919145318-efcd4e0f9787
+vbom.ml/util/sortorder

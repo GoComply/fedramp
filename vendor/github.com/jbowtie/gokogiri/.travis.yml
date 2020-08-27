@@ -1,0 +1,15 @@
+language: go
+go:
+  - 1.12
+
+script:
+  - go test -coverprofile=html_coverage.txt -covermode=atomic ./html
+  - go test -coverprofile=xml_coverage.txt -covermode=atomic ./xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+addons:
+  apt:
+    packages:
+    - libxml2-dev
+    - libonig-dev

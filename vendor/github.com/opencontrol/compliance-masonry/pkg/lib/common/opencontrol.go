@@ -1,0 +1,47 @@
+/*
+ Copyright (C) 2018 OpenControl Contributors. See LICENSE.md for license.
+*/
+
+package common
+
+//go:generate mockery -name OpenControl
+//go:generate mockery -name RemoteSource
+
+// OpenControl is an interface that every OpenControl yaml version should implement.
+// Schema info: https://github.com/opencontrol/schemas#opencontrolyaml
+//
+// GetCertifications retrieves the list of certifications
+//
+// GetStandards retrieves the list of standards
+//
+// GetComponents retrieves the list of components
+//
+// GetCertificationsDependencies retrieves the list of certifications that this config will inherit.
+//
+// GetStandardsDependencies retrieves the list of standards that this config will inherit.
+//
+// GetComponentsDependencies retrieves the list of components / systems that this config will inherit.
+type OpenControl interface {
+	GetCertifications() []string
+	GetStandards() []string
+	GetComponents() []string
+	GetCertificationsDependencies() []RemoteSource
+	GetStandardsDependencies() []RemoteSource
+	GetComponentsDependencies() []RemoteSource
+}
+
+// RemoteSource is an interface that any remote sources should implement in order to know how to download them.
+//
+// GetURL returns the URL of the resource.
+//
+// GetContextDir returns the specific directory containing the OpenControl content.
+//
+// GetRevision returns the specific revision of the resource.
+//
+// GetConfigFile returns the config file to look at once the resource is downloaded.
+type RemoteSource interface {
+	GetURL() string
+	GetContextDir() string
+	GetRevision() string
+	GetConfigFile() string
+}
