@@ -96,7 +96,7 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 
 	for _, grp := range baseline.ControlGroups() {
 		if len(grp.Groups) != 0 {
-			return nil, fmt.Errorf("Fedramp %s includes nested control groups (inside group/@id=), those are not implemented yet", baseline.Level.Name(), grp.Id)
+			return nil, fmt.Errorf("Fedramp %s includes nested control groups (inside group/@id=%s), those are not implemented yet", baseline.Level.Name(), grp.Id)
 		}
 
 		for _, ctrl := range grp.Controls {
