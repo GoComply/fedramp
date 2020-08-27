@@ -29,7 +29,9 @@ jobs:
       run: go get -v -t -d ./...
 
     - name: Build
-      run: make build
+      run: |
+        export PATH=~/go/bin:$PATH
+        make build
 
     - name: Unit tests
       run: go test ./...
