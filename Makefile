@@ -9,7 +9,7 @@ build: cli/pkged.go
 cli/pkged.go: pkger README.md
 	pkger -o cli
 
-.PHONY: pkger
+.PHONY: pkger vendor
 pkger:
 ifeq ("$(wildcard $(GOPATH)/bin/pkger)","")
 	go get -u -v github.com/markbates/pkger/cmd/pkger
