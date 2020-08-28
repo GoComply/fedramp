@@ -21,7 +21,7 @@ func NewBaseline(baselineLevel common.BaselineLevel) (*Baseline, error) {
 	result.Level = baselineLevel
 	file, err := bundled.ProfileOSCAL(baselineLevel)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("could not initiate FedRAMP: could not open internal files: %v", err)
 	}
 	defer file.Close()
 	source, err := oscal_source.OpenFromReader(file.Name(), file)
