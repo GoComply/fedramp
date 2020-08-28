@@ -12,6 +12,7 @@ import (
 	"github.com/gocomply/oscalkit/types/oscal"
 	ssp "github.com/gocomply/oscalkit/types/oscal/system_security_plan"
 	"github.com/gocomply/oscalkit/types/oscal/validation_root"
+	"github.com/google/uuid"
 	"github.com/opencontrol/compliance-masonry/pkg/lib/common"
 )
 
@@ -58,7 +59,7 @@ func Convert(repoUri, outputDirectory string) error {
 func convertComponent(baseline fedramp.Baseline, component *Component, metadata ssp.Metadata, outputDirectory string) error {
 	var plan ssp.SystemSecurityPlan
 	var err error
-	plan.Uuid = "TODO"
+	plan.Uuid = uuid.New().String()
 	plan.Metadata = &metadata
 	plan.ImportProfile = &ssp.ImportProfile{
 		Href: baseline.ProfileURL(),
