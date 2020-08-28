@@ -6,7 +6,7 @@ require (
 	github.com/Masterminds/vcs v1.13.1 // indirect
 	github.com/blang/semver v2.2.0+incompatible // indirect
 	github.com/fatih/set v0.2.1 // indirect
-	github.com/gocomply/oscalkit v0.3.0
+	github.com/gocomply/oscalkit v0.3.1-0.20200828104211-a8b7f62b9f75
 	github.com/jbowtie/gokogiri v0.0.0-20190301021639-37f655d3078f
 	github.com/markbates/pkger v0.14.0
 	github.com/onsi/ginkgo v1.12.0 // indirect
