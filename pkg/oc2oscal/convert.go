@@ -65,6 +65,16 @@ func convertComponent(baseline fedramp.Baseline, component *Component, metadata 
 		Href: baseline.ProfileURL(),
 	}
 	plan.SystemCharacteristics = convertSystemCharacteristics(component)
+	plan.SystemImplementation = &ssp.SystemImplementation{
+		Users: []ssp.User{
+			ssp.User{
+				Uuid: uuid.New().String(),
+				RoleIds: []ssp.RoleId{
+					"generator",
+				},
+			},
+		},
+	}
 	plan.ControlImplementation, err = convertControlImplementation(baseline, component)
 	if err != nil {
 		return err
