@@ -119,6 +119,7 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 				continue
 			}
 			ci.ImplementedRequirements = append(ci.ImplementedRequirements, ssp.ImplementedRequirement{
+				Uuid:      uuid.New().String(),
 				ControlId: ctrl.Id,
 				Annotations: []ssp.Annotation{
 					fedrampImplementationStatus(sat.GetImplementationStatus()),
@@ -138,6 +139,7 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 					continue
 				}
 				ci.ImplementedRequirements = append(ci.ImplementedRequirements, ssp.ImplementedRequirement{
+					Uuid:      uuid.New().String(),
 					ControlId: subctrl.Id,
 					Annotations: []ssp.Annotation{
 						fedrampImplementationStatus(sat.GetImplementationStatus()),
@@ -154,6 +156,7 @@ func convertStatements(id string, narratives []common.Section) []ssp.Statement {
 	var res []ssp.Statement
 	if len(narratives) == 1 {
 		return append(res, ssp.Statement{
+			Uuid:        uuid.New().String(),
 			StatementId: fmt.Sprintf("%s_stmt", id),
 			Description: validation_root.MarkupFromPlain(narratives[0].GetText()),
 		})
@@ -162,6 +165,7 @@ func convertStatements(id string, narratives []common.Section) []ssp.Statement {
 
 	for _, narrative := range narratives {
 		res = append(res, ssp.Statement{
+			Uuid:        uuid.New().String(),
 			StatementId: fmt.Sprintf("%s_stmt.%s", id, narrative.GetKey()),
 			Description: validation_root.MarkupFromPlain(narrative.GetText()),
 		})
