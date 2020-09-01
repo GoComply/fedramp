@@ -1,0 +1,59 @@
+builds:
+  - binary: gocomply_fedramp
+    main: ./cli/gocomply_fedramp/main.go
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - 386
+      - amd64
+      - arm
+      - arm64
+
+archives:
+- replacements:
+    darwin: macOS
+    linux: Linux
+    windows: Windows
+    386: i386
+    amd64: x86_64
+
+  format_overrides:
+    - goos: windows
+      format: zip
+
+checksum:
+  name_template: 'checksums.txt'
+  algorithm: sha256
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+
+nfpms:
+  - id: oscalkit
+
+    file_name_template: "{{ .ProjectName }}-{{ .Version }}-{{ .Release }}.{{ .Arch }}"
+    replacements:
+      386: i686
+      amd64: x86_64
+      arm: aarch32
+      arm64: aarch64
+
+    formats:
+      - deb
+      - rpm
+
+    bindir: /usr/bin
+
+    homepage: github.com/gocomply/fedramp
+    license: CC0
+    description: Open source tool for processing OSCAL based FedRAMP SSPs
+    release: 1
