@@ -2,7 +2,7 @@ package checkbox
 
 import (
 	"fmt"
-	"github.com/GoComply/fedramp/pkg/docx_helper"
+	"github.com/gocomply/fedramp/pkg/docx_helper"
 	"github.com/jbowtie/gokogiri/xml"
 )
 

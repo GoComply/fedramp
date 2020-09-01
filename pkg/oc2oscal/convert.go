@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/GoComply/fedramp/pkg/fedramp"
-	"github.com/GoComply/fedramp/pkg/oc2oscal/masonry"
+	"github.com/gocomply/fedramp/pkg/fedramp"
+	"github.com/gocomply/fedramp/pkg/oc2oscal/masonry"
 	"github.com/gocomply/oscalkit/pkg/oscal/constants"
 	"github.com/gocomply/oscalkit/pkg/oscal_source"
 	"github.com/gocomply/oscalkit/types/oscal"

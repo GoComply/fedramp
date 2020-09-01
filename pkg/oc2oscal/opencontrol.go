@@ -2,7 +2,7 @@ package oc2oscal
 
 import (
 	"fmt"
-	"github.com/GoComply/fedramp/pkg/utils"
+	"github.com/gocomply/fedramp/pkg/utils"
 	"github.com/opencontrol/compliance-masonry/pkg/lib/common"
 )
 

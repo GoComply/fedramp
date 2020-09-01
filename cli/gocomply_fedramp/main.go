@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/GoComply/fedramp/cli/cmd"
+	"github.com/gocomply/fedramp/cli/cmd"
 )
 
 func main() {

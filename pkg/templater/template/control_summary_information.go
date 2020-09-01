@@ -3,8 +3,8 @@ package template
 import (
 	"errors"
 	"fmt"
-	"github.com/GoComply/fedramp/pkg/fedramp"
-	"github.com/GoComply/fedramp/pkg/templater/template/checkbox"
+	"github.com/gocomply/fedramp/pkg/fedramp"
+	"github.com/gocomply/fedramp/pkg/templater/template/checkbox"
 	"github.com/jbowtie/gokogiri/xml"
 	"regexp"
 	"strings"

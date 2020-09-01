@@ -1,8 +1,8 @@
 package template
 
 import (
-	"github.com/GoComply/fedramp/bundled"
-	"github.com/GoComply/fedramp/pkg/fedramp/common"
+	"github.com/gocomply/fedramp/bundled"
+	"github.com/gocomply/fedramp/pkg/fedramp/common"
 	"github.com/jbowtie/gokogiri"
 	"github.com/jbowtie/gokogiri/xml"
 	"github.com/opencontrol/doc-template/docx"

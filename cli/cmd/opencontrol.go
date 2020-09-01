@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/GoComply/fedramp/pkg/oc2oscal"
+	"github.com/gocomply/fedramp/pkg/oc2oscal"
 	"github.com/urfave/cli"
 )
 

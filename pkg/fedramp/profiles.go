@@ -2,8 +2,8 @@ package fedramp
 
 import (
 	"fmt"
-	"github.com/GoComply/fedramp/bundled"
-	"github.com/GoComply/fedramp/pkg/fedramp/common"
+	"github.com/gocomply/fedramp/bundled"
+	"github.com/gocomply/fedramp/pkg/fedramp/common"
 	"github.com/gocomply/oscalkit/pkg/oscal/constants"
 	"github.com/gocomply/oscalkit/pkg/oscal_source"
 	"github.com/gocomply/oscalkit/types/oscal/catalog"

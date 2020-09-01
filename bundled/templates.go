@@ -2,7 +2,7 @@ package bundled
 
 import (
 	"errors"
-	"github.com/GoComply/fedramp/pkg/fedramp/common"
+	"github.com/gocomply/fedramp/pkg/fedramp/common"
 	"github.com/markbates/pkger"
 	"github.com/markbates/pkger/pkging"
 )

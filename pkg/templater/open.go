@@ -1,8 +1,8 @@
 package templater
 
 import (
-	"github.com/GoComply/fedramp/pkg/fedramp"
-	"github.com/GoComply/fedramp/pkg/templater/template"
+	"github.com/gocomply/fedramp/pkg/fedramp"
+	"github.com/gocomply/fedramp/pkg/templater/template"
 	"github.com/gocomply/oscalkit/pkg/oscal_source"
 )
 

@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/GoComply/fedramp/pkg/templater"
+	"github.com/gocomply/fedramp/pkg/templater"
 	"github.com/urfave/cli"
 	"os"
 )

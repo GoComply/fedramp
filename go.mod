@@ -1,4 +1,4 @@
-module github.com/GoComply/fedramp
+module github.com/gocomply/fedramp
 
 go 1.13
 
