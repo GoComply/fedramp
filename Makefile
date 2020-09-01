@@ -3,11 +3,11 @@ GOBUILD=$(GO) build
 
 all: build
 
-build: cli/pkged.go
-	$(GOBUILD) ./cli/fedramp.go ./cli/pkged.go
+build: bundled/pkged.go
+	$(GOBUILD) ./cli/gocomply_fedramp
 
-cli/pkged.go: pkger README.md
-	pkger -o cli
+bundled/pkged.go: pkger README.md
+	pkger -o bundled
 
 .PHONY: pkger vendor
 pkger:

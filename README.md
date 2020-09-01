@@ -16,28 +16,28 @@ This is open source tool that manipulates official FedRAMP assets. Everyone is w
 Build project (install golang as prerequisite)
 
 ```
-make
+go get -u -v github.com/gocomply/fedramp/cli/gocomply_fedramp
 ```
 
 Explore command-line UI
 
 ```
-./fedramp --help
-./fedramp opencontrol --hep
-./fedramp convert --help
+gocomply_fedramp --help
+gocomply_fedramp opencontrol --hep
+gocomply_fedramp convert --help
 ```
 
 Covert [Open Control](https://open-control.org/) SSPs (in form of [masonry repository](https://github.com/opencontrol/compliance-masonry)) to OSCAL SSPs
 
 ```
-./fedramp opencontrol https://github.com/ComplianceAsCode/redhat test_output/
+gocomply_fedramp opencontrol https://github.com/ComplianceAsCode/redhat test_output/
 ```
 
 Covert OSCAL SSP to DOCX Document
 
 ```
 wget https://github.com/ComplianceAsCode/oscal/blob/master/xml/openshift-container-platform-4-fedramp-Low.xml
-./fedramp convert ./openshift-container-platform-4-fedramp-Low.xml FedRAMP-Low.docx
+gocomply_fedramp convert ./openshift-container-platform-4-fedramp-Low.xml FedRAMP-Low.docx
 ```
 
 This latest step is not fully complete as you can see, some of the fields in the DOCX being blank. This is work in progress.

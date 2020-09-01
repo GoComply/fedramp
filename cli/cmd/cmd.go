@@ -9,7 +9,7 @@ import (
 // Execute ...
 func Execute() error {
 	app := cli.NewApp()
-	app.Name = "fedramp"
+	app.Name = "gocomply_fedramp"
 	app.Usage = "OSCAL-FedRAMP Workbench"
 	app.Commands = []cli.Command{
 		convert,
