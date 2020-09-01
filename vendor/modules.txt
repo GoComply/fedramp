@@ -2,7 +2,7 @@
 github.com/Masterminds/vcs
 # github.com/blang/semver v2.2.0+incompatible
 github.com/blang/semver
-# github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d
+# github.com/cpuguy83/go-md2man/v2 v2.0.0
 github.com/cpuguy83/go-md2man/v2/md2man
 # github.com/fatih/set v0.2.1
 github.com/fatih/set
@@ -41,7 +41,7 @@ github.com/markbates/pkger/pkging
 github.com/markbates/pkger/pkging/embed
 github.com/markbates/pkger/pkging/mem
 github.com/markbates/pkger/pkging/stdos
-# github.com/opencontrol/compliance-masonry v1.1.6
+# github.com/opencontrol/compliance-masonry v1.1.7-0.20200827173050-70bb3370161e
 github.com/opencontrol/compliance-masonry/internal/constants
 github.com/opencontrol/compliance-masonry/pkg/cli/clierrors
 github.com/opencontrol/compliance-masonry/pkg/cli/get/resources
@@ -76,7 +76,7 @@ github.com/santhosh-tekuri/jsonschema/mediatypes
 github.com/shurcooL/sanitized_anchor_name
 # github.com/urfave/cli v1.22.2
 github.com/urfave/cli
-# gopkg.in/yaml.v2 v2.3.0
+# gopkg.in/yaml.v2 v2.3.1-0.20200602174213-b893565b90ca
 gopkg.in/yaml.v2
 # vbom.ml/util v0.0.0-20180919145318-efcd4e0f9787
 vbom.ml/util/sortorder
