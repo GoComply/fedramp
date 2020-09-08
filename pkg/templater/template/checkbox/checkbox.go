@@ -45,7 +45,7 @@ func findCheckBoxTag(paragraph xml.Node) (xml.Node, error) {
 }
 
 func (cb *CheckBox) Text() string {
-	return docx_helper.ConcatTextNodes(cb.textNodes)
+	return docx_helper.ConcatTextNodesList(cb.textNodes)
 }
 
 const (
