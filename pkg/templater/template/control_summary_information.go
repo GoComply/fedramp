@@ -3,6 +3,7 @@ package template
 import (
 	"errors"
 	"fmt"
+	"github.com/gocomply/fedramp/pkg/docx_helper"
 	"github.com/gocomply/fedramp/pkg/fedramp"
 	"github.com/gocomply/fedramp/pkg/templater/template/checkbox"
 	"github.com/jbowtie/gokogiri/xml"
@@ -126,7 +127,10 @@ func (pr *ParameterRow) ParamId() (string, error) {
 	if len(nodes) != 1 {
 		return "", fmt.Errorf("Could not find Parameter text field in Control Summary table")
 	}
-	txt := nodes[0].Content()
+	txt, err := docx_helper.ConcatTextNodes(pr.node)
+	if err != nil {
+		return "", err
+	}
 
 	re := regexp.MustCompile(`^Parameter\s+([^:]*):?\s*(Not applicable)?$`)
 	match := re.FindStringSubmatch(txt)
