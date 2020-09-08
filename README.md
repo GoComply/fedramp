@@ -6,7 +6,8 @@ This is open source tool that manipulates official FedRAMP assets. Everyone is w
  - take opencontrol repository and produce FedRAMP/OSCAL formatted System Security Plans
 
 ## User Resources
- - [FedRAMP adopts OSCAL Announcement](https://www.fedramp.gov/FedRAMP-moves-to-automate-the-authorization-process/)
+ - [Additional FedRAMP OSCAL Resources and Templates](https://www.fedramp.gov/additional-fedramp-oscal-resources-and-templates/) (August 20, 2020)
+ - [FedRAMP adopts OSCAL Announcement](https://www.fedramp.gov/FedRAMP-moves-to-automate-the-authorization-process/) (December 17, 2019)
 
 ## Developer Resources
  - [Guide to OSCAL-based FedRAMP System Security Plans](https://github.com/GSA/fedramp-automation/blob/master/documents/Guide_to_OSCAL-based_FedRAMP_System_Security_Plans.pdf)
