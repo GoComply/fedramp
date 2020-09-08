@@ -128,7 +128,7 @@ func (pr *ParameterRow) ParamId() (string, error) {
 	}
 	txt := nodes[0].Content()
 
-	re := regexp.MustCompile(`^Parameter\s+([^:]*):?\s*$`)
+	re := regexp.MustCompile(`^Parameter\s+([^:]*):?\s*(Not applicable)?$`)
 	match := re.FindStringSubmatch(txt)
 	if len(match) == 0 {
 		return "", fmt.Errorf("Could not locate parameter ID in text: '%s'", txt)
