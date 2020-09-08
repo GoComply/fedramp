@@ -61,11 +61,11 @@ func fillInSSP(doc *template.Template, plan *fedramp.SSP) error {
 		}
 
 		for idx, paramRow := range paramRows {
-			controlId, err := paramRow.ControlId()
+			paramId, err := paramRow.ControlId()
 			if err != nil {
 				return fmt.Errorf("%v while trying to parse parameter rows in '%s Control Summary Information' table", err, controlId)
 			}
-			err = paramRow.SetValue(plan.ParamValue(controlId, idx+1))
+			err = paramRow.SetValue(plan.ParamValue(paramId, idx+1))
 			if err != nil {
 				return err
 			}
