@@ -36,7 +36,7 @@ gocomply_fedramp opencontrol https://github.com/ComplianceAsCode/redhat test_out
 Covert OSCAL SSP to DOCX Document
 
 ```
-wget https://github.com/ComplianceAsCode/oscal/blob/master/xml/openshift-container-platform-4-fedramp-Low.xml
+wget https://raw.githubusercontent.com/ComplianceAsCode/oscal/master/xml/openshift-container-platform-4-fedramp-Low.xml
 gocomply_fedramp convert ./openshift-container-platform-4-fedramp-Low.xml FedRAMP-Low.docx
 ```
 
