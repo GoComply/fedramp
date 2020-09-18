@@ -10,7 +10,7 @@ This is open source tool that manipulates official FedRAMP assets. Everyone is w
  - [FedRAMP adopts OSCAL Announcement](https://www.fedramp.gov/FedRAMP-moves-to-automate-the-authorization-process/) (December 17, 2019)
 
 ## Developer Resources
- - [Guide to OSCAL-based FedRAMP System Security Plans](https://github.com/GSA/fedramp-automation/blob/master/documents/Guide_to_OSCAL-based_FedRAMP_System_Security_Plans.pdf)
+ - [Guide to OSCAL-based FedRAMP](https://github.com/GSA/fedramp-automation/raw/master/documents/FedRAMP_OSCAL_Vendor_Resources.pdf)
 
 ## Exemplary usage
 
