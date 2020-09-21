@@ -24,14 +24,15 @@ ci-update-fedramp-templates:
 XMLFORMAT=XMLLINT_INDENT='	' xmllint --format --nsclean
 ci-update-fedramp-profiles:
 	rm bundled/profiles/FedRAMP_*-baseline_profile.xml
-	wget -P bundled/profiles https://raw.githubusercontent.com/usnistgov/OSCAL/master/content/fedramp.gov/xml/FedRAMP_LOW-baseline_profile.xml https://raw.githubusercontent.com/usnistgov/OSCAL/master/content/fedramp.gov/xml/FedRAMP_MODERATE-baseline_profile.xml https://raw.githubusercontent.com/usnistgov/OSCAL/master/content/fedramp.gov/xml/FedRAMP_HIGH-baseline_profile.xml
+	wget -P bundled/profiles https://raw.githubusercontent.com/usnistgov/oscal-content/master/fedramp.gov/xml/FedRAMP_LOW-baseline_profile.xml https://raw.githubusercontent.com/usnistgov/oscal-content/master/fedramp.gov/xml/FedRAMP_MODERATE-baseline_profile.xml https://raw.githubusercontent.com/usnistgov/oscal-content/master/fedramp.gov/xml/FedRAMP_HIGH-baseline_profile.xml
 	$(XMLFORMAT) -o bundled/profiles/FedRAMP_HIGH-baseline_profile.xml bundled/profiles/FedRAMP_HIGH-baseline_profile.xml
 	$(XMLFORMAT) -o bundled/profiles/FedRAMP_MODERATE-baseline_profile.xml bundled/profiles/FedRAMP_MODERATE-baseline_profile.xml
 	$(XMLFORMAT) -o bundled/profiles/FedRAMP_LOW-baseline_profile.xml bundled/profiles/FedRAMP_LOW-baseline_profile.xml
 
 ci-update-fedramp-catalogs:
 	rm bundled/catalogs/FedRAMP_*baseline-resolved-profile_catalog.xml
-	wget -P bundled/catalogs https://raw.githubusercontent.com/usnistgov/OSCAL/master/content/fedramp.gov/xml/FedRAMP_HIGH-baseline-resolved-profile_catalog.xml https://raw.githubusercontent.com/usnistgov/OSCAL/master/content/fedramp.gov/xml/FedRAMP_LOW-baseline-resolved-profile_catalog.xml https://raw.githubusercontent.com/usnistgov/OSCAL/master/content/fedramp.gov/xml/FedRAMP_MODERATE-baseline-resolved-profile_catalog.xml
+	wget -P bundled/catalogs https://raw.githubusercontent.com/GSA/fedramp-automation/master/baselines/xml/FedRAMP_HIGH-baseline-resolved-profile_catalog.xml https://raw.githubusercontent.com/GSA/fedramp-automation/master/baselines/xml/FedRAMP_LOW-baseline-resolved-profile_catalog.xml https://raw.githubusercontent.com/GSA/fedramp-automation/master/baselines/xml/FedRAMP_MODERATE-baseline-resolved-profile_catalog.xml
+
 	$(XMLFORMAT) -o bundled/catalogs/FedRAMP_HIGH-baseline-resolved-profile_catalog.xml bundled/catalogs/FedRAMP_HIGH-baseline-resolved-profile_catalog.xml
 	$(XMLFORMAT) -o bundled/catalogs/FedRAMP_MODERATE-baseline-resolved-profile_catalog.xml bundled/catalogs/FedRAMP_MODERATE-baseline-resolved-profile_catalog.xml
 	$(XMLFORMAT) -o bundled/catalogs/FedRAMP_LOW-baseline-resolved-profile_catalog.xml bundled/catalogs/FedRAMP_LOW-baseline-resolved-profile_catalog.xml
