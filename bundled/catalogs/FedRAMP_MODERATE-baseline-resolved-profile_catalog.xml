@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<catalog xmlns="http://csrc.nist.gov/ns/oscal/1.0" uuid="c9301b61-9f2b-431e-9c7f-c8ffcd110388">
+<catalog xmlns="http://csrc.nist.gov/ns/oscal/1.0" uuid="ddd4bd09-82d5-421b-9855-230a67c62a28">
 	<metadata>
 		<title>FedRAMP Moderate Baseline</title>
 		<published>2020-06-01T00:00:00.000-04:00</published>
 		<last-modified>2020-06-01T10:00:00.000-04:00</last-modified>
 		<version>1.2</version>
 		<oscal-version>1.0.0-milestone3</oscal-version>
-		<prop name="resolution-timestamp">2020-08-31T17:38:53.967424Z</prop>
+		<prop name="resolution-timestamp">2020-09-01T21:44:40.959559Z</prop>
 		<link rel="resolution-source" href="FedRAMP_MODERATE-baseline_profile.xml">FedRAMP Moderate Baseline</link>
 		<role id="parpared-by">
 			<title>Document creator</title>
@@ -35430,7 +35430,7 @@
 			<title>NIST Special Publication (SP) 800-53</title>
 			<prop name="version" ns="https://fedramp.gov/ns/oscal">Revision 4</prop>
 			<prop name="keep">always</prop>
-			<rlink media-type="application/xml" href="../../nist.gov/SP800-53/rev4/xml/NIST_SP-800-53_rev4_catalog.xml"/>
+			<rlink media-type="application/xml" href="https://raw.githubusercontent.com/usnistgov/OSCAL/v1.0.0-milestone3/content/nist.gov/SP800-53/rev4/xml/NIST_SP-800-53_rev4_catalog.xml"/>
 		</resource>
 	</back-matter>
 </catalog>
