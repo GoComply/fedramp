@@ -45,9 +45,9 @@ type SystemCharacteristics struct {
 	// A unique identifier for the system described by this system security plan.
 	SystemIds []SystemId `xml:"system-id,omitempty" json:"system-ids,omitempty"`
 	// The full name of the system.
-	SystemName SystemName `xml:"system-name,omitempty" json:"systemName,omitempty"`
+	SystemName SystemName `xml:"system-name,omitempty" json:"system-name,omitempty"`
 	// A short name for the system, such as an acronym, that is suitable for display in a data table or summary list.
-	SystemNameShort SystemNameShort `xml:"system-name-short,omitempty" json:"systemNameShort,omitempty"`
+	SystemNameShort SystemNameShort `xml:"system-name-short,omitempty" json:"system-name-short,omitempty"`
 	// A free-text description of the system.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
@@ -55,9 +55,9 @@ type SystemCharacteristics struct {
 	// A reference to a local or remote resource
 	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// The date this system received its authorization.
-	DateAuthorized DateAuthorized `xml:"date-authorized,omitempty" json:"dateAuthorized,omitempty"`
+	DateAuthorized DateAuthorized `xml:"date-authorized,omitempty" json:"date-authorized,omitempty"`
 	// The overall information system sensitivity categorization, such as defined by .
-	SecuritySensitivityLevel SecuritySensitivityLevel `xml:"security-sensitivity-level,omitempty" json:"securitySensitivityLevel,omitempty"`
+	SecuritySensitivityLevel SecuritySensitivityLevel `xml:"security-sensitivity-level,omitempty" json:"security-sensitivity-level,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// A name/value pair with optional explanatory remarks.
@@ -75,7 +75,7 @@ type SystemCharacteristics struct {
 	// A description of the logical flow of information within the system and across its boundaries, optionally supplemented by diagrams that illustrate these flows.
 	DataFlow *DataFlow `xml:"data-flow,omitempty" json:"dataFlow,omitempty"`
 	// A reference to a set of organizations or persons that have responsibility for performing a referenced role relative to the parent context.
-	ResponsibleParties []ResponsibleParty `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
+	ResponsibleParties ResponsiblePartyMultiplexer `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
 }
 
 // Contains details about all information types that are stored, processed, or transmitted by the system, such as privacy information, and those defined in .
@@ -123,7 +123,7 @@ type ConfidentialityImpact struct {
 	// The selected (Confidentiality, Integrity, or Availability) security impact level.
 	Selected Selected `xml:"selected,omitempty" json:"selected,omitempty"`
 	// If the selected security level is different from the base security level, this contains the justification for the change.
-	AdjustmentJustification *AdjustmentJustification `xml:"adjustment-justification,omitempty" json:"adjustmentJustification,omitempty"`
+	AdjustmentJustification *AdjustmentJustification `xml:"adjustment-justification,omitempty" json:"adjustment-justification,omitempty"`
 }
 
 // The expected level of impact resulting from the unauthorized modification of information.
@@ -136,7 +136,7 @@ type IntegrityImpact struct {
 	// The selected (Confidentiality, Integrity, or Availability) security impact level.
 	Selected Selected `xml:"selected,omitempty" json:"selected,omitempty"`
 	// If the selected security level is different from the base security level, this contains the justification for the change.
-	AdjustmentJustification *AdjustmentJustification `xml:"adjustment-justification,omitempty" json:"adjustmentJustification,omitempty"`
+	AdjustmentJustification *AdjustmentJustification `xml:"adjustment-justification,omitempty" json:"adjustment-justification,omitempty"`
 }
 
 // The expected level of impact resulting from the disruption of access to or use of information or the information system.
@@ -149,18 +149,18 @@ type AvailabilityImpact struct {
 	// The selected (Confidentiality, Integrity, or Availability) security impact level.
 	Selected Selected `xml:"selected,omitempty" json:"selected,omitempty"`
 	// If the selected security level is different from the base security level, this contains the justification for the change.
-	AdjustmentJustification *AdjustmentJustification `xml:"adjustment-justification,omitempty" json:"adjustmentJustification,omitempty"`
+	AdjustmentJustification *AdjustmentJustification `xml:"adjustment-justification,omitempty" json:"adjustment-justification,omitempty"`
 }
 
 // The overall level of expected impact resulting from unauthorized disclosure, modification, or loss of access to information.
 type SecurityImpactLevel struct {
 
 	// A target-level of confidentiality for the system, based on the sensitivity of information within the system.
-	SecurityObjectiveConfidentiality SecurityObjectiveConfidentiality `xml:"security-objective-confidentiality,omitempty" json:"securityObjectiveConfidentiality,omitempty"`
+	SecurityObjectiveConfidentiality SecurityObjectiveConfidentiality `xml:"security-objective-confidentiality,omitempty" json:"security-objective-confidentiality,omitempty"`
 	// A target-level of integrity for the system, based on the sensitivity of information within the system.
-	SecurityObjectiveIntegrity SecurityObjectiveIntegrity `xml:"security-objective-integrity,omitempty" json:"securityObjectiveIntegrity,omitempty"`
+	SecurityObjectiveIntegrity SecurityObjectiveIntegrity `xml:"security-objective-integrity,omitempty" json:"security-objective-integrity,omitempty"`
 	// A target-level of availability for the system, based on the sensitivity of information within the system.
-	SecurityObjectiveAvailability SecurityObjectiveAvailability `xml:"security-objective-availability,omitempty" json:"securityObjectiveAvailability,omitempty"`
+	SecurityObjectiveAvailability SecurityObjectiveAvailability `xml:"security-objective-availability,omitempty" json:"security-objective-availability,omitempty"`
 }
 
 // Describes the operational status of the system.
@@ -186,9 +186,9 @@ type LeveragedAuthorization struct {
 	// A reference to a local or remote resource
 	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// A reference to the party that manages the leveraged system.
-	PartyUuid PartyUuid `xml:"party-uuid,omitempty" json:"partyUuid,omitempty"`
+	PartyUuid PartyUuid `xml:"party-uuid,omitempty" json:"party-uuid,omitempty"`
 	// The date this system received its authorization.
-	DateAuthorized DateAuthorized `xml:"date-authorized,omitempty" json:"dateAuthorized,omitempty"`
+	DateAuthorized DateAuthorized `xml:"date-authorized,omitempty" json:"date-authorized,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// A name/value pair with optional explanatory remarks.
@@ -209,7 +209,7 @@ type AuthorizationBoundary struct {
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A visual depiction of the system's authorization boundary.
-	Diagrams []Diagram `xml:"diagram,omitempty" json:"diagrams,omitempty"`
+	Diagrams DiagramMultiplexer `xml:"diagram,omitempty" json:"diagrams,omitempty"`
 }
 
 // A graphic that provides a visual representation the system, or some aspect of it.
@@ -244,7 +244,7 @@ type NetworkArchitecture struct {
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A graphic that provides a visual representation the system, or some aspect of it.
-	Diagrams []Diagram `xml:"diagram,omitempty" json:"diagrams,omitempty"`
+	Diagrams DiagramMultiplexer `xml:"diagram,omitempty" json:"diagrams,omitempty"`
 }
 
 // A description of the logical flow of information within the system and across its boundaries, optionally supplemented by diagrams that illustrate these flows.
@@ -261,7 +261,7 @@ type DataFlow struct {
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A graphic that provides a visual representation the system, or some aspect of it.
-	Diagrams []Diagram `xml:"diagram,omitempty" json:"diagrams,omitempty"`
+	Diagrams DiagramMultiplexer `xml:"diagram,omitempty" json:"diagrams,omitempty"`
 }
 
 // Provides information as to how the system is implemented.
@@ -278,9 +278,9 @@ type SystemImplementation struct {
 	// A description of another authorized system from which this system inherits capabilities that satisfy security requirements. Another term for this concept is a .
 	LeveragedAuthorizations []LeveragedAuthorization `xml:"leveraged-authorization,omitempty" json:"leveraged-authorizations,omitempty"`
 	// A type of user that interacts with the system based on an associated role.
-	Users []User `xml:"user,omitempty" json:"users,omitempty"`
+	Users UserMultiplexer `xml:"user,omitempty" json:"users,omitempty"`
 	// A defined component that can be part of an implemented system.
-	Components []Component `xml:"component,omitempty" json:"components,omitempty"`
+	Components ComponentMultiplexer `xml:"component,omitempty" json:"components,omitempty"`
 	// A set of  entries that represent the managed inventory instances of the system.
 	SystemInventory *SystemInventory `xml:"system-inventory,omitempty" json:"systemInventory,omitempty"`
 }
@@ -294,7 +294,7 @@ type User struct {
 	// A title for display and navigation
 	Title Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A common name, short name or acronym
-	ShortName ShortName `xml:"short-name,omitempty" json:"shortName,omitempty"`
+	ShortName ShortName `xml:"short-name,omitempty" json:"short-name,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
@@ -328,7 +328,7 @@ type Component struct {
 	// The unique identifier for the component.
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 	// A category describing the purpose of the component.
-	ComponentType string `xml:"component-type,attr,omitempty" json:"componentType,omitempty"`
+	ComponentType string `xml:"component-type,attr,omitempty" json:"component-type,omitempty"`
 
 	// A human readable name for the system component.
 	Title Title `xml:"title,omitempty" json:"title,omitempty"`
@@ -347,7 +347,7 @@ type Component struct {
 	// Describes the operational status of the system.
 	Status *Status `xml:"status,omitempty" json:"status,omitempty"`
 	// Defines a role that has responsibility for the component.
-	ResponsibleRoles []ResponsibleRole `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
+	ResponsibleRoles ResponsibleRoleMultiplexer `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
 	// Used for  components to define the protocols supported by the service.
 	Protocols []Protocol `xml:"protocol,omitempty" json:"protocols,omitempty"`
 }
@@ -372,7 +372,7 @@ type SystemInventory struct {
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// A single managed inventory item within the system.
-	InventoryItems []InventoryItem `xml:"inventory-item,omitempty" json:"inventory-items,omitempty"`
+	InventoryItems InventoryItemMultiplexer `xml:"inventory-item,omitempty" json:"inventory-items,omitempty"`
 }
 
 // A single managed inventory item within the system.
@@ -381,7 +381,7 @@ type InventoryItem struct {
 	// A RFC 4122 version 4 Universally Unique Identifier (UUID) for the containing object.
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 	// Organizational asset identifier that is unique in the context of the system. This may be a reference to the identifier used in an asset tracking system or a vulnerability scanning tool.
-	AssetId string `xml:"asset-id,attr,omitempty" json:"assetId,omitempty"`
+	AssetId string `xml:"asset-id,attr,omitempty" json:"asset-id,omitempty"`
 
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
@@ -394,16 +394,16 @@ type InventoryItem struct {
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to a set of organizations or persons that have responsibility for performing a referenced role relative to the parent context.
-	ResponsibleParties []ResponsibleParty `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
+	ResponsibleParties ResponsiblePartyMultiplexer `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
 	// The set of componenets that are implemented in a given system inventory item.
-	ImplementedComponents []ImplementedComponent `xml:"implemented-component,omitempty" json:"implemented-components,omitempty"`
+	ImplementedComponents ImplementedComponentMultiplexer `xml:"implemented-component,omitempty" json:"implemented-components,omitempty"`
 }
 
 // The set of componenets that are implemented in a given system inventory item.
 type ImplementedComponent struct {
 
 	// A reference to a component that is implemented as part of an inventory item.
-	ComponentUuid string `xml:"component-uuid,attr,omitempty" json:"componentUuid,omitempty"`
+	ComponentUuid string `xml:"component-uuid,attr,omitempty" json:"component-uuid,omitempty"`
 	// The type of implementation
 	Use string `xml:"use,attr,omitempty" json:"use,omitempty"`
 
@@ -416,7 +416,7 @@ type ImplementedComponent struct {
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to a set of organizations or persons that have responsibility for performing a referenced role relative to the parent context.
-	ResponsibleParties []ResponsibleParty `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
+	ResponsibleParties ResponsiblePartyMultiplexer `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
 }
 
 // Describes how the system satisfies a set of controls.
@@ -434,7 +434,7 @@ type ImplementedRequirement struct {
 	// A RFC 4122 version 4 Universally Unique Identifier (UUID) for the containing object.
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 	// A reference to a control identifier.
-	ControlId string `xml:"control-id,attr,omitempty" json:"controlId,omitempty"`
+	ControlId string `xml:"control-id,attr,omitempty" json:"control-id,omitempty"`
 
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
@@ -447,20 +447,20 @@ type ImplementedRequirement struct {
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Defines how the referenced component implements a set of controls.
-	ByComponents []ByComponent `xml:"by-component,omitempty" json:"by-components,omitempty"`
+	ByComponents ByComponentMultiplexer `xml:"by-component,omitempty" json:"by-components,omitempty"`
 	// A reference to one or more roles with responsibility for performing a function relative to the control.
-	ResponsibleRoles []ResponsibleRole `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
+	ResponsibleRoles ResponsibleRoleMultiplexer `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
 	// Identifies the parameter that will be filled in by the enclosed value element.
-	ParameterSettings []SetParameter `xml:"set-parameter,omitempty" json:"parameter-settings,omitempty"`
+	ParameterSettings SetParameterMultiplexer `xml:"set-parameter,omitempty" json:"parameter-settings,omitempty"`
 	// Identifies which statements within a control are addressed.
-	Statements []Statement `xml:"statement,omitempty" json:"statements,omitempty"`
+	Statements StatementMultiplexer `xml:"statement,omitempty" json:"statements,omitempty"`
 }
 
 // Identifies which statements within a control are addressed.
 type Statement struct {
 
 	// A reference to the specific implemented statement associated with a control.
-	StatementId string `xml:"statement-id,attr,omitempty" json:"statementId,omitempty"`
+	StatementId string `xml:"statement-id,attr,omitempty" json:"statement-id,omitempty"`
 	// A RFC 4122 version 4 Universally Unique Identifier (UUID) for the containing object.
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
@@ -473,18 +473,18 @@ type Statement struct {
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// A name/value pair with optional explanatory remarks.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	Annotations AnnotationMultiplexer `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to one or more roles with responsibility for performing a function relative to the control.
-	ResponsibleRoles []ResponsibleRole `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
+	ResponsibleRoles ResponsibleRoleMultiplexer `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
 	// Defines how the referenced component implements a set of controls.
-	ByComponents []ByComponent `xml:"by-component,omitempty" json:"by-components,omitempty"`
+	ByComponents ByComponentMultiplexer `xml:"by-component,omitempty" json:"by-components,omitempty"`
 }
 
 // Defines how the referenced component implements a set of controls.
 type ByComponent struct {
 
 	// A reference to the component that is implementing a given control or control statement.
-	ComponentUuid string `xml:"component-uuid,attr,omitempty" json:"componentUuid,omitempty"`
+	ComponentUuid string `xml:"component-uuid,attr,omitempty" json:"component-uuid,omitempty"`
 	// A RFC 4122 version 4 Universally Unique Identifier (UUID) for the containing object.
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
@@ -499,16 +499,16 @@ type ByComponent struct {
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to one or more roles with responsibility for performing a function relative to the control.
-	ResponsibleRoles []ResponsibleRole `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
+	ResponsibleRoles ResponsibleRoleMultiplexer `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
 	// Identifies the parameter that will be filled in by the enclosed value element.
-	ParameterSettings []SetParameter `xml:"set-parameter,omitempty" json:"parameter-settings,omitempty"`
+	ParameterSettings SetParameterMultiplexer `xml:"set-parameter,omitempty" json:"parameter-settings,omitempty"`
 }
 
 // A unique identifier for the system described by this system security plan.
 type SystemId struct {
 	// Identifies the identification system from which the provided identifier was assigned.
-	IdentifierType string `xml:"identifier-type,attr,omitempty" json:"identifierType,omitempty"`
-	Value          string `xml:",chardata" json:"value,omitempty"`
+	IdentifierType string `xml:"identifier-type,attr,omitempty" json:"identifier-type,omitempty"`
+	Id             string `xml:",chardata" json:"id,omitempty"`
 }
 
 // The full name of the system.
@@ -527,7 +527,7 @@ type SecuritySensitivityLevel string
 type InformationTypeId struct {
 	// Specifies the information type identification system used.
 	System string `xml:"system,attr,omitempty" json:"system,omitempty"`
-	Value  string `xml:",chardata" json:"value,omitempty"`
+	Id     string `xml:",chardata" json:"id,omitempty"`
 }
 
 // The prescribed base (Confidentiality, Integrity, or Availability) security impact level.
@@ -539,7 +539,6 @@ type Base string
 type Selected string
 
 // If the selected security level is different from the base security level, this contains the justification for the change.
-
 type AdjustmentJustification = Markup
 
 // A target-level of confidentiality for the system, based on the sensitivity of information within the system.
@@ -580,12 +579,17 @@ type PortRange struct {
 
 	// Indicates the transport type.
 	Transport string `xml:"transport,attr,omitempty" json:"transport,omitempty"`
-	Value     string `xml:",chardata" json:"value,omitempty"`
 }
 
 // Describes the purpose for the service within the system.
 
 type Purpose string
+
+type ResponsiblePartyMultiplexer = validation_root.ResponsiblePartyMultiplexer
+
+type ResponsibleRoleMultiplexer = validation_common_root.ResponsibleRoleMultiplexer
+
+type SetParameterMultiplexer = validation_common_root.SetParameterMultiplexer
 
 type Annotation = validation_root.Annotation
 

@@ -15,6 +15,10 @@ func (i *Import) IsHttpResource() bool {
 	return strings.HasPrefix(url.Scheme, "http")
 }
 
+func (i *Import) IsDocumentFragment() bool {
+	return strings.HasPrefix(i.Href, "#")
+}
+
 // Validates that profile import contains valid href
 func (i *Import) ValidateHref() error {
 	if i.Href == "" {

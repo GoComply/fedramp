@@ -8,7 +8,7 @@ github.com/cpuguy83/go-md2man/v2/md2man
 github.com/fatih/set
 # github.com/gobuffalo/here v0.6.0
 github.com/gobuffalo/here
-# github.com/gocomply/oscalkit v0.3.1-0.20200828104211-a8b7f62b9f75
+# github.com/gocomply/oscalkit v0.3.2
 github.com/gocomply/oscalkit/pkg/bundled
 github.com/gocomply/oscalkit/pkg/json_validation
 github.com/gocomply/oscalkit/pkg/oscal/constants
@@ -16,9 +16,13 @@ github.com/gocomply/oscalkit/pkg/oscal_source
 github.com/gocomply/oscalkit/pkg/xml_validation
 github.com/gocomply/oscalkit/pkg/xslt
 github.com/gocomply/oscalkit/types/oscal
+github.com/gocomply/oscalkit/types/oscal/assessment_common
+github.com/gocomply/oscalkit/types/oscal/assessment_plan
+github.com/gocomply/oscalkit/types/oscal/assessment_results
 github.com/gocomply/oscalkit/types/oscal/catalog
 github.com/gocomply/oscalkit/types/oscal/component_definition
 github.com/gocomply/oscalkit/types/oscal/nominal_catalog
+github.com/gocomply/oscalkit/types/oscal/plan_of_action_and_milestones
 github.com/gocomply/oscalkit/types/oscal/profile
 github.com/gocomply/oscalkit/types/oscal/system_security_plan
 github.com/gocomply/oscalkit/types/oscal/validation_common_root
@@ -32,11 +36,10 @@ github.com/jbowtie/gokogiri/html
 github.com/jbowtie/gokogiri/util
 github.com/jbowtie/gokogiri/xml
 github.com/jbowtie/gokogiri/xpath
-# github.com/markbates/pkger v0.14.0
+# github.com/markbates/pkger v0.17.1
 github.com/markbates/pkger
+github.com/markbates/pkger/here
 github.com/markbates/pkger/internal/maps
-github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa
-github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa/filters
 github.com/markbates/pkger/pkging
 github.com/markbates/pkger/pkging/embed
 github.com/markbates/pkger/pkging/mem

@@ -22,7 +22,7 @@ type Param struct {
 	// Indicating the type or classification of the containing object
 	Class string `xml:"class,attr,omitempty" json:"class,omitempty"`
 	// Another parameter invoking this one
-	DependsOn string `xml:"depends-on,attr,omitempty" json:"dependsOn,omitempty"`
+	DependsOn string `xml:"depends-on,attr,omitempty" json:"depends-on,omitempty"`
 
 	// A short name for the parameter.
 	Label Label `xml:"label,omitempty" json:"label,omitempty"`
@@ -51,7 +51,7 @@ type Guideline struct {
 type Select struct {
 
 	// When selecting, a requirement such as one or more
-	HowMany string `xml:"how-many,attr,omitempty" json:"howMany,omitempty"`
+	HowMany string `xml:"how-many,attr,omitempty" json:"how-many,omitempty"`
 
 	// A value selection among several such options
 	Alternatives []Choice `xml:"choice,omitempty" json:"alternatives,omitempty"`
@@ -88,15 +88,15 @@ type Label string
 // Indicates and explains the purpose and use of a parameter
 type Usage struct {
 	// Unique identifier of the containing object
-	Id    string `xml:"id,attr,omitempty" json:"id,omitempty"`
-	Value string `xml:",chardata" json:"value,omitempty"`
+	Id      string `xml:"id,attr,omitempty" json:"id,omitempty"`
+	Summary string `xml:",chardata" json:"summary,omitempty"`
 }
 
 // A formal or informal expression of a constraint or test
 type Constraint struct {
 	// A formal (executable) expression of a constraint
-	Test  string `xml:"test,attr,omitempty" json:"test,omitempty"`
-	Value string `xml:",chardata" json:"value,omitempty"`
+	Test   string `xml:"test,attr,omitempty" json:"test,omitempty"`
+	Detail string `xml:",chardata" json:"detail,omitempty"`
 }
 
 // Indicates a permissible value for a parameter or property
@@ -108,7 +108,6 @@ type Value string
 type Choice string
 
 // Prose permits multiple paragraphs, lists, tables etc.
-
 type Prose = Markup
 
 type Link = validation_root.Link

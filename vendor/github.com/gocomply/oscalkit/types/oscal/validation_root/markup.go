@@ -1,12 +1,14 @@
 package validation_root
 
 import (
+	"encoding/json"
 	"strings"
 )
 
 // Markup ...
 type Markup struct {
-	Raw string `xml:",innerxml" json:"raw,omitempty" yaml:"raw,omitempty"`
+	Raw       string `xml:",innerxml" yaml:"raw,omitempty"`
+	PlainText string
 }
 
 func MarkupFromPlain(plain string) *Markup {
@@ -16,4 +18,11 @@ func MarkupFromPlain(plain string) *Markup {
 	return &Markup{
 		Raw: "<p>" + plain + "</p>",
 	}
+}
+
+func (m *Markup) UnmarshalJSON(b []byte) error {
+	if err := json.Unmarshal(b, &m.PlainText); err != nil {
+		return err
+	}
+	return nil
 }

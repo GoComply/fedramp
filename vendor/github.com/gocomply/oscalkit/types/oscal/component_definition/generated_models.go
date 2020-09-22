@@ -15,9 +15,9 @@ type ComponentDefinition struct {
 	// Provides information about the publication and availability of the containing document.
 	Metadata *Metadata `xml:"metadata,omitempty" json:"metadata,omitempty"`
 	// A defined component that can be part of an implemented system.
-	Components []Component `xml:"component,omitempty" json:"components,omitempty"`
+	Components ComponentMultiplexer `xml:"component,omitempty" json:"components,omitempty"`
 	// A grouping of other components and/or capabilities.
-	Capabilities []Capability `xml:"capability,omitempty" json:"capabilities,omitempty"`
+	Capabilities CapabilityMultiplexer `xml:"capability,omitempty" json:"capabilities,omitempty"`
 	// A collection of citations and resource references.
 	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"backMatter,omitempty"`
 }
@@ -30,7 +30,7 @@ type Component struct {
 	// The component's short, human-readable name.
 	Name string `xml:"name,attr,omitempty" json:"name,omitempty"`
 	// A category describing the purpose of the component.
-	ComponentType string `xml:"component-type,attr,omitempty" json:"componentType,omitempty"`
+	ComponentType string `xml:"component-type,attr,omitempty" json:"component-type,omitempty"`
 
 	// A longer name for the component.
 	Title Title `xml:"title,omitempty" json:"title,omitempty"`
@@ -43,7 +43,7 @@ type Component struct {
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Defines a role associated with a party or parties that has responsibility for the component.
-	ResponsibleParties []ResponsibleParty `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
+	ResponsibleParties ResponsiblePartyMultiplexer `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
 	// Defines how the component or capability supports a set of controls.
 	ControlImplementations []ControlImplementation `xml:"control-implementation,omitempty" json:"control-implementations,omitempty"`
 }
@@ -67,7 +67,7 @@ type Capability struct {
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// TBD
-	IncorporatesComponents []IncorporatesComponent `xml:"incorporates-component,omitempty" json:"incorporates-components,omitempty"`
+	IncorporatesComponents IncorporatesComponentMultiplexer `xml:"incorporates-component,omitempty" json:"incorporates-components,omitempty"`
 	// Defines how the component or capability supports a set of controls.
 	ControlImplementations []ControlImplementation `xml:"control-implementation,omitempty" json:"control-implementations,omitempty"`
 }
@@ -98,7 +98,7 @@ type ImplementedRequirement struct {
 	// A RFC 4122 version 4 Universally Unique Identifier (UUID) for the containing object.
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 	// A reference to a control identifier.
-	ControlId string `xml:"control-id,attr,omitempty" json:"controlId,omitempty"`
+	ControlId string `xml:"control-id,attr,omitempty" json:"control-id,omitempty"`
 
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
@@ -111,18 +111,18 @@ type ImplementedRequirement struct {
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to one or more roles with responsibility for performing a function relative to the control.
-	ResponsibleRoles []ResponsibleRole `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
+	ResponsibleRoles ResponsibleRoleMultiplexer `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
 	// Identifies the parameter that will be filled in by the enclosed value element.
-	SetParameters []SetParameter `xml:"set-parameter,omitempty" json:"set-parameters,omitempty"`
+	SetParameters SetParameterMultiplexer `xml:"set-parameter,omitempty" json:"set-parameters,omitempty"`
 	// Identifies which statements within a control are addressed.
-	Statements []Statement `xml:"statement,omitempty" json:"statements,omitempty"`
+	Statements StatementMultiplexer `xml:"statement,omitempty" json:"statements,omitempty"`
 }
 
 // Identifies which statements within a control are addressed.
 type Statement struct {
 
 	// A reference to the specific implemented statement associated with a control.
-	StatementId string `xml:"statement-id,attr,omitempty" json:"statementId,omitempty"`
+	StatementId string `xml:"statement-id,attr,omitempty" json:"statement-id,omitempty"`
 	// A RFC 4122 version 4 Universally Unique Identifier (UUID) for the containing object.
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
@@ -135,17 +135,24 @@ type Statement struct {
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// A name/value pair with optional explanatory remarks.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	Annotations AnnotationMultiplexer `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to one or more roles with responsibility for performing a function relative to the control.
-	ResponsibleRoles []ResponsibleRole `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
+	ResponsibleRoles ResponsibleRoleMultiplexer `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
 }
 
 // Loads a component definition from another resource.
 type ImportComponentDefinition struct {
 	// A link to a resource that defines a set of components and/or capabilities to import into this collection.
-	Href  string `xml:"href,attr,omitempty" json:"href,omitempty"`
-	Value string `xml:",chardata" json:"value,omitempty"`
+	Href string `xml:"href,attr,omitempty" json:"href,omitempty"`
 }
+
+type IncorporatesComponentMultiplexer = validation_common_root.IncorporatesComponentMultiplexer
+
+type ResponsiblePartyMultiplexer = validation_root.ResponsiblePartyMultiplexer
+
+type ResponsibleRoleMultiplexer = validation_common_root.ResponsibleRoleMultiplexer
+
+type SetParameterMultiplexer = validation_common_root.SetParameterMultiplexer
 
 type Annotation = validation_root.Annotation
 

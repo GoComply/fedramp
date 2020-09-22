@@ -11,7 +11,7 @@ type VALIDATIONRoot struct {
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// References a  defined in .
-	PartyUuid PartyUuid `xml:"party-uuid,omitempty" json:"partyUuid,omitempty"`
+	PartyUuid PartyUuid `xml:"party-uuid,omitempty" json:"party-uuid,omitempty"`
 	// Provides information about the publication and availability of the containing document.
 	Metadata *Metadata `xml:"metadata,omitempty" json:"metadata,omitempty"`
 	// A collection of citations and resource references.
@@ -19,7 +19,7 @@ type VALIDATIONRoot struct {
 	// A name/value pair with optional explanatory remarks.
 	Annotation *Annotation `xml:"annotation,omitempty" json:"annotation,omitempty"`
 	// A reference to a set of organizations or persons that have responsibility for performing a referenced role relative to the parent context.
-	ResponsibleParties []ResponsibleParty `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
+	ResponsibleParties ResponsiblePartyMultiplexer `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
 }
 
 // Provides information about the publication and availability of the containing document.
@@ -30,11 +30,11 @@ type Metadata struct {
 	// The date and time this document was published.
 	Published Published `xml:"published,omitempty" json:"published,omitempty"`
 	// Date and time of last modification.
-	LastModified LastModified `xml:"last-modified,omitempty" json:"lastModified,omitempty"`
+	LastModified LastModified `xml:"last-modified,omitempty" json:"last-modified,omitempty"`
 	// The version of the document content.
 	Version Version `xml:"version,omitempty" json:"version,omitempty"`
 	// OSCAL model version.
-	OscalVersion OscalVersion `xml:"oscal-version,omitempty" json:"oscalVersion,omitempty"`
+	OscalVersion OscalVersion `xml:"oscal-version,omitempty" json:"oscal-version,omitempty"`
 	// A document identifier qualified by an identifier .
 	DocumentIds []DocId `xml:"doc-id,omitempty" json:"document-ids,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
@@ -44,7 +44,7 @@ type Metadata struct {
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// An entry in a sequential list of revisions to the containing document in reverse chronological order (i.e., most recent previous revision first).
-	RevisionHistory []Revision `xml:"revision,omitempty" json:"revision-history,omitempty"`
+	RevisionHistory []Revision `xml:"revision-history>revision,omitempty" json:"revision-history,omitempty"`
 	// Defining a role to be assigned to a party
 	Roles []Role `xml:"role,omitempty" json:"roles,omitempty"`
 	// A location, with associated metadata that can be referenced.
@@ -52,7 +52,7 @@ type Metadata struct {
 	// A responsible entity, either singular (an organization or person) or collective (multiple persons)
 	Parties []Party `xml:"party,omitempty" json:"parties,omitempty"`
 	// A reference to a set of organizations or persons that have responsibility for performing a referenced role relative to the parent context.
-	ResponsibleParties []ResponsibleParty `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
+	ResponsibleParties ResponsiblePartyMultiplexer `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
 }
 
 // A collection of citations and resource references.
@@ -70,11 +70,11 @@ type Revision struct {
 	// The date and time this document was published.
 	Published Published `xml:"published,omitempty" json:"published,omitempty"`
 	// Date and time of last modification.
-	LastModified LastModified `xml:"last-modified,omitempty" json:"lastModified,omitempty"`
+	LastModified LastModified `xml:"last-modified,omitempty" json:"last-modified,omitempty"`
 	// The version of the document content.
 	Version Version `xml:"version,omitempty" json:"version,omitempty"`
 	// OSCAL model version.
-	OscalVersion OscalVersion `xml:"oscal-version,omitempty" json:"oscalVersion,omitempty"`
+	OscalVersion OscalVersion `xml:"oscal-version,omitempty" json:"oscal-version,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// A reference to a local or remote resource
@@ -134,9 +134,9 @@ type Party struct {
 	Type string `xml:"type,attr,omitempty" json:"type,omitempty"`
 
 	// The full (legal) name of the party.
-	PartyName PartyName `xml:"party-name,omitempty" json:"partyName,omitempty"`
+	PartyName PartyName `xml:"party-name,omitempty" json:"party-name,omitempty"`
 	// A common name, short name or acronym
-	ShortName ShortName `xml:"short-name,omitempty" json:"shortName,omitempty"`
+	ShortName ShortName `xml:"short-name,omitempty" json:"short-name,omitempty"`
 	// An identifier for a person (such as an ORCID) using a designated scheme.
 	ExternalIds []ExternalId `xml:"external-id,omitempty" json:"external-ids,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
@@ -165,7 +165,7 @@ type Rlink struct {
 	// A link to a document or document fragment (actual, nominal or projected)
 	Href string `xml:"href,attr,omitempty" json:"href,omitempty"`
 	// Describes the media type of the linked resource
-	MediaType string `xml:"media-type,attr,omitempty" json:"mediaType,omitempty"`
+	MediaType string `xml:"media-type,attr,omitempty" json:"media-type,omitempty"`
 
 	// A representation of a cryptographic digest generated over a resource using a hash algorithm.
 	Hashes []Hash `xml:"hash,omitempty" json:"hashes,omitempty"`
@@ -184,7 +184,7 @@ type Address struct {
 	// State, province or analogous geographical region for mailing address
 	State State `xml:"state,omitempty" json:"state,omitempty"`
 	// Postal or ZIP code for mailing address
-	PostalCode PostalCode `xml:"postal-code,omitempty" json:"postalCode,omitempty"`
+	PostalCode PostalCode `xml:"postal-code,omitempty" json:"postal-code,omitempty"`
 	// Country for mailing address
 	Country Country `xml:"country,omitempty" json:"country,omitempty"`
 }
@@ -237,7 +237,7 @@ type Role struct {
 	// A title for display and navigation
 	Title Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A common name, short name or acronym
-	ShortName ShortName `xml:"short-name,omitempty" json:"shortName,omitempty"`
+	ShortName ShortName `xml:"short-name,omitempty" json:"short-name,omitempty"`
 	// A short textual description
 	Desc Desc `xml:"desc,omitempty" json:"desc,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
@@ -254,7 +254,7 @@ type Role struct {
 type ResponsibleParty struct {
 
 	// The role that the party is responsible for.
-	RoleId string `xml:"role-id,attr,omitempty" json:"roleId,omitempty"`
+	RoleId string `xml:"role-id,attr,omitempty" json:"role-id,omitempty"`
 
 	// References a  defined in .
 	PartyUuids []PartyUuid `xml:"party-uuid,omitempty" json:"party-uuids,omitempty"`
@@ -277,8 +277,8 @@ type Link struct {
 	Rel string `xml:"rel,attr,omitempty" json:"rel,omitempty"`
 
 	// Describes the media type of the linked resource
-	MediaType string `xml:"media-type,attr,omitempty" json:"mediaType,omitempty"`
-	Value     string `xml:",chardata" json:"value,omitempty"`
+	MediaType string `xml:"media-type,attr,omitempty" json:"media-type,omitempty"`
+	Text      string `xml:",chardata" json:"text,omitempty"`
 }
 
 // The date and time this document was published.
@@ -300,8 +300,8 @@ type OscalVersion string
 // A document identifier qualified by an identifier .
 type DocId struct {
 	// Qualifies the kind of document identifier.
-	Type  string `xml:"type,attr,omitempty" json:"type,omitempty"`
-	Value string `xml:",chardata" json:"value,omitempty"`
+	Type       string `xml:"type,attr,omitempty" json:"type,omitempty"`
+	Identifier string `xml:",chardata" json:"identifier,omitempty"`
 }
 
 // A value with a name, attributed to the containing control, part, or group.
@@ -331,8 +331,8 @@ type PartyUuid string
 // An identifier for a person (such as an ORCID) using a designated scheme.
 type ExternalId struct {
 	// Indicating the type of identifier, address, email or other data item.
-	Type  string `xml:"type,attr,omitempty" json:"type,omitempty"`
-	Value string `xml:",chardata" json:"value,omitempty"`
+	Type string `xml:"type,attr,omitempty" json:"type,omitempty"`
+	Id   string `xml:",chardata" json:"id,omitempty"`
 }
 
 // Identifies that the containing object is a member of the organization associated with the provided UUID.
@@ -374,8 +374,8 @@ type Email string
 // Contact number by telephone
 type Phone struct {
 	// Indicates the type of phone number.
-	Type  string `xml:"type,attr,omitempty" json:"type,omitempty"`
-	Value string `xml:",chardata" json:"value,omitempty"`
+	Type   string `xml:"type,attr,omitempty" json:"type,omitempty"`
+	Number string `xml:",chardata" json:"number,omitempty"`
 }
 
 // URL for web site or Internet presence
@@ -407,14 +407,12 @@ type Base64 struct {
 	Filename string `xml:"filename,attr,omitempty" json:"filename,omitempty"`
 
 	// Describes the media type of the linked resource
-	MediaType string `xml:"media-type,attr,omitempty" json:"mediaType,omitempty"`
+	MediaType string `xml:"media-type,attr,omitempty" json:"media-type,omitempty"`
 	Value     string `xml:",chardata" json:"value,omitempty"`
 }
 
 // A description supporting the parent item.
-
 type Description = Markup
 
 // Additional commentary on the parent item.
-
 type Remarks = Markup

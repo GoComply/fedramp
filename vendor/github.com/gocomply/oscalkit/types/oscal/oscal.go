@@ -9,8 +9,11 @@ import (
 	"io/ioutil"
 
 	"github.com/gocomply/oscalkit/pkg/oscal/constants"
+	sap "github.com/gocomply/oscalkit/types/oscal/assessment_plan"
+	sar "github.com/gocomply/oscalkit/types/oscal/assessment_results"
 	"github.com/gocomply/oscalkit/types/oscal/catalog"
 	"github.com/gocomply/oscalkit/types/oscal/component_definition"
+	poam "github.com/gocomply/oscalkit/types/oscal/plan_of_action_and_milestones"
 	"github.com/gocomply/oscalkit/types/oscal/profile"
 	ssp "github.com/gocomply/oscalkit/types/oscal/system_security_plan"
 	yaml "gopkg.in/yaml.v2"
@@ -21,6 +24,9 @@ const (
 	profileRootElement = "profile"
 	sspRootElement     = "system-security-plan"
 	componentElement   = "component-definition"
+	poamRootElement    = "plan-of-action-and-milestones"
+	sapRootElement     = "assessment-plan"
+	sarRootElement     = "assessment-results"
 )
 
 // OSCAL contains specific OSCAL components
@@ -28,10 +34,13 @@ type OSCAL struct {
 	XMLName xml.Name         `json:"-" yaml:"-"`
 	Catalog *catalog.Catalog `json:"catalog,omitempty" yaml:"catalog,omitempty"`
 	// Declarations *Declarations `json:"declarations,omitempty" yaml:"declarations,omitempty"`
-	Profile                 *profile.Profile `json:"profile,omitempty" yaml:"profile,omitempty"`
-	*ssp.SystemSecurityPlan `xml:"system-security-plan"`
-	Component               *component_definition.ComponentDefinition
-	documentType            constants.DocumentType
+	Profile                         *profile.Profile `json:"profile,omitempty" yaml:"profile,omitempty"`
+	*ssp.SystemSecurityPlan         `xml:"system-security-plan"`
+	*poam.PlanOfActionAndMilestones `xml:"plan-of-action-and-milestones"`
+	*sap.AssessmentPlan             `xml:"assessment-plan"`
+	*sar.AssessmentResults          `xml:"assessment-results"`
+	Component                       *component_definition.ComponentDefinition
+	documentType                    constants.DocumentType
 }
 
 func (o *OSCAL) DocumentType() constants.DocumentType {
@@ -43,6 +52,12 @@ func (o *OSCAL) DocumentType() constants.DocumentType {
 		return constants.SSPDocument
 	} else if o.Component != nil {
 		return constants.ComponentDocument
+	} else if o.PlanOfActionAndMilestones != nil {
+		return constants.POAMDocument
+	} else if o.AssessmentPlan != nil {
+		return constants.AssessmentPlanDocument
+	} else if o.AssessmentResults != nil {
+		return constants.AssessmentResultsDocument
 	} else {
 		return constants.UnknownDocument
 	}
@@ -111,6 +126,24 @@ func New(r io.Reader) (*OSCAL, error) {
 					return nil, err
 				}
 				return &OSCAL{Component: &component}, nil
+			case poamRootElement:
+				var poam poam.PlanOfActionAndMilestones
+				if err := d.DecodeElement(&poam, &startElement); err != nil {
+					return nil, err
+				}
+				return &OSCAL{PlanOfActionAndMilestones: &poam}, nil
+			case sapRootElement:
+				var sap sap.AssessmentPlan
+				if err := d.DecodeElement(&sap, &startElement); err != nil {
+					return nil, err
+				}
+				return &OSCAL{AssessmentPlan: &sap}, nil
+			case sarRootElement:
+				var sar sar.AssessmentResults
+				if err := d.DecodeElement(&sar, &startElement); err != nil {
+					return nil, err
+				}
+				return &OSCAL{AssessmentResults: &sar}, nil
 			}
 		}
 	}
@@ -132,6 +165,36 @@ func New(r io.Reader) (*OSCAL, error) {
 					return nil, err
 				}
 				return &OSCAL{Profile: &profile}, nil
+			case componentElement:
+				var component component_definition.ComponentDefinition
+				if err := json.Unmarshal(v, &component); err != nil {
+					return nil, err
+				}
+				return &OSCAL{Component: &component}, nil
+			case sspRootElement:
+				var ssp ssp.SystemSecurityPlan
+				if err := json.Unmarshal(v, &ssp); err != nil {
+					return nil, err
+				}
+				return &OSCAL{SystemSecurityPlan: &ssp}, nil
+			case poamRootElement:
+				var poam poam.PlanOfActionAndMilestones
+				if err := json.Unmarshal(v, &poam); err != nil {
+					return nil, err
+				}
+				return &OSCAL{PlanOfActionAndMilestones: &poam}, nil
+			case sapRootElement:
+				var sap sap.AssessmentPlan
+				if err := json.Unmarshal(v, &sap); err != nil {
+					return nil, err
+				}
+				return &OSCAL{AssessmentPlan: &sap}, nil
+			case sarRootElement:
+				var sar sar.AssessmentResults
+				if err := json.Unmarshal(v, &sar); err != nil {
+					return nil, err
+				}
+				return &OSCAL{AssessmentResults: &sar}, nil
 			}
 		}
 	}

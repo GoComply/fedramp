@@ -2,6 +2,7 @@ package oscal_source
 
 import (
 	"errors"
+	"fmt"
 	"github.com/gocomply/oscalkit/pkg/bundled"
 	"github.com/gocomply/oscalkit/pkg/json_validation"
 	"github.com/gocomply/oscalkit/pkg/oscal/constants"
@@ -17,7 +18,7 @@ func (s *OSCALSource) Validate() error {
 	}
 	schema, err := s.relevantSchema()
 	if err != nil {
-		return err
+		return fmt.Errorf("Could not find relevant schema: %v", err)
 	}
 	defer schema.Cleanup()
 	return validate(schema.Path, s.UserPath)
