@@ -192,7 +192,7 @@ func convertSystemCharacteristics(component *Component) *ssp.SystemCharacteristi
 	syschar.SystemIds = []ssp.SystemId{
 		ssp.SystemId{
 			IdentifierType: "https://fedramp.gov",
-			Value:          "F00000000",
+			Id:             "F00000000",
 		},
 	}
 	syschar.SystemName = ssp.SystemName(component.GetName())

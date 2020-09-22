@@ -78,7 +78,7 @@ func (p *SSP) ParamValue(controlId string, index int) string {
 			return string(setParam.Value)
 		}
 		for _, constraint := range setParam.Constraints {
-			return string(constraint.Value)
+			return string(constraint.Detail)
 		}
 	}
 	return ""
