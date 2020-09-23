@@ -8,7 +8,7 @@ import (
 // Markup ...
 type Markup struct {
 	Raw       string `xml:",innerxml" yaml:"raw,omitempty"`
-	PlainText string
+	PlainText string `xml:"-"`
 }
 
 func MarkupFromPlain(plain string) *Markup {
