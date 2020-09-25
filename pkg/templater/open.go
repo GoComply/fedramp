@@ -86,5 +86,24 @@ func fillInSSP(doc *template.Template, plan *fedramp.SSP) error {
 
 		// TODO: 5.4 Control Origination
 	}
+
+	// Implements: 5.5. Control Implementation Descriptions
+	cidTables, err := doc.ControlImplementationDescriptions()
+	if err != nil {
+		return err
+	}
+
+	for _, table := range cidTables {
+		controlId, err := table.ControlName()
+		if err != nil {
+			return err
+		}
+		partRows, err := table.PartRows()
+		if err != nil {
+			return err
+		}
+		fmt.Println("debug:", controlId, len(partRows))
+	}
+
 	return nil
 }
