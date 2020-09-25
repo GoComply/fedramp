@@ -80,6 +80,9 @@ func (p *SSP) ParamValue(controlId string, index int) (string, error) {
 		for _, constraint := range param.Constraints {
 			return string(constraint.Detail), nil
 		}
+		if param.Label != "" {
+			return "[Assignments: " + string(param.Label) + "]", nil
+		}
 	}
 	return "", nil
 }
