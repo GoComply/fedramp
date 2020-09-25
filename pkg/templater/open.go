@@ -83,6 +83,8 @@ func fillInSSP(doc *template.Template, plan *fedramp.SSP) error {
 		if err = implStatus.SetValue(plan.ImplementationStatusForControl(controlId)); err != nil {
 			return err
 		}
+
+		// TODO: 5.4 Control Origination
 	}
 	return nil
 }
