@@ -57,19 +57,13 @@ func (csi *ControlSummaryInformation) ControlName() (name string, err error) {
 	return
 }
 
-func (csi *ControlSummaryInformation) queryTableHeader() (content string, err error) {
-	nodes, err := csi.table.Search(".//w:tr")
+func (csi *ControlSummaryInformation) queryTableHeader() (string, error) {
+	content, err := docx_helper.ParseTableHeaderContent(csi.table)
 	if err != nil {
-		return
-	}
-	if len(nodes) == 0 {
-		err = errors.New("Could not locate control name in the heading of 'Control Summary Information' table")
-		return
-	}
-	// we only care about the first match
-	content = nodes[0].Content()
+		return "", fmt.Errorf("Control Name in 'Control Summary Information' table not found: %s", err)
 
-	return
+	}
+	return content, err
 }
 
 // Represents "Responsible Role" row in the Control Summary Table (usually first row)
