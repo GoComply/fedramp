@@ -79,15 +79,10 @@ func (b *Baseline) ControlGroups() []catalog.Group {
 	return b.catalog.Groups
 }
 
-func (b *Baseline) FindSetParam(id string) *profile.SetParameter {
-	if b.profile.Modify == nil {
-		return nil
+func (b *Baseline) FindParam(controlId, id string) (*catalog.Param, error) {
+	ctrl := b.catalog.FindControlById(controlId)
+	if ctrl == nil {
+		fmt.Errorf("could not find control '%s' in FedRAMP %s baseline", controlId, b.Level.Name())
 	}
-	for _, setParam := range b.profile.Modify.ParameterSettings {
-		if setParam.ParamId == id {
-			return &setParam
-		}
-	}
-	return nil
-
+	return ctrl.FindParamById(id), nil
 }

@@ -70,18 +70,18 @@ func (p *SSP) ResponsibleRoleForControl(controlId string) string {
 	return ir.ResponsibleRoles[0].RoleId
 }
 
-func (p *SSP) ParamValue(controlId string, index int) string {
+func (p *SSP) ParamValue(controlId string, index int) (string, error) {
 	paramId := fmt.Sprintf("%s_prm_%d", controlId, index)
-	setParam := p.baseline.FindSetParam(paramId)
-	if setParam != nil {
-		if setParam.Value != "" {
-			return string(setParam.Value)
-		}
-		for _, constraint := range setParam.Constraints {
-			return string(constraint.Detail)
+	param, err := p.baseline.FindParam(controlId, paramId)
+	if err != nil {
+		return "", err
+	}
+	if param != nil {
+		for _, constraint := range param.Constraints {
+			return string(constraint.Detail), nil
 		}
 	}
-	return ""
+	return "", nil
 }
 
 func (p *SSP) ImplementationStatusForControl(controlId string) ImplementationStatus {
