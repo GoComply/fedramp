@@ -48,12 +48,7 @@ func (csi *ControlSummaryInformation) ControlName() (name string, err error) {
 		content = "CM-2 (7)Control Summary Information"
 	}
 
-	// matches controls and control enhancements, e.g. `AC-2`, `AC-2 (1)`, etc.
-	regex := regexp.MustCompile(`[A-Z]{2}-\d+( +\(\d+\))?`)
-	name = regex.FindString(content)
-	if name == "" {
-		err = errors.New("control name not found for " + content)
-	}
+	name, err = parseControlId(content)
 	return
 }
 
