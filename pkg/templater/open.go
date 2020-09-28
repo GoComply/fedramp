@@ -102,7 +102,19 @@ func fillInSSP(doc *template.Template, plan *fedramp.SSP) error {
 		if err != nil {
 			return err
 		}
-		fmt.Println("debug:", controlId, len(partRows))
+		for _, partRow := range partRows {
+			partName, err := partRow.PartName()
+			if err != nil {
+				return err
+			}
+			statementText, err := plan.StatementTextForPart(controlId, partName)
+			if err != nil {
+				return err
+			}
+			if err = partRow.SetValue(statementText); err != nil {
+				return err
+			}
+		}
 	}
 
 	return nil

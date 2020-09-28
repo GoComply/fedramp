@@ -1,9 +1,11 @@
 package template
 
 import (
+	"errors"
 	"fmt"
 	"github.com/gocomply/fedramp/pkg/docx_helper"
 	"github.com/jbowtie/gokogiri/xml"
+	"regexp"
 )
 
 // ControlImplementationDescription represents single table labeled "What is the solution and how is it implemented?"
@@ -54,7 +56,7 @@ type PartRow struct {
 }
 
 func (cid *ControlImplementationDescription) PartRows() ([]PartRow, error) {
-	rows, err := cid.node.Search(".//w:tc[starts-with(normalize-space(.), 'Part')]")
+	rows, err := cid.node.Search(".//w:tr[starts-with(normalize-space(.), 'Part')]")
 	if err != nil {
 		return nil, err
 	}
@@ -65,4 +67,35 @@ func (cid *ControlImplementationDescription) PartRows() ([]PartRow, error) {
 		})
 	}
 	return result, nil
+}
+
+func (pr *PartRow) PartName() (string, error) {
+	nodes, err := pr.node.Search(".//w:t[starts-with(normalize-space(.), 'Part')]")
+	if err != nil {
+		return "", err
+	}
+	if len(nodes) != 1 {
+		return "", fmt.Errorf("Could not find Part text field in table named: 'What is the solution and how is it implemented?'")
+	}
+	txt, err := docx_helper.ConcatTextNodes(pr.node)
+	if err != nil {
+		return "", err
+	}
+	re := regexp.MustCompile(`^Part\s+([^:]*):*\s*$`)
+	match := re.FindStringSubmatch(txt)
+	if len(match) == 0 {
+		return "", fmt.Errorf("Could not locate Part ID in text: '%s'", txt)
+	}
+	return match[1], nil
+}
+
+func (pr *PartRow) SetValue(partResponse string) error {
+	paragraphNodes, err := pr.node.Search(".//w:p")
+	if err != nil {
+		return fmt.Errorf("Cannot search for paragraphs node within Part row: %s", err)
+	}
+	if len(paragraphNodes) != 2 {
+		return errors.New("Cannot edit Part row, expected 2 paragraphs node")
+	}
+	return docx_helper.ParagraphSetText(paragraphNodes[1], partResponse)
 }
