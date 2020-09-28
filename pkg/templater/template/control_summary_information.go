@@ -146,13 +146,12 @@ func (pr *ParameterRow) ControlId() (string, error) {
 	return match[1], nil
 }
 
-func (pr *ParameterRow) SetValue(roleName string) error {
-
+func (pr *ParameterRow) SetValue(paramText string) error {
 	textNodes, err := pr.node.Search(".//w:t")
 	if err != nil || len(textNodes) < 1 {
 		return errors.New("Cannot find any child text nodes when processing Parametr row")
 	}
-	return textNodes[0].SetContent(fmt.Sprintf("%s %s", textNodes[0].Content(), roleName))
+	return textNodes[0].SetContent(fmt.Sprintf("%s %s", textNodes[0].Content(), paramText))
 }
 
 type ImplementationStatus struct {
