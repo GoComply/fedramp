@@ -95,8 +95,8 @@ func (pr *PartRow) PartName() (string, error) {
 	if len(match) == 0 {
 		return "", fmt.Errorf("Could not locate Part ID in text: '%s'", txt)
 	}
-	if strings.Contains(match[1], " ") {
-		return "", fmt.Errorf("Could not parse Part ID in the text: '%s'", txt)
+	if strings.Contains(match[1], " ") || len(match[1]) > 2 {
+		return "", fmt.Errorf("Suspicious '%s' Part ID found in the text '%s'", match[1], txt)
 	}
 	return match[1], nil
 }
