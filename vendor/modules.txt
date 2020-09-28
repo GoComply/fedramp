@@ -8,7 +8,7 @@ github.com/cpuguy83/go-md2man/v2/md2man
 github.com/fatih/set
 # github.com/gobuffalo/here v0.6.0
 github.com/gobuffalo/here
-# github.com/gocomply/oscalkit v0.3.3-0.20200925124501-04f076aded0f
+# github.com/gocomply/oscalkit v0.3.3-0.20200927143409-89cbe4b1eaa2
 github.com/gocomply/oscalkit/pkg/bundled
 github.com/gocomply/oscalkit/pkg/json_validation
 github.com/gocomply/oscalkit/pkg/oscal/constants

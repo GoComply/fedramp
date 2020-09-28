@@ -2,6 +2,7 @@ package validation_root
 
 import (
 	"encoding/json"
+	"regexp"
 	"strings"
 )
 
@@ -20,9 +21,26 @@ func MarkupFromPlain(plain string) *Markup {
 	}
 }
 
+// PlainText representation
+func (m *Markup) PlainString() string {
+	if m.PlainText != "" {
+		return m.PlainText
+	}
+	return m.xmlToPlain()
+}
+
 func (m *Markup) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &m.PlainText); err != nil {
 		return err
 	}
 	return nil
+}
+
+func (m *Markup) xmlToPlain() string {
+	re := regexp.MustCompile(`</p>`)
+	s := re.ReplaceAllString(m.Raw, "")
+
+	re = regexp.MustCompile(`<p>`)
+	s = re.ReplaceAllString(s, "\t")
+	return s
 }
