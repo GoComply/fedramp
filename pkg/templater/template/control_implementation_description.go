@@ -6,6 +6,7 @@ import (
 	"github.com/gocomply/fedramp/pkg/docx_helper"
 	"github.com/jbowtie/gokogiri/xml"
 	"regexp"
+	"strings"
 )
 
 // ControlImplementationDescription represents single table labeled "What is the solution and how is it implemented?"
@@ -93,6 +94,9 @@ func (pr *PartRow) PartName() (string, error) {
 	match := re.FindStringSubmatch(txt)
 	if len(match) == 0 {
 		return "", fmt.Errorf("Could not locate Part ID in text: '%s'", txt)
+	}
+	if strings.Contains(match[1], " ") {
+		return "", fmt.Errorf("Could not parse Part ID in the text: '%s'", txt)
 	}
 	return match[1], nil
 }
