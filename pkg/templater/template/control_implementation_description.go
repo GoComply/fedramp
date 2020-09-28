@@ -78,14 +78,14 @@ func (pr *PartRow) PartName() (string, error) {
 		return "", fmt.Errorf("Could not parse 'Part' row, expected 2 <w:tc/> elements but got %d; %s", len(tcNodes), pr.node)
 	}
 
-	nodes, err := pr.node.Search(".//w:t[starts-with(normalize-space(.), 'Part')]")
+	nodes, err := tcNodes[0].Search(".//w:t[starts-with(normalize-space(.), 'Part')]")
 	if err != nil {
 		return "", err
 	}
 	if len(nodes) != 1 {
 		return "", fmt.Errorf("Could not find Part text field in table named: 'What is the solution and how is it implemented?'")
 	}
-	txt, err := docx_helper.ConcatTextNodes(pr.node)
+	txt, err := docx_helper.ConcatTextNodes(tcNodes[0])
 	if err != nil {
 		return "", err
 	}
