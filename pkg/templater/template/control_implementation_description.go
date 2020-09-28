@@ -70,6 +70,14 @@ func (cid *ControlImplementationDescription) PartRows() ([]PartRow, error) {
 }
 
 func (pr *PartRow) PartName() (string, error) {
+	tcNodes, err := pr.node.Search(".//w:tc")
+	if err != nil {
+		return "", err
+	}
+	if len(tcNodes) != 2 {
+		return "", fmt.Errorf("Could not parse 'Part' row, expected 2 <w:tc/> elements but got %d; %s", len(tcNodes), pr.node)
+	}
+
 	nodes, err := pr.node.Search(".//w:t[starts-with(normalize-space(.), 'Part')]")
 	if err != nil {
 		return "", err
