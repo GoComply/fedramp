@@ -107,11 +107,32 @@ func (p *SSP) StatementTextForPart(controlId, partName string) (string, error) {
 	if !found {
 		return "No information available", nil
 	}
-	id := fmt.Sprintf("%s_stmt.%s", oscalControlId, partName)
-	for _, stmt := range ir.Statements {
-		if stmt.StatementId == id {
-			return stmt.Description.PlainString(), nil
+
+	stmt, err := findStatement(&ir, oscalControlId, partName)
+	if err != nil {
+		return "", err
+	}
+
+	if stmt == nil && len(partName) > 1 {
+		partName = partName[:1]
+		stmt, err = findStatement(&ir, oscalControlId, partName)
+		if err != nil {
+			return "", err
 		}
 	}
+	if stmt != nil {
+		return stmt.Description.PlainString(), nil
+	}
+
 	return "", nil
+}
+
+func findStatement(implementedRequirement *ssp.ImplementedRequirement, oscalControlId, partName string) (*ssp.Statement, error) {
+	id := fmt.Sprintf("%s_stmt.%s", oscalControlId, partName)
+	for _, stmt := range implementedRequirement.Statements {
+		if stmt.StatementId == id {
+			return &stmt, nil
+		}
+	}
+	return nil, nil
 }
