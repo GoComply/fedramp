@@ -70,6 +70,35 @@ func (cid *ControlImplementationDescription) PartRows() ([]PartRow, error) {
 	return result, nil
 }
 
+func (cid *ControlImplementationDescription) ReqRows() ([]PartRow, error) {
+	rows, err := cid.node.Search(".//w:tr[starts-with(normalize-space(.), 'Req')]")
+	if err != nil {
+		return nil, err
+	}
+	var result []PartRow
+	for _, row := range rows {
+		result = append(result, PartRow{
+			node: row,
+		})
+	}
+	return result, nil
+}
+
+func (cid *ControlImplementationDescription) Plain() (bool, error) {
+	p, err := cid.PartRows()
+	if err != nil {
+		return false, err
+	}
+	if len(p) > 0 {
+		return false, nil
+	}
+	r, err := cid.ReqRows()
+	if err != nil {
+		return false, err
+	}
+	return len(r) == 0, nil
+}
+
 func (pr *PartRow) PartName() (string, error) {
 	tcNodes, err := pr.node.Search(".//w:tc")
 	if err != nil {
