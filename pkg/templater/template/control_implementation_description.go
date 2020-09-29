@@ -30,7 +30,7 @@ func (t *Template) ControlImplementationDescriptions() ([]ControlImplementationD
 
 func (t *Template) queryImplementationTables() ([]xml.Node, error) {
 	return t.xmlDoc.Search(
-		"//w:tbl[contains(normalize-space(.), ' What is the solution and how is it implemented?')]",
+		"//w:tbl[contains(normalize-space(.), ' What is the solution and how is it implemented')]",
 	)
 }
 
