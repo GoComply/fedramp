@@ -99,6 +99,24 @@ func (cid *ControlImplementationDescription) Plain() (bool, error) {
 	return len(r) == 0, nil
 }
 
+func (cid *ControlImplementationDescription) SetValue(response string) error {
+	rows, err := cid.node.Search(".//w:tr")
+	if err != nil {
+		return err
+	}
+	if len(rows) != 2 {
+		return fmt.Errorf("Could not update 'What is the solution and how is it implemented' table: found '%d' rows while expecting 2.", len(rows))
+	}
+	paragraphNodes, err := rows[1].Search(".//w:p")
+	if err != nil {
+		return err
+	}
+	if len(paragraphNodes) != 1 {
+		return fmt.Errorf("Could not update 'What is the solution and how is it implemented' table: found '%d' paragraph(s) in the last row while expecting only 1.", len(paragraphNodes))
+	}
+	return docx_helper.ParagraphSetText(paragraphNodes[0], response)
+}
+
 func (pr *PartRow) PartName() (string, error) {
 	tcNodes, err := pr.node.Search(".//w:tc")
 	if err != nil {

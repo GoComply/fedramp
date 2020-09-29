@@ -101,6 +101,19 @@ func (p *SSP) ImplementationStatusForControl(controlId string) ImplementationSta
 	return StatusNoStatus
 }
 
+func (p *SSP) StatementTextFor(controlId string) (string, error) {
+	oscalControlId := utils.ControlKeyToOSCAL(controlId)
+	ir, found := p.implementedRequirementsCache[oscalControlId]
+	if !found || len(ir.Statements) == 0 {
+		return "", nil
+	}
+	text := ""
+	for _, stmt := range ir.Statements {
+		text += stmt.Description.PlainString() + "\n"
+	}
+	return text, nil
+}
+
 func (p *SSP) StatementTextForPart(controlId, partName string) (string, error) {
 	oscalControlId := utils.ControlKeyToOSCAL(controlId)
 	ir, found := p.implementedRequirementsCache[oscalControlId]

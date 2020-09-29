@@ -111,8 +111,25 @@ func fillInSSP(doc *template.Template, plan *fedramp.SSP) error {
 			if err != nil {
 				return err
 			}
-			if err = partRow.SetValue(statementText); err != nil {
+			if statementText != "" {
+				if err = partRow.SetValue(statementText); err != nil {
+					return err
+				}
+			}
+		}
+		plain, err := table.Plain()
+		if err != nil {
+			return err
+		}
+		if plain {
+			txt, err := plan.StatementTextFor(controlId)
+			if err != nil {
 				return err
+			}
+			if txt != "" {
+				if err = table.SetValue(txt); err != nil {
+					return err
+				}
 			}
 		}
 	}
