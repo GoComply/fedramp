@@ -151,7 +151,8 @@ func (pr *ParameterRow) SetValue(paramText string) error {
 	if err != nil || len(textNodes) < 1 {
 		return errors.New("Cannot find any child text nodes when processing Parametr row")
 	}
-	return textNodes[0].SetContent(fmt.Sprintf("%s %s", textNodes[0].Content(), paramText))
+	tn := textNodes[len(textNodes)-1]
+	return tn.SetContent(fmt.Sprintf("%s %s", tn.Content(), paramText))
 }
 
 type ImplementationStatus struct {
