@@ -1,4 +1,4 @@
-# FedRAMP - Automate Authorization Process ![Build CI](https://github.com/gocomply/fedramp/workflows/Build%20CI/badge.svg) [![Gitter](https://badges.gitter.im/GoComply/community.svg)](https://gitter.im/GoComply/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+# FedRAMP - Automate Authorization Process ![Build CI](https://github.com/gocomply/fedramp/workflows/Build%20CI/badge.svg) [![Gitter](https://badges.gitter.im/GoComply/community.svg)](https://gitter.im/GoComply/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![PkgGoDev](https://pkg.go.dev/badge/github.com/gocomply/fedramp)](https://pkg.go.dev/github.com/gocomply/fedramp)
 This is open source tool that manipulates official FedRAMP assets. Everyone is welcome to contribute!
 
 ## Features
