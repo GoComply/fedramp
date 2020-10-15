@@ -2,6 +2,7 @@ package docx_helper
 
 import (
 	"github.com/jbowtie/gokogiri/xml"
+	"strings"
 )
 
 func ParagraphSetText(pNode xml.Node, text string) error {
@@ -17,5 +18,7 @@ func ParagraphSetText(pNode xml.Node, text string) error {
 		return err
 	}
 	textCell := pNode.LastChild().FirstChild()
+
+	text = strings.TrimSpace(text)
 	return textCell.SetContent(text)
 }
