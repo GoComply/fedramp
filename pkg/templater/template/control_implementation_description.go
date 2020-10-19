@@ -149,5 +149,5 @@ func (pr *PartRow) SetValue(partResponse string) error {
 	if len(paragraphNodes) != 2 {
 		return errors.New("Cannot edit Part row, expected 2 paragraphs node")
 	}
-	return docx_helper.ParagraphSetText(paragraphNodes[1], partResponse)
+	return docx_helper.ParagraphReplaceWithText(paragraphNodes[1], partResponse)
 }
