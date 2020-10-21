@@ -23,13 +23,6 @@ var convert = cli.Command{
 	Name:      "convert",
 	Usage:     "Convert OSCAL SSP to FedRAMP Document",
 	ArgsUsage: "[ssp.oscal.xml] [output.docx]",
-	Flags: []cli.Flag{
-		cli.StringFlag{
-			Name:        "template, t",
-			Usage:       "Fedramp docx template",
-			Destination: &template,
-		},
-	},
 	Before: func(c *cli.Context) error {
 		if c.NArg() != 2 {
 			return cli.NewExitError("Exactly 2 arguments are required", 1)
@@ -38,12 +31,10 @@ var convert = cli.Command{
 	},
 	Action: func(c *cli.Context) error {
 		sspFile, outputFile := c.Args()[0], c.Args()[1]
-		err := templater.ConvertFile(sspFile, template, outputFile)
+		err := templater.ConvertFile(sspFile, outputFile)
 		if err != nil {
 			return cli.NewExitError(err, 1)
 		}
 		return nil
 	},
 }
-
-var template string

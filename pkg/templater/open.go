@@ -26,7 +26,7 @@ func Convert(sspSource *oscal_source.OSCALSource, outputPath string) error {
 	return doc.Save(outputPath)
 }
 
-func ConvertFile(oscalSSPFilePath, template, outputPath string) error {
+func ConvertFile(oscalSSPFilePath, outputPath string) error {
 	source, err := oscal_source.Open(oscalSSPFilePath)
 	if err != nil {
 		return err
