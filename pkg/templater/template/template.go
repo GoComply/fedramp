@@ -66,6 +66,13 @@ func (t *Template) parseDocxXml() error {
 	return nil
 }
 
+func (t *Template) Close() {
+	if t.wordDoc != nil {
+		t.wordDoc.Close()
+		t.wordDoc = nil
+	}
+}
+
 func (t *Template) Save(filePath string) error {
 	xmlContent := t.xmlDoc.String()
 	t.wordDoc.UpdateContent(xmlContent)

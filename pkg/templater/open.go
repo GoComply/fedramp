@@ -18,6 +18,7 @@ func Convert(sspSource *oscal_source.OSCALSource, outputPath string) error {
 	if err != nil {
 		return err
 	}
+	defer doc.Close()
 
 	err = fillInSSP(doc, plan)
 	if err != nil {
