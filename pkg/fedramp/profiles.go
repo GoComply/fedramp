@@ -23,24 +23,7 @@ func NewBaseline(baselineLevel common.BaselineLevel) (*Baseline, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	file, err := bundled.CatalogOSCAL(baselineLevel)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-	source, err := oscal_source.OpenFromReader(file.Name(), file)
-	if err != nil {
-		return nil, err
-	}
-	defer source.Close()
-	oscal := source.OSCAL()
-	if oscal.DocumentType() != constants.CatalogDocument {
-		return nil, fmt.Errorf("Could not initiate FedRAMP. Expected catalog element in %s", file.Name())
-	}
-	result.catalog = oscal.Catalog
-
-	return &result, nil
+	return &result, result.loadCatalog()
 }
 
 func (baseline *Baseline) loadProfile() error {
@@ -59,6 +42,26 @@ func (baseline *Baseline) loadProfile() error {
 		return fmt.Errorf("Could not initiate FedRAMP. Expected profile element in %s", file.Name())
 	}
 	baseline.profile = oscal.Profile
+	return nil
+}
+
+func (baseline *Baseline) loadCatalog() error {
+	file, err := bundled.CatalogOSCAL(baseline.Level)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	source, err := oscal_source.OpenFromReader(file.Name(), file)
+	if err != nil {
+		return err
+	}
+	defer source.Close()
+	oscal := source.OSCAL()
+	if oscal.DocumentType() != constants.CatalogDocument {
+		return fmt.Errorf("Could not initiate FedRAMP. Expected catalog element in %s", file.Name())
+	}
+	baseline.catalog = oscal.Catalog
+
 	return nil
 }
 
