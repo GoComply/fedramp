@@ -19,9 +19,14 @@ type Baseline struct {
 func NewBaseline(baselineLevel common.BaselineLevel) (*Baseline, error) {
 	var result Baseline
 	result.Level = baselineLevel
-	file, err := bundled.ProfileOSCAL(baselineLevel)
+	err := result.loadProfile()
 	if err != nil {
-		return nil, fmt.Errorf("could not initiate FedRAMP: could not open internal files: %v", err)
+		return nil, err
+	}
+
+	file, err := bundled.CatalogOSCAL(baselineLevel)
+	if err != nil {
+		return nil, err
 	}
 	defer file.Close()
 	source, err := oscal_source.OpenFromReader(file.Name(), file)
@@ -30,28 +35,31 @@ func NewBaseline(baselineLevel common.BaselineLevel) (*Baseline, error) {
 	}
 	defer source.Close()
 	oscal := source.OSCAL()
-	if oscal.DocumentType() != constants.ProfileDocument {
-		return nil, fmt.Errorf("Could not initiate FedRAMP. Expected profile element in %s", file.Name())
-	}
-	result.profile = oscal.Profile
-
-	file, err = bundled.CatalogOSCAL(baselineLevel)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-	source, err = oscal_source.OpenFromReader(file.Name(), file)
-	if err != nil {
-		return nil, err
-	}
-	defer source.Close()
-	oscal = source.OSCAL()
 	if oscal.DocumentType() != constants.CatalogDocument {
 		return nil, fmt.Errorf("Could not initiate FedRAMP. Expected catalog element in %s", file.Name())
 	}
 	result.catalog = oscal.Catalog
 
 	return &result, nil
+}
+
+func (baseline *Baseline) loadProfile() error {
+	file, err := bundled.ProfileOSCAL(baseline.Level)
+	if err != nil {
+		return fmt.Errorf("could not initiate FedRAMP: could not open internal files: %v", err)
+	}
+	defer file.Close()
+	source, err := oscal_source.OpenFromReader(file.Name(), file)
+	if err != nil {
+		return err
+	}
+	defer source.Close()
+	oscal := source.OSCAL()
+	if oscal.DocumentType() != constants.ProfileDocument {
+		return fmt.Errorf("Could not initiate FedRAMP. Expected profile element in %s", file.Name())
+	}
+	baseline.profile = oscal.Profile
+	return nil
 }
 
 func AvailableBaselines() ([]Baseline, error) {
