@@ -76,7 +76,7 @@ type Group struct {
 	Class string `xml:"class,attr,omitempty" json:"class,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// Parameters provide a mechanism for the dynamic assignment of value(s) in a control.
@@ -133,7 +133,7 @@ type SetParameter struct {
 	DependsOn string `xml:"depends-on,attr,omitempty" json:"depends-on,omitempty"`
 
 	// A placeholder for a missing value, in display.
-	Label Label `xml:"label,omitempty" json:"label,omitempty"`
+	Label *Label `xml:"label,omitempty" json:"label,omitempty"`
 	// Indicates and explains the purpose and use of a parameter
 	Descriptions []Usage `xml:"usage,omitempty" json:"descriptions,omitempty"`
 	// A formal or informal expression of a constraint or test
@@ -143,7 +143,7 @@ type SetParameter struct {
 	// A prose statement that provides a recommendation for the use of a parameter.
 	Guidance []Guideline `xml:"guideline,omitempty" json:"guidance,omitempty"`
 	// Indicates a permissible value for a parameter or property
-	Value Value `xml:"value,omitempty" json:"value,omitempty"`
+	Value *Value `xml:"value,omitempty" json:"value,omitempty"`
 	// Presenting a choice among alternatives
 	Select *Select `xml:"select,omitempty" json:"select,omitempty"`
 }
@@ -169,7 +169,7 @@ type Add struct {
 	IdRef string `xml:"id-ref,attr,omitempty" json:"id-ref,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// A reference to a local or remote resource

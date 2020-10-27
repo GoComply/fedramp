@@ -198,7 +198,7 @@ type SubjectReference struct {
 	Type string `xml:"type,attr,omitempty" json:"type,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Props []Prop `xml:"prop,omitempty" json:"props,omitempty"`
 }
@@ -231,7 +231,7 @@ type Tools struct {
 type Origination struct {
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
@@ -260,7 +260,7 @@ type TestMethod struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -314,7 +314,7 @@ type Task struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -346,7 +346,7 @@ type IncludeActivity struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -372,7 +372,7 @@ type ExcludeActivity struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -398,7 +398,7 @@ type Results struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -422,7 +422,7 @@ type Finding struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -458,7 +458,7 @@ type ObjectiveStatus struct {
 	ControlId string `xml:"control-id,attr,omitempty" json:"control-id,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// A brief indication as to whether the objective is satisfied or not.
@@ -476,7 +476,7 @@ type Observation struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -522,7 +522,7 @@ type Risk struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -567,7 +567,7 @@ type TrackingEntry struct {
 	// Date/time stamp of the associated information.
 	DateTimeStamp DateTimeStamp `xml:"date-time-stamp,omitempty" json:"date-time-stamp,omitempty"`
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -585,7 +585,7 @@ type Required struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -621,7 +621,7 @@ type Remediation struct {
 	Type string `xml:"type,attr,omitempty" json:"type,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -651,11 +651,11 @@ type Part struct {
 	Class string `xml:"class,attr,omitempty" json:"class,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// Prose permits multiple paragraphs, lists, tables etc.
-	Prose *Prose `xml:"prose,omitempty" json:"prose,omitempty"`
+	Prose *Prose `xml:",any" json:"prose,omitempty"`
 	// A reference to a local or remote resource
 	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// A partition or component of a control or part

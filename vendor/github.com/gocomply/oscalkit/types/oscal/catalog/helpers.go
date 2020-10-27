@@ -11,7 +11,7 @@ type ControlOpts struct {
 func NewPart(id, title, narrative string) Part {
 	return Part{
 		Id:    id,
-		Title: Title(title),
+		Title: &Title{Raw: title},
 		Prose: &Prose{Raw: narrative},
 	}
 }
@@ -20,7 +20,7 @@ func NewPart(id, title, narrative string) Part {
 func NewControl(id, title string, opts *ControlOpts) Control {
 	ctrl := Control{
 		Id:    id,
-		Title: Title(title),
+		Title: &Title{Raw: title},
 	}
 	if opts != nil {
 		ctrl.Controls = opts.Controls

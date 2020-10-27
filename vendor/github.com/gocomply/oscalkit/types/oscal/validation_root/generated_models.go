@@ -26,7 +26,7 @@ type VALIDATIONRoot struct {
 type Metadata struct {
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// The date and time this document was published.
 	Published Published `xml:"published,omitempty" json:"published,omitempty"`
 	// Date and time of last modification.
@@ -66,7 +66,7 @@ type BackMatter struct {
 type Revision struct {
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// The date and time this document was published.
 	Published Published `xml:"published,omitempty" json:"published,omitempty"`
 	// Date and time of last modification.
@@ -106,7 +106,7 @@ type Location struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// Email address
 	EmailAddresses []Email `xml:"email,omitempty" json:"email-addresses,omitempty"`
 	// Contact number by telephone
@@ -200,7 +200,7 @@ type Resource struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A short textual description
 	Desc Desc `xml:"desc,omitempty" json:"desc,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
@@ -221,7 +221,7 @@ type Resource struct {
 type Citation struct {
 
 	// A line of textual content whose semantic is determined by the context of use.
-	Text Text `xml:"text,omitempty" json:"text,omitempty"`
+	Text *Text `xml:"text,omitempty" json:"text,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// A container in which a set of bibliographic information can included. The model of this information is undefined by OSCAL.
@@ -235,7 +235,7 @@ type Role struct {
 	Id string `xml:"id,attr,omitempty" json:"id,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A common name, short name or acronym
 	ShortName ShortName `xml:"short-name,omitempty" json:"short-name,omitempty"`
 	// A short textual description
@@ -387,8 +387,7 @@ type Url string
 type Desc string
 
 // A line of textual content whose semantic is determined by the context of use.
-
-type Text string
+type Text = Markup
 
 // A representation of a cryptographic digest generated over a resource using a hash algorithm.
 type Hash struct {
@@ -398,8 +397,7 @@ type Hash struct {
 }
 
 // A title for display and navigation
-
-type Title string
+type Title = Markup
 
 //
 type Base64 struct {

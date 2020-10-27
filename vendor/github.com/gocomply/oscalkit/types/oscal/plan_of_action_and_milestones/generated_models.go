@@ -44,7 +44,7 @@ type LocalDefinitions struct {
 type PoamItems struct {
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
@@ -68,7 +68,7 @@ type PoamItem struct {
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
 	// A title for display and navigation
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.

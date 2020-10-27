@@ -33,7 +33,7 @@ type Component struct {
 	ComponentType string `xml:"component-type,attr,omitempty" json:"component-type,omitempty"`
 
 	// A longer name for the component.
-	Title Title `xml:"title,omitempty" json:"title,omitempty"`
+	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.

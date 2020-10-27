@@ -1,5 +1,9 @@
 package constants
 
+import (
+	"strings"
+)
+
 // Representing OSCAL file format. XML, JSON, YAML, ...
 type DocumentFormat int
 
@@ -9,6 +13,18 @@ const (
 	JsonFormat
 	YamlFormat
 )
+
+func NewDocumentFormat(format string) DocumentFormat {
+	switch strings.ToLower(format) {
+	case "xml":
+		return XmlFormat
+	case "json":
+		return JsonFormat
+	case "yaml":
+		return YamlFormat
+	}
+	return UnknownFormat
+}
 
 type DocumentType int
 

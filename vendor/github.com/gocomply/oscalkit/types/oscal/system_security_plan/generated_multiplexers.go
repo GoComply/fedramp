@@ -95,6 +95,26 @@ func (mplex *ImplementedComponentMultiplexer) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type InheritedMultiplexer []Inherited
+
+func (mplex *InheritedMultiplexer) UnmarshalJSON(b []byte) error {
+	var l []Inherited
+	switch b[0] {
+	case '{':
+		var singleton Inherited
+		if err := json.Unmarshal(b, &singleton); err != nil {
+			return err
+		}
+		l = append(l, singleton)
+	default:
+		if err := json.Unmarshal(b, &l); err != nil {
+			return err
+		}
+	}
+	(*mplex) = l
+	return nil
+}
+
 type InventoryItemMultiplexer []InventoryItem
 
 func (mplex *InventoryItemMultiplexer) UnmarshalJSON(b []byte) error {
@@ -107,6 +127,66 @@ func (mplex *InventoryItemMultiplexer) UnmarshalJSON(b []byte) error {
 	for k, v := range insideMap {
 		v.Uuid = k
 		l = append(l, v)
+	}
+	(*mplex) = l
+	return nil
+}
+
+type ProvidedMultiplexer []Provided
+
+func (mplex *ProvidedMultiplexer) UnmarshalJSON(b []byte) error {
+	var l []Provided
+	switch b[0] {
+	case '{':
+		var singleton Provided
+		if err := json.Unmarshal(b, &singleton); err != nil {
+			return err
+		}
+		l = append(l, singleton)
+	default:
+		if err := json.Unmarshal(b, &l); err != nil {
+			return err
+		}
+	}
+	(*mplex) = l
+	return nil
+}
+
+type ResponsibilityMultiplexer []Responsibility
+
+func (mplex *ResponsibilityMultiplexer) UnmarshalJSON(b []byte) error {
+	var l []Responsibility
+	switch b[0] {
+	case '{':
+		var singleton Responsibility
+		if err := json.Unmarshal(b, &singleton); err != nil {
+			return err
+		}
+		l = append(l, singleton)
+	default:
+		if err := json.Unmarshal(b, &l); err != nil {
+			return err
+		}
+	}
+	(*mplex) = l
+	return nil
+}
+
+type SatisfiedMultiplexer []Satisfied
+
+func (mplex *SatisfiedMultiplexer) UnmarshalJSON(b []byte) error {
+	var l []Satisfied
+	switch b[0] {
+	case '{':
+		var singleton Satisfied
+		if err := json.Unmarshal(b, &singleton); err != nil {
+			return err
+		}
+		l = append(l, singleton)
+	default:
+		if err := json.Unmarshal(b, &l); err != nil {
+			return err
+		}
 	}
 	(*mplex) = l
 	return nil
