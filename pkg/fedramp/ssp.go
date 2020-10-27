@@ -80,8 +80,8 @@ func (p *SSP) ParamValue(controlId string, index int) (string, error) {
 		for _, constraint := range param.Constraints {
 			return string(constraint.Detail), nil
 		}
-		if param.Label != "" {
-			return "[Assignments: " + string(param.Label) + "]", nil
+		if param.Label != nil {
+			return "[Assignments: " + string(param.Label.PlainString()) + "]", nil
 		}
 	}
 	return "", nil
@@ -109,7 +109,11 @@ func (p *SSP) StatementTextFor(controlId string) (string, error) {
 	}
 	text := ""
 	for _, stmt := range ir.Statements {
-		text += stmt.Description.PlainString() + "\n"
+		for _, bc := range stmt.ByComponents {
+			if bc.Remarks != nil {
+				text += bc.Remarks.PlainString()
+			}
+		}
 	}
 	return text, nil
 }
@@ -134,7 +138,13 @@ func (p *SSP) StatementTextForPart(controlId, partName string) (string, error) {
 		}
 	}
 	if stmt != nil {
-		return stmt.Description.PlainString(), nil
+		result := ""
+		for _, bc := range stmt.ByComponents {
+			if bc.Remarks != nil {
+				result += bc.Remarks.PlainString()
+			}
+		}
+		return result, nil
 	}
 
 	return "", nil

@@ -31,7 +31,7 @@ func Convert(repoUri, outputDirectory string) error {
 	}
 
 	var metadata ssp.Metadata
-	metadata.Title = ssp.Title("FedRAMP System Security Plan (SSP)")
+	metadata.Title = &ssp.Title{PlainText: "FedRAMP System Security Plan (SSP)"}
 	metadata.LastModified = validation_root.LastModified(time.Now().Format(constants.FormatDatetimeTz))
 	metadata.Version = validation_root.Version("0.0.1")
 	metadata.OscalVersion = validation_root.OscalVersion(constants.LatestOscalVersion)
@@ -158,7 +158,11 @@ func convertStatements(id string, narratives []common.Section) []ssp.Statement {
 		return append(res, ssp.Statement{
 			Uuid:        uuid.New().String(),
 			StatementId: fmt.Sprintf("%s_stmt", id),
-			Description: validation_root.MarkupFromPlain(narratives[0].GetText()),
+			ByComponents: []ssp.ByComponent{
+				ssp.ByComponent{
+					Remarks: validation_root.MarkupFromPlain(narratives[0].GetText()),
+				},
+			},
 		})
 
 	}
@@ -167,7 +171,11 @@ func convertStatements(id string, narratives []common.Section) []ssp.Statement {
 		res = append(res, ssp.Statement{
 			Uuid:        uuid.New().String(),
 			StatementId: fmt.Sprintf("%s_stmt.%s", id, narrative.GetKey()),
-			Description: validation_root.MarkupFromPlain(narrative.GetText()),
+			ByComponents: []ssp.ByComponent{
+				ssp.ByComponent{
+					Remarks: validation_root.MarkupFromPlain(narrative.GetText()),
+				},
+			},
 		})
 
 	}
@@ -218,7 +226,7 @@ func staticSystemInformation() *ssp.SystemInformation {
 	var sysinf ssp.SystemInformation
 	sysinf.InformationTypes = []ssp.InformationType{
 		ssp.InformationType{
-			Title:       "Information Type Name",
+			Title:       validation_root.ML("Information Type Name"),
 			Description: validation_root.MarkupFromPlain("This item is useless nevertheless required."),
 			ConfidentialityImpact: &ssp.ConfidentialityImpact{
 				Base: "fips-199-moderate",
