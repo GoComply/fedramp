@@ -174,6 +174,7 @@ func newStatement(controlId, narrativeId, narrative string) ssp.Statement {
 		StatementId: fmt.Sprintf("%s_stmt%s", controlId, narrativeSuffix),
 		ByComponents: []ssp.ByComponent{
 			ssp.ByComponent{
+				Uuid:    uuid.New().String(),
 				Remarks: validation_root.MarkupFromPlain(narrative),
 			},
 		},
