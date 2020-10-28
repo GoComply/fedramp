@@ -155,31 +155,30 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 func convertStatements(id string, narratives []common.Section) []ssp.Statement {
 	var res []ssp.Statement
 	if len(narratives) == 1 {
-		return append(res, ssp.Statement{
-			Uuid:        uuid.New().String(),
-			StatementId: fmt.Sprintf("%s_stmt", id),
-			ByComponents: []ssp.ByComponent{
-				ssp.ByComponent{
-					Remarks: validation_root.MarkupFromPlain(narratives[0].GetText()),
-				},
-			},
-		})
-
+		return append(res, newStatement(id, "", narratives[0].GetText()))
 	}
 
 	for _, narrative := range narratives {
-		res = append(res, ssp.Statement{
-			Uuid:        uuid.New().String(),
-			StatementId: fmt.Sprintf("%s_stmt.%s", id, narrative.GetKey()),
-			ByComponents: []ssp.ByComponent{
-				ssp.ByComponent{
-					Remarks: validation_root.MarkupFromPlain(narrative.GetText()),
-				},
-			},
-		})
-
+		res = append(res, newStatement(id, narrative.GetKey(), narrative.GetText()))
 	}
 	return res
+}
+
+func newStatement(controlId, narrativeId, narrative string) ssp.Statement {
+	narrativeSuffix := ""
+	if narrativeId != "" {
+		narrativeSuffix = "." + narrativeId
+	}
+	return ssp.Statement{
+		Uuid:        uuid.New().String(),
+		StatementId: fmt.Sprintf("%s_stmt%s", controlId, narrativeSuffix),
+		ByComponents: []ssp.ByComponent{
+			ssp.ByComponent{
+				Remarks: validation_root.MarkupFromPlain(narrative),
+			},
+		},
+	}
+
 }
 
 func fedrampImplementationStatus(status string) ssp.Annotation {
