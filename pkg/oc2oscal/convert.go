@@ -57,8 +57,10 @@ func Convert(repoUri, outputDirectory string) error {
 }
 
 func convertComponent(baseline fedramp.Baseline, component *Component, metadata ssp.Metadata, outputDirectory string) error {
-	var plan ssp.SystemSecurityPlan
-	var err error
+	plan, err := fedramp.GSATemplate()
+	if err != nil {
+		return err
+	}
 	plan.Uuid = uuid.New().String()
 	plan.Metadata = &metadata
 	plan.ImportProfile = &ssp.ImportProfile{
@@ -256,13 +258,13 @@ func staticSystemInformation() *ssp.SystemInformation {
 	return &sysinf
 }
 
-func writeSSP(plan ssp.SystemSecurityPlan, outputFile string) error {
+func writeSSP(plan *ssp.SystemSecurityPlan, outputFile string) error {
 	destFile, err := os.Create(outputFile)
 	if err != nil {
 		return fmt.Errorf("Error opening output file %s: %s", outputFile, err)
 	}
 	defer destFile.Close()
 
-	output := oscal.OSCAL{SystemSecurityPlan: &plan}
+	output := oscal.OSCAL{SystemSecurityPlan: plan}
 	return output.XML(destFile, true)
 }
