@@ -19,6 +19,10 @@ func TemplateDOCX(baseline common.BaselineLevel) (pkging.File, error) {
 	return nil, errors.New("Not supported")
 }
 
+func TemplateOSCAL() (pkging.File, error) {
+	return pkger.Open("/bundled/templates/FedRAMP-SSP-OSCAL-Template.xml")
+}
+
 func CatalogOSCAL(baseline common.BaselineLevel) (pkging.File, error) {
 	switch baseline {
 	case common.LevelLow:
