@@ -110,7 +110,7 @@ func validate(filePath string) error {
 
 func convertControlImplementation(baseline fedramp.Baseline, component *Component, sspComponent *ssp.Component) (*ssp.ControlImplementation, error) {
 	var ci ssp.ControlImplementation
-	ci.Description = validation_root.MarkupFromPlain("FedRAMP SSP Template Section 13")
+	ci.Description = validation_root.MML("FedRAMP SSP Template Section 13")
 	ci.ImplementedRequirements = make([]ssp.ImplementedRequirement, 0)
 
 	if len(baseline.Controls()) != 0 {
@@ -187,8 +187,8 @@ func newStatement(controlId, narrativeId, narrative string, sspComponent *ssp.Co
 		ByComponents: []ssp.ByComponent{
 			ssp.ByComponent{
 				Uuid:          uuid.New().String(),
-				Description:   validation_root.MarkupFromPlain("Describe how is the software component satisfying the control."),
-				Remarks:       validation_root.MarkupFromPlain(narrative),
+				Description:   validation_root.MML("Describe how is the software component satisfying the control."),
+				Remarks:       validation_root.ML(narrative),
 				ComponentUuid: sspComponent.Uuid,
 			},
 		},
@@ -219,7 +219,7 @@ func convertSystemCharacteristics(component *Component) *ssp.SystemCharacteristi
 	}
 	syschar.SystemName = ssp.SystemName(component.GetName())
 	syschar.SystemNameShort = ssp.SystemNameShort(component.GetKey())
-	syschar.Description = validation_root.MarkupFromPlain("Automatically generated OSCAL SSP from OpenControl guidance for " + component.GetName())
+	syschar.Description = validation_root.MML("Automatically generated OSCAL SSP from OpenControl guidance for " + component.GetName())
 	syschar.SecuritySensitivityLevel = ssp.SecuritySensitivityLevel("low")
 	syschar.SystemInformation = staticSystemInformation()
 	syschar.SecurityImpactLevel = &ssp.SecurityImpactLevel{
@@ -231,7 +231,7 @@ func convertSystemCharacteristics(component *Component) *ssp.SystemCharacteristi
 		State: "operational",
 	}
 	syschar.AuthorizationBoundary = &ssp.AuthorizationBoundary{
-		Description: validation_root.MarkupFromPlain("A holistic, top-level explanation of the FedRAMP authorization boundary."),
+		Description: validation_root.MML("A holistic, top-level explanation of the FedRAMP authorization boundary."),
 	}
 	return &syschar
 }
@@ -241,7 +241,7 @@ func staticSystemInformation() *ssp.SystemInformation {
 	sysinf.InformationTypes = []ssp.InformationType{
 		ssp.InformationType{
 			Title:       validation_root.ML("Information Type Name"),
-			Description: validation_root.MarkupFromPlain("This item is useless nevertheless required."),
+			Description: validation_root.MML("This item is useless nevertheless required."),
 			ConfidentialityImpact: &ssp.ConfidentialityImpact{
 				Base: "fips-199-moderate",
 			},
