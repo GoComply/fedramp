@@ -15,20 +15,13 @@ ifeq ("$(wildcard $(GOPATH)/bin/pkger)","")
 	go get -u -v github.com/markbates/pkger/cmd/pkger
 endif
 
-ci-update-bundled-deps: ci-update-fedramp-templates ci-update-fedramp-profiles ci-update-fedramp-catalogs
+ci-update-bundled-deps: ci-update-fedramp-templates ci-update-fedramp-catalogs
 
 ci-update-fedramp-templates:
 	rm bundled/templates/FedRAMP-SSP-*-Baseline-Template.docx
 	wget -P bundled/templates/ https://www.fedramp.gov/assets/resources/templates/FedRAMP-SSP-High-Baseline-Template.docx https://www.fedramp.gov/assets/resources/templates/FedRAMP-SSP-Moderate-Baseline-Template.docx https://www.fedramp.gov/assets/resources/templates/FedRAMP-SSP-Low-Baseline-Template.docx https://raw.githubusercontent.com/GSA/fedramp-automation/master/templates/ssp/xml/FedRAMP-SSP-OSCAL-Template.xml
 
 XMLFORMAT=XMLLINT_INDENT='	' xmllint --format --nsclean
-ci-update-fedramp-profiles:
-	rm bundled/profiles/FedRAMP_*-baseline_profile.xml
-	wget -P bundled/profiles https://raw.githubusercontent.com/usnistgov/oscal-content/master/fedramp.gov/xml/FedRAMP_LOW-baseline_profile.xml https://raw.githubusercontent.com/usnistgov/oscal-content/master/fedramp.gov/xml/FedRAMP_MODERATE-baseline_profile.xml https://raw.githubusercontent.com/usnistgov/oscal-content/master/fedramp.gov/xml/FedRAMP_HIGH-baseline_profile.xml
-	$(XMLFORMAT) -o bundled/profiles/FedRAMP_HIGH-baseline_profile.xml bundled/profiles/FedRAMP_HIGH-baseline_profile.xml
-	$(XMLFORMAT) -o bundled/profiles/FedRAMP_MODERATE-baseline_profile.xml bundled/profiles/FedRAMP_MODERATE-baseline_profile.xml
-	$(XMLFORMAT) -o bundled/profiles/FedRAMP_LOW-baseline_profile.xml bundled/profiles/FedRAMP_LOW-baseline_profile.xml
-
 ci-update-fedramp-catalogs:
 	rm bundled/catalogs/FedRAMP_*baseline-resolved-profile_catalog.xml
 	wget -P bundled/catalogs https://raw.githubusercontent.com/GSA/fedramp-automation/master/baselines/xml/FedRAMP_HIGH-baseline-resolved-profile_catalog.xml https://raw.githubusercontent.com/GSA/fedramp-automation/master/baselines/xml/FedRAMP_LOW-baseline-resolved-profile_catalog.xml https://raw.githubusercontent.com/GSA/fedramp-automation/master/baselines/xml/FedRAMP_MODERATE-baseline-resolved-profile_catalog.xml
