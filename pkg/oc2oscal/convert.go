@@ -188,7 +188,7 @@ func newStatement(controlId, narrativeId, narrative string, sspComponent *ssp.Co
 			ssp.ByComponent{
 				Uuid:          uuid.New().String(),
 				Description:   validation_root.MML("Describe how is the software component satisfying the control."),
-				Remarks:       validation_root.ML(narrative),
+				Remarks:       validation_root.MML(narrative),
 				ComponentUuid: sspComponent.Uuid,
 			},
 		},
