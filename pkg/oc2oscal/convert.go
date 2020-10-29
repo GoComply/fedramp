@@ -65,6 +65,7 @@ func convertComponent(baseline fedramp.Baseline, component *Component, metadata 
 		Href: baseline.ProfileURL(),
 	}
 	plan.SystemCharacteristics = convertSystemCharacteristics(component)
+	sspComponent := buildSspComponent(component)
 	plan.SystemImplementation = &ssp.SystemImplementation{
 		Users: []ssp.User{
 			ssp.User{
@@ -74,9 +75,9 @@ func convertComponent(baseline fedramp.Baseline, component *Component, metadata 
 				},
 			},
 		},
-		Components: []ssp.Component{buildSspComponent(component)},
+		Components: []ssp.Component{sspComponent},
 	}
-	plan.ControlImplementation, err = convertControlImplementation(baseline, component)
+	plan.ControlImplementation, err = convertControlImplementation(baseline, component, &sspComponent)
 	if err != nil {
 		return err
 	}
@@ -107,7 +108,7 @@ func validate(filePath string) error {
 	return os.Validate()
 }
 
-func convertControlImplementation(baseline fedramp.Baseline, component *Component) (*ssp.ControlImplementation, error) {
+func convertControlImplementation(baseline fedramp.Baseline, component *Component, sspComponent *ssp.Component) (*ssp.ControlImplementation, error) {
 	var ci ssp.ControlImplementation
 	ci.Description = validation_root.MarkupFromPlain("FedRAMP SSP Template Section 13")
 	ci.ImplementedRequirements = make([]ssp.ImplementedRequirement, 0)
@@ -135,7 +136,7 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 				Annotations: []ssp.Annotation{
 					fedrampImplementationStatus(sat.GetImplementationStatus()),
 				},
-				Statements: convertStatements(ctrl.Id, sat.GetNarratives()),
+				Statements: convertStatements(ctrl.Id, sat.GetNarratives(), sspComponent),
 			})
 
 			for _, subctrl := range ctrl.Controls {
@@ -155,7 +156,7 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 					Annotations: []ssp.Annotation{
 						fedrampImplementationStatus(sat.GetImplementationStatus()),
 					},
-					Statements: convertStatements(subctrl.Id, sat.GetNarratives()),
+					Statements: convertStatements(subctrl.Id, sat.GetNarratives(), sspComponent),
 				})
 			}
 		}
@@ -163,19 +164,19 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 	return &ci, nil
 }
 
-func convertStatements(id string, narratives []common.Section) []ssp.Statement {
+func convertStatements(id string, narratives []common.Section, sspComponent *ssp.Component) []ssp.Statement {
 	var res []ssp.Statement
 	if len(narratives) == 1 {
-		return append(res, newStatement(id, "", narratives[0].GetText()))
+		return append(res, newStatement(id, "", narratives[0].GetText(), sspComponent))
 	}
 
 	for _, narrative := range narratives {
-		res = append(res, newStatement(id, narrative.GetKey(), narrative.GetText()))
+		res = append(res, newStatement(id, narrative.GetKey(), narrative.GetText(), sspComponent))
 	}
 	return res
 }
 
-func newStatement(controlId, narrativeId, narrative string) ssp.Statement {
+func newStatement(controlId, narrativeId, narrative string, sspComponent *ssp.Component) ssp.Statement {
 	narrativeSuffix := ""
 	if narrativeId != "" {
 		narrativeSuffix = "." + narrativeId
@@ -185,9 +186,10 @@ func newStatement(controlId, narrativeId, narrative string) ssp.Statement {
 		StatementId: fmt.Sprintf("%s_stmt%s", controlId, narrativeSuffix),
 		ByComponents: []ssp.ByComponent{
 			ssp.ByComponent{
-				Uuid:        uuid.New().String(),
-				Description: validation_root.MarkupFromPlain("Describe how is the software component satisfying the control."),
-				Remarks:     validation_root.MarkupFromPlain(narrative),
+				Uuid:          uuid.New().String(),
+				Description:   validation_root.MarkupFromPlain("Describe how is the software component satisfying the control."),
+				Remarks:       validation_root.MarkupFromPlain(narrative),
+				ComponentUuid: sspComponent.Uuid,
 			},
 		},
 	}
