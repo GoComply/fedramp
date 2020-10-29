@@ -74,6 +74,7 @@ func convertComponent(baseline fedramp.Baseline, component *Component, metadata 
 				},
 			},
 		},
+		Components: []ssp.Component{buildSspComponent(component)},
 	}
 	plan.ControlImplementation, err = convertControlImplementation(baseline, component)
 	if err != nil {
@@ -85,6 +86,16 @@ func convertComponent(baseline fedramp.Baseline, component *Component, metadata 
 		return err
 	}
 	return validate(filePath)
+}
+
+func buildSspComponent(oc *Component) ssp.Component {
+	return ssp.Component{
+		Uuid:          uuid.New().String(),
+		ComponentType: "system",
+		Title:         validation_root.ML("This system"),
+		Description:   validation_root.MML("The entire system as depicted in the system authorization boundary"),
+		Status:        &ssp.Status{State: "under-development"},
+	}
 }
 
 func validate(filePath string) error {
