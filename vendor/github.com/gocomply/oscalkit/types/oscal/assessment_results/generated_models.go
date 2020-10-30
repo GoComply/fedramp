@@ -36,27 +36,27 @@ type AssessmentResults struct {
 // Identifies system elements being assessed, such as components, inventory items, and locations. In the assessment plan, this identifies the planned assessment subject. In the assessment results this is the actual assessment subject, and reflects any changes from the plan.
 type AssessmentSubjects struct {
 
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Identifies exactly what will be the focus of this assessment. Anything not explicitly defined is out-of-scope.
 	Includes []IncludeSubject `xml:"include-subject,omitempty" json:"includes,omitempty"`
 	// Identifies what is explicitly excluded from this assessment. Used to remove a subset of items from groups of explicitly included items. Also used to explicitly clarify off-limit items, such as hosts to avoid scanning.
 	Excludes []ExcludeSubject `xml:"exclude-subject,omitempty" json:"excludes,omitempty"`
 	// Allows control objectives, users, components, and inventory-items to be defined within the assessment plan or assessment results for circumstances where they are not appropriately defined in the SSP. NOTE: Use the assessment plan or assessment results metadata to define additional locations if needed.
 	LocalDefinitions *LocalDefinitions `xml:"local-definitions,omitempty" json:"localDefinitions,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Allows control objectives, users, components, and inventory-items to be defined within the assessment plan or assessment results for circumstances where they are not appropriately defined in the SSP. NOTE: Use the assessment plan or assessment results metadata to define additional locations if needed.
 type LocalDefinitions struct {
 
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Used to add any components, not defined via the System Security Plan (AR->AP->SSP)
 	Components ComponentMultiplexer `xml:"component,omitempty" json:"components,omitempty"`
 	// Used to add any inventory-items, not defined via the System Security Plan (AR->AP->SSP)
 	InventoryItems InventoryItemMultiplexer `xml:"inventory-item,omitempty" json:"inventory-items,omitempty"`
 	// Used to add any users, not defined via the System Security Plan (AR->AP->SSP)
 	Users UserMultiplexer `xml:"user,omitempty" json:"users,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 type ComponentMultiplexer = system_security_plan.ComponentMultiplexer

@@ -53,8 +53,6 @@ type Objectives struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Identifies the controls being assessed. In the assessment plan, these are the planned controls. In the assessment results, these are the actual controls, and reflects any changes from the plan.
@@ -65,6 +63,8 @@ type Objectives struct {
 	Objectives ObjectiveMultiplexer `xml:"objective,omitempty" json:"objectives,omitempty"`
 	// A local definition of a control objective. Uses catalog syntax for control objective and assessment actions.
 	MethodDefinitions []Method `xml:"method,omitempty" json:"method-definitions,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Identifies the controls being assessed. In the assessment plan, these are the planned controls. In the assessment results, these are the actual controls, and reflects any changes from the plan.
@@ -74,6 +74,8 @@ type Controls struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A key word to indicate all
 	All All `xml:"all,omitempty" json:"all,omitempty"`
 	// Identifies a specific control to include.
@@ -82,8 +84,6 @@ type Controls struct {
 	ExcludeControls []ExcludeControl `xml:"exclude-control,omitempty" json:"exclude-controls,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 }
 
 // Identifies the control objectives of the assessment. In the assessment plan, these are the planned objectives. In the assessment results, these are the actual objectives, and reflects any changes from the plan.
@@ -93,6 +93,8 @@ type ControlObjectives struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A key word to indicate all
 	All All `xml:"all,omitempty" json:"all,omitempty"`
 	// Identifies a specific control to include.
@@ -101,8 +103,6 @@ type ControlObjectives struct {
 	ExcludeObjectives []ExcludeObjective `xml:"exclude-objective,omitempty" json:"exclude-objectives,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 }
 
 // A local definition of a control objective. Uses catalog syntax for control objective and assessment actions.
@@ -117,14 +117,14 @@ type Objective struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// Identifies a method for assessing the satisfaction of this objective.
-	Methods []AssessmentMethod `xml:"assessment-method,omitempty" json:"methods,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A partition or component of a control or part
 	Part *Part `xml:"part,omitempty" json:"part,omitempty"`
+	// Identifies a method for assessing the satisfaction of this objective.
+	Methods []AssessmentMethod `xml:"assessment-method,omitempty" json:"methods,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // A local definition of a control objective. Uses catalog syntax for control objective and assessment actions.
@@ -137,12 +137,12 @@ type Method struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A partition or component of a control or part
 	Part *Part `xml:"part,omitempty" json:"part,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Identifies exactly what will be the focus of this assessment. Anything not explicitly defined is out-of-scope.
@@ -157,14 +157,14 @@ type IncludeSubject struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// A key word to indicate all
-	All All `xml:"all,omitempty" json:"all,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	// A key word to indicate all
+	All All `xml:"all,omitempty" json:"all,omitempty"`
 	// A pointer to a resource based on its ID. Use type to indicate whether the identified resource is a component, inventory item, location, user, or something else.
 	SubjectReferences []SubjectReference `xml:"subject-reference,omitempty" json:"subject-references,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Identifies what is explicitly excluded from this assessment. Used to remove a subset of items from groups of explicitly included items. Also used to explicitly clarify off-limit items, such as hosts to avoid scanning.
@@ -179,14 +179,14 @@ type ExcludeSubject struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// A key word to indicate all
-	All All `xml:"all,omitempty" json:"all,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	// A key word to indicate all
+	All All `xml:"all,omitempty" json:"all,omitempty"`
 	// A pointer to a resource based on its ID. Use type to indicate whether the identified resource is a component, inventory item, location, user, or something else.
 	SubjectReferences []SubjectReference `xml:"subject-reference,omitempty" json:"subject-references,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // A pointer to a resource based on its ID. Use type to indicate whether the identified resource is a component, inventory item, location, user, or something else.
@@ -206,18 +206,18 @@ type SubjectReference struct {
 // Identifies the assets used to perform this assessment, such as the assessment team, scanning tools, and assumptions.
 type Assets struct {
 
-	// Provided as means of extending the OSCAL syntax.
-	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// The technology tools used by the assessor to perform the assessment, such as vulnerability scanners. In the assessment plan these are the intended tools. In the assessment results, these are the actual tools used, including any differences from the assessment plan.
 	Tools *Tools `xml:"tools,omitempty" json:"tools,omitempty"`
 	// Identifies the origination of network-based assessment activities, such as the IP address of the tool performing assessment scans.
 	Origination *Origination `xml:"origination,omitempty" json:"origination,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
+	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Provided to allow content such as assumptions and disclosures.
 	Parts []Part `xml:"part,omitempty" json:"parts,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // The technology tools used by the assessor to perform the assessment, such as vulnerability scanners. In the assessment plan these are the intended tools. In the assessment results, these are the actual tools used, including any differences from the assessment plan.
@@ -241,8 +241,6 @@ type Origination struct {
 // Identifies the assessment activities and schedule. In the assessment plan, these are planned activities. In the assessment results, these are the actual activities performed.
 type AssessmentActivities struct {
 
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Identifies an individual test method.
 	TestMethods []TestMethod `xml:"test-method,omitempty" json:"test-methods,omitempty"`
 	// Identifies the schedule for the assessment activities.
@@ -251,6 +249,8 @@ type AssessmentActivities struct {
 	IncludeActivities []IncludeActivity `xml:"include-activity,omitempty" json:"include-activities,omitempty"`
 	// Identifies an activity explicitly excluded from the assessment. In the assessment plan, this clarifies activities that are out-of-scope or prohibited. In the assessment results, this could be used to explicitly identify an activity that was planned, but not performed.
 	ExcludeActivities []ExcludeActivity `xml:"exclude-activity,omitempty" json:"exclude-activities,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Identifies an individual test method.
@@ -265,16 +265,16 @@ type TestMethod struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to a local or remote resource
 	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
+	// Identifies an individual test step.
+	TestSteps []TestStep `xml:"test-step,omitempty" json:"test-steps,omitempty"`
 	// Typically used in when copying content from the assessment plan to the assessment results. The uuid should be changed in the assessment results file, and the compare-to field should be set to the original assessment plan uuid value. This enables the plan and results to be compared later to identify what changed between the two.
 	CompareTo CompareTo `xml:"compare-to,omitempty" json:"compare-to,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
-	// Identifies an individual test step.
-	TestSteps []TestStep `xml:"test-step,omitempty" json:"test-steps,omitempty"`
 }
 
 // Identifies an individual test step.
@@ -319,6 +319,8 @@ type Task struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Identifies the start of a task.
 	Start Start `xml:"start,omitempty" json:"start,omitempty"`
 	// Identifies the end of a task.
@@ -335,8 +337,6 @@ type Task struct {
 	CompareTo CompareTo `xml:"compare-to,omitempty" json:"compare-to,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 }
 
 // Identifies an assessment activity. In the assessment plan, this is an intended/in-scope activity. In the assessment results, this identifies an activity that was actually performed.
@@ -351,6 +351,8 @@ type IncludeActivity struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Identifies roles associated with performing this activity.
 	RoleIds []RoleId `xml:"role-id,omitempty" json:"role-ids,omitempty"`
 	// Identifies people or organizations associated with performing this activity.
@@ -361,8 +363,6 @@ type IncludeActivity struct {
 	CompareTo CompareTo `xml:"compare-to,omitempty" json:"compare-to,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 }
 
 // Identifies an activity explicitly excluded from the assessment. In the assessment plan, this clarifies activities that are out-of-scope or prohibited. In the assessment results, this could be used to explicitly identify an activity that was planned, but not performed.
@@ -377,6 +377,8 @@ type ExcludeActivity struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Identifies roles associated with this activity exclusion.
 	RoleIds []RoleId `xml:"role-id,omitempty" json:"role-ids,omitempty"`
 	// Identifies people or organizations associated with this activity exclusion.
@@ -387,8 +389,6 @@ type ExcludeActivity struct {
 	CompareTo CompareTo `xml:"compare-to,omitempty" json:"compare-to,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 }
 
 // Used by the assessment results and POA&M. In the assessment results, this identifies all of the assessment observations and findings, initial and residual risks, deviations, and disposition. In the POA&M, this identifies initial and residual risks, deviations, and disposition.
@@ -403,16 +403,16 @@ type Results struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Date/time stamp identifying the start of the evidence collection reflected in these results.
 	Start Start `xml:"start,omitempty" json:"start,omitempty"`
 	// Date/time stamp identifying the end of the evidence collection reflected in these results. In a continuous motoring scenario, this may contain the same value as start if appropriate.
 	End End `xml:"end,omitempty" json:"end,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Describes an individual finding.
 	Findings []Finding `xml:"finding,omitempty" json:"findings,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Describes an individual finding.
@@ -427,26 +427,26 @@ type Finding struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Date/time stamp identifying when the finding information was collected.
 	Collected Collected `xml:"collected,omitempty" json:"collected,omitempty"`
 	// Date/time identifying when the finding information is out-of-date and no longer valid. Typically used with continuous assessment scenarios.
 	Expires Expires `xml:"expires,omitempty" json:"expires,omitempty"`
+	// Captures an assessors conclusions as to whether an objective is fully satisfied.
+	ObjectiveStatus *ObjectiveStatus `xml:"objective-status,omitempty" json:"objectiveStatus,omitempty"`
 	// Identifies the implementation statement in the SSP to which this finding is related.
 	ImplementationStatementUuid ImplementationStatementUuid `xml:"implementation-statement-uuid,omitempty" json:"implementation-statement-uuid,omitempty"`
+	// Describes an individual observation.
+	Observations []Observation `xml:"observation,omitempty" json:"observations,omitempty"`
 	// A pointer, by ID, to an externally-defined threat.
 	ThreatIds []ThreatId `xml:"threat-id,omitempty" json:"threat-ids,omitempty"`
+	// An identified risk.
+	Risks []Risk `xml:"risk,omitempty" json:"risks,omitempty"`
 	// The person who collected the evidence or made the observation.
 	PartyUuids []PartyUuid `xml:"party-uuid,omitempty" json:"party-uuids,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
-	// Captures an assessors conclusions as to whether an objective is fully satisfied.
-	ObjectiveStatus *ObjectiveStatus `xml:"objective-status,omitempty" json:"objectiveStatus,omitempty"`
-	// Describes an individual observation.
-	Observations []Observation `xml:"observation,omitempty" json:"observations,omitempty"`
-	// An identified risk.
-	Risks []Risk `xml:"risk,omitempty" json:"risks,omitempty"`
 }
 
 // Captures an assessors conclusions as to whether an objective is fully satisfied.
@@ -481,22 +481,22 @@ type Observation struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Identifies how the observation was made.
 	ObservationMethods []ObservationMethod `xml:"observation-method,omitempty" json:"observation-methods,omitempty"`
 	// Identifies the nature of the observation. More than one may be used to further qualify and enable filtering.
 	ObservationTypes []ObservationType `xml:"observation-type,omitempty" json:"observation-types,omitempty"`
 	// Identifies an individual who gathered the evidence resulting in the observation or risk identification.
 	Assessors []Assessor `xml:"assessor,omitempty" json:"assessors,omitempty"`
-	// Identifies the source of the finding, such as a tool, interviewed person, or activity.
-	Origins []Origin `xml:"origin,omitempty" json:"origins,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Identifies who was interviewed, or what was tested or inspected.
 	SubjectReferences []SubjectReference `xml:"subject-reference,omitempty" json:"subject-references,omitempty"`
+	// Identifies the source of the finding, such as a tool, interviewed person, or activity.
+	Origins []Origin `xml:"origin,omitempty" json:"origins,omitempty"`
 	// Links this observation to relevant evidence.
 	EvidenceGroup []RelevantEvidence `xml:"relevant-evidence,omitempty" json:"evidence-group,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Links this observation to relevant evidence.
@@ -509,10 +509,10 @@ type RelevantEvidence struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // An identified risk.
@@ -527,26 +527,26 @@ type Risk struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// An individual risk metric from a specified system.
 	RiskMetrics []RiskMetric `xml:"risk-metric,omitempty" json:"risk-metrics,omitempty"`
 	// Describes the risk.
 	RiskStatement *RiskStatement `xml:"risk-statement,omitempty" json:"risk-statement,omitempty"`
+	// Describes a mitigating factor with an optional link to an implementation statement in the SSP.
+	MitigatingFactors []MitigatingFactor `xml:"mitigating-factor,omitempty" json:"mitigating-factors,omitempty"`
 	// The date/time by which the risk must be closed.
 	RemediationDeadline RemediationDeadline `xml:"remediation-deadline,omitempty" json:"remediation-deadline,omitempty"`
+	// Describes either recommendation or an actual plan for remediating the risk.
+	RemediationGroup []Remediation `xml:"remediation,omitempty" json:"remediation-group,omitempty"`
 	// Describes the status of the associated risk.
 	RiskStatus RiskStatus `xml:"risk-status,omitempty" json:"risk-status,omitempty"`
 	// Describes the actions taken that resulted in the closure of the identified risk.
 	ClosureActions *ClosureActions `xml:"closure-actions,omitempty" json:"closure-actions,omitempty"`
-	// References a  defined in .
-	PartyUuids []PartyUuid `xml:"party-uuid,omitempty" json:"party-uuids,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
-	// Describes a mitigating factor with an optional link to an implementation statement in the SSP.
-	MitigatingFactors []MitigatingFactor `xml:"mitigating-factor,omitempty" json:"mitigating-factors,omitempty"`
-	// Describes either recommendation or an actual plan for remediating the risk.
-	RemediationGroup []Remediation `xml:"remediation,omitempty" json:"remediation-group,omitempty"`
 	// A log of events and actions taken towards the remediation of the associated risk.
 	RemediationTracking *RemediationTracking `xml:"remediation-tracking,omitempty" json:"remediationTracking,omitempty"`
+	// References a  defined in .
+	PartyUuids []PartyUuid `xml:"party-uuid,omitempty" json:"party-uuids,omitempty"`
 }
 
 // A log of events and actions taken towards the remediation of the associated risk.
@@ -572,10 +572,10 @@ type TrackingEntry struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Identifies something required to achieve remediation.
@@ -584,18 +584,18 @@ type Required struct {
 	// A RFC 4122 version 4 Universally Unique Identifier (UUID) for the containing object.
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
+	// Identifies a subject associated with this requirement, such as a party, system component, or inventory-item.
+	SubjectReferences []SubjectReference `xml:"subject-reference,omitempty" json:"subject-references,omitempty"`
 	// A title for display and navigation
 	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Identifies a subject associated with this requirement, such as a party, system component, or inventory-item.
-	SubjectReferences []SubjectReference `xml:"subject-reference,omitempty" json:"subject-references,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Describes a mitigating factor with an optional link to an implementation statement in the SSP.
@@ -626,16 +626,16 @@ type Remediation struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// Points to the source of the recommendation
-	Origins []RemediationOrigin `xml:"remediation-origin,omitempty" json:"origins,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	// Points to the source of the recommendation
+	Origins []RemediationOrigin `xml:"remediation-origin,omitempty" json:"origins,omitempty"`
 	// Identifies something required to achieve remediation.
 	Requirements []Required `xml:"required,omitempty" json:"requirements,omitempty"`
 	// Identifies the schedule for the assessment activities.
 	Schedule *Schedule `xml:"schedule,omitempty" json:"schedule,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // A partition or component of a control or part
@@ -656,10 +656,10 @@ type Part struct {
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// Prose permits multiple paragraphs, lists, tables etc.
 	Prose *Prose `xml:",any" json:"prose,omitempty"`
-	// A reference to a local or remote resource
-	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// A partition or component of a control or part
 	Parts []Part `xml:"part,omitempty" json:"parts,omitempty"`
+	// A reference to a local or remote resource
+	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 }
 
 // Identifies an individual control to include.

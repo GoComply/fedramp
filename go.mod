@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/blang/semver v2.2.0+incompatible // indirect
-	github.com/gocomply/oscalkit v0.3.4-0.20201029100757-5f7751d37c27
+	github.com/gocomply/oscalkit v0.3.4-0.20201030112604-13537fbec0a8
 	github.com/google/uuid v1.1.2
 	github.com/jbowtie/gokogiri v0.0.0-20190301021639-37f655d3078f
 	github.com/markbates/pkger v0.17.1

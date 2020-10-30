@@ -32,11 +32,6 @@ func MML(plain string) *Markup {
 	}
 }
 
-// Deprecated: Use validation_root.MML instead.
-func MarkupFromPlain(plain string) *Markup {
-	return MML(plain)
-}
-
 // PlainText representation
 func (m *Markup) PlainString() string {
 	if m.PlainText != "" {

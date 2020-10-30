@@ -59,12 +59,12 @@ type Merge struct {
 // A Custom element frames a structure for embedding represented controls in resolution.
 type Custom struct {
 
+	// As in catalogs, a group of (selected) controls or of groups of controls
+	Groups []Group `xml:"group,omitempty" json:"groups,omitempty"`
 	// Call a control by its ID
 	IdSelectors []Call `xml:"call,omitempty" json:"id-selectors,omitempty"`
 	// Select controls by (regular expression) match on ID
 	PatternSelectors []Match `xml:"match,omitempty" json:"pattern-selectors,omitempty"`
-	// As in catalogs, a group of (selected) controls or of groups of controls
-	Groups []Group `xml:"group,omitempty" json:"groups,omitempty"`
 }
 
 // As in catalogs, a group of (selected) controls or of groups of controls
@@ -77,18 +77,18 @@ type Group struct {
 
 	// A title for display and navigation
 	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
-	// A value with a name, attributed to the containing control, part, or group.
-	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// Parameters provide a mechanism for the dynamic assignment of value(s) in a control.
 	Parameters []Param `xml:"param,omitempty" json:"parameters,omitempty"`
+	// A value with a name, attributed to the containing control, part, or group.
+	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// A partition or component of a control or part
 	Parts []Part `xml:"part,omitempty" json:"parts,omitempty"`
+	// As in catalogs, a group of (selected) controls or of groups of controls
+	Groups []Group `xml:"group,omitempty" json:"groups,omitempty"`
 	// Call a control by its ID
 	IdSelectors []Call `xml:"call,omitempty" json:"id-selectors,omitempty"`
 	// Select controls by (regular expression) match on ID
 	PatternSelectors []Match `xml:"match,omitempty" json:"pattern-selectors,omitempty"`
-	// As in catalogs, a group of (selected) controls or of groups of controls
-	Groups []Group `xml:"group,omitempty" json:"groups,omitempty"`
 }
 
 // Set parameters or amend controls in resolution
@@ -138,14 +138,14 @@ type SetParameter struct {
 	Descriptions []Usage `xml:"usage,omitempty" json:"descriptions,omitempty"`
 	// A formal or informal expression of a constraint or test
 	Constraints []Constraint `xml:"constraint,omitempty" json:"constraints,omitempty"`
-	// A reference to a local or remote resource
-	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// A prose statement that provides a recommendation for the use of a parameter.
 	Guidance []Guideline `xml:"guideline,omitempty" json:"guidance,omitempty"`
 	// Indicates a permissible value for a parameter or property
 	Value *Value `xml:"value,omitempty" json:"value,omitempty"`
 	// Presenting a choice among alternatives
 	Select *Select `xml:"select,omitempty" json:"select,omitempty"`
+	// A reference to a local or remote resource
+	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 }
 
 // An Alter element specifies changes to be made to an included control when a profile is resolved.
@@ -170,14 +170,14 @@ type Add struct {
 
 	// A title for display and navigation
 	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
-	// A value with a name, attributed to the containing control, part, or group.
-	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// A reference to a local or remote resource
-	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// Parameters provide a mechanism for the dynamic assignment of value(s) in a control.
 	Parameters []Param `xml:"param,omitempty" json:"parameters,omitempty"`
+	// A value with a name, attributed to the containing control, part, or group.
+	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	// A reference to a local or remote resource
+	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// A partition or component of a control or part
 	Parts []Part `xml:"part,omitempty" json:"parts,omitempty"`
 }

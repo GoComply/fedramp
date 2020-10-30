@@ -17,8 +17,6 @@ type VALIDATIONCommonRoot struct {
 
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// TBD
 	IncorporatesComponents IncorporatesComponentMultiplexer `xml:"incorporates-component,omitempty" json:"incorporates-components,omitempty"`
 	// Describes which specific statements are addressed by a requirement, by pointing to a specific requirement statement within a control.
@@ -27,6 +25,8 @@ type VALIDATIONCommonRoot struct {
 	ResponsibleRoles ResponsibleRoleMultiplexer `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
 	// Identifies the parameter that will be filled in by the enclosed value element.
 	ParameterSettings SetParameterMultiplexer `xml:"set-parameter,omitempty" json:"parameter-settings,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Describes which specific statements are addressed by a requirement, by pointing to a specific requirement statement within a control.
@@ -63,14 +63,14 @@ type ResponsibleRole struct {
 
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// A name/value pair with optional explanatory remarks.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to a local or remote resource
 	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// References a  defined in .
 	PartyUuids []PartyUuid `xml:"party-uuid,omitempty" json:"party-uuids,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// A name/value pair with optional explanatory remarks.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 }
 
 // Identifies the parameter that will be filled in by the enclosed value element.

@@ -15,12 +15,12 @@ type PlanOfActionAndMilestones struct {
 	// A RFC 4122 version 4 Universally Unique Identifier (UUID) for the containing object.
 	Uuid string `xml:"uuid,attr,omitempty" json:"uuid,omitempty"`
 
-	// A unique identifier for the system described by this system security plan.
-	SystemId *SystemId `xml:"system-id,omitempty" json:"system-id,omitempty"`
 	// Provides information about the publication and availability of the containing document.
 	Metadata *Metadata `xml:"metadata,omitempty" json:"metadata,omitempty"`
 	// Used by the POA&M to import information about the system.
 	ImportSsp *ImportSsp `xml:"import-ssp,omitempty" json:"importSsp,omitempty"`
+	// A unique identifier for the system described by this system security plan.
+	SystemId *SystemId `xml:"system-id,omitempty" json:"system-id,omitempty"`
 	// Allows components, and inventory-items to be defined within the POA&M for circumstances where no OSCAL-based SSP exists, or is not delivered with the POA&M.
 	LocalDefinitions *LocalDefinitions `xml:"local-definitions,omitempty" json:"localDefinitions,omitempty"`
 	// This identifies initial and residual risks, deviations, and disposition.
@@ -32,12 +32,12 @@ type PlanOfActionAndMilestones struct {
 // Allows components, and inventory-items to be defined within the POA&M for circumstances where no OSCAL-based SSP exists, or is not delivered with the POA&M.
 type LocalDefinitions struct {
 
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Used to add any components, not defined via the System Security Plan (AR->AP->SSP)
 	Components ComponentMultiplexer `xml:"component,omitempty" json:"components,omitempty"`
 	// Used to add any inventory-items, not defined via the System Security Plan (AR->AP->SSP)
 	InventoryItems InventoryItemMultiplexer `xml:"inventory-item,omitempty" json:"inventory-items,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // This identifies initial and residual risks, deviations, and disposition.
@@ -49,16 +49,16 @@ type PoamItems struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Date/time stamp identifying the start of the evidence collection reflected in these results.
 	Start Start `xml:"start,omitempty" json:"start,omitempty"`
 	// Date/time stamp identifying the end of the evidence collection reflected in these results. In a continuous monitoring scenario, this may be omitted or contain the same value as start if appropriate.
 	End End `xml:"end,omitempty" json:"end,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Describes an individual POA&M item.
 	PoamItemGroup []PoamItem `xml:"poam-item,omitempty" json:"poam-item-group,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Describes an individual POA&M item.
@@ -73,26 +73,26 @@ type PoamItem struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Provided as means of extending the OSCAL syntax.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// Provided as means of extending the OSCAL syntax.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// Date/time stamp identifying when the finding information was collected.
 	Collected Collected `xml:"collected,omitempty" json:"collected,omitempty"`
 	// Date/time identifying when the finding information is out-of-date and no longer valid. Typically used with continuous assessment scenarios.
 	Expires Expires `xml:"expires,omitempty" json:"expires,omitempty"`
+	// Captures an assessors conclusions as to whether an objective is fully satisfied.
+	ObjectiveStatus *ObjectiveStatus `xml:"objective-status,omitempty" json:"objectiveStatus,omitempty"`
 	// Identifies the implementation statement in the SSP to which this finding is related.
 	ImplementationStatementUuid ImplementationStatementUuid `xml:"implementation-statement-uuid,omitempty" json:"implementation-statement-uuid,omitempty"`
+	// Describes an individual observation.
+	Observations []Observation `xml:"observation,omitempty" json:"observations,omitempty"`
 	// A pointer, by ID, to an externally-defined threat.
 	ThreatIds []ThreatId `xml:"threat-id,omitempty" json:"threat-ids,omitempty"`
+	// An identified risk.
+	Risks []Risk `xml:"risk,omitempty" json:"risks,omitempty"`
 	// The person who collected the evidence or made the observation.
 	PartyUuids []PartyUuid `xml:"party-uuid,omitempty" json:"party-uuids,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// Provided as means of extending the OSCAL syntax.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
-	// Captures an assessors conclusions as to whether an objective is fully satisfied.
-	ObjectiveStatus *ObjectiveStatus `xml:"objective-status,omitempty" json:"objectiveStatus,omitempty"`
-	// Describes an individual observation.
-	Observations []Observation `xml:"observation,omitempty" json:"observations,omitempty"`
-	// An identified risk.
-	Risks []Risk `xml:"risk,omitempty" json:"risks,omitempty"`
 }
 
 type ComponentMultiplexer = system_security_plan.ComponentMultiplexer

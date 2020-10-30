@@ -1,5 +1,9 @@
 package catalog
 
+import (
+	"github.com/gocomply/oscalkit/types/oscal/validation_root"
+)
+
 // ControlOpts to generate controls
 type ControlOpts struct {
 	Params   []Param
@@ -11,8 +15,8 @@ type ControlOpts struct {
 func NewPart(id, title, narrative string) Part {
 	return Part{
 		Id:    id,
-		Title: &Title{Raw: title},
-		Prose: &Prose{Raw: narrative},
+		Title: validation_root.ML(title),
+		Prose: validation_root.ML(narrative),
 	}
 }
 
@@ -20,7 +24,7 @@ func NewPart(id, title, narrative string) Part {
 func NewControl(id, title string, opts *ControlOpts) Control {
 	ctrl := Control{
 		Id:    id,
-		Title: &Title{Raw: title},
+		Title: validation_root.ML(title),
 	}
 	if opts != nil {
 		ctrl.Controls = opts.Controls

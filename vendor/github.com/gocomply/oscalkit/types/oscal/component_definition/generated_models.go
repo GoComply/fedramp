@@ -10,10 +10,10 @@ import (
 // A collection of component descriptions, which may optionally be grouped by capability.
 type ComponentDefinition struct {
 
-	// Loads a component definition from another resource.
-	ImportComponentDefinitions []ImportComponentDefinition `xml:"import-component-definition,omitempty" json:"import-component-definitions,omitempty"`
 	// Provides information about the publication and availability of the containing document.
 	Metadata *Metadata `xml:"metadata,omitempty" json:"metadata,omitempty"`
+	// Loads a component definition from another resource.
+	ImportComponentDefinitions []ImportComponentDefinition `xml:"import-component-definition,omitempty" json:"import-component-definitions,omitempty"`
 	// A defined component that can be part of an implemented system.
 	Components ComponentMultiplexer `xml:"component,omitempty" json:"components,omitempty"`
 	// A grouping of other components and/or capabilities.
@@ -40,12 +40,12 @@ type Component struct {
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// A reference to a local or remote resource
 	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// Defines a role associated with a party or parties that has responsibility for the component.
 	ResponsibleParties ResponsiblePartyMultiplexer `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
 	// Defines how the component or capability supports a set of controls.
 	ControlImplementations []ControlImplementation `xml:"control-implementation,omitempty" json:"control-implementations,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // A grouping of other components and/or capabilities.
@@ -60,16 +60,16 @@ type Capability struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// A reference to a local or remote resource
-	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	// A reference to a local or remote resource
+	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// TBD
 	IncorporatesComponents IncorporatesComponentMultiplexer `xml:"incorporates-component,omitempty" json:"incorporates-components,omitempty"`
 	// Defines how the component or capability supports a set of controls.
 	ControlImplementations []ControlImplementation `xml:"control-implementation,omitempty" json:"control-implementations,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Defines how the component or capability supports a set of controls.
@@ -84,10 +84,10 @@ type ControlImplementation struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// A reference to a local or remote resource
-	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	// A reference to a local or remote resource
+	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// Describes how the component implements an individual control.
 	ImplementedRequirements []ImplementedRequirement `xml:"implemented-requirement,omitempty" json:"implemented-requirements,omitempty"`
 }
@@ -104,18 +104,18 @@ type ImplementedRequirement struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// A reference to a local or remote resource
-	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// A name/value pair with optional explanatory remarks.
 	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	// A reference to a local or remote resource
+	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// A reference to one or more roles with responsibility for performing a function relative to the control.
 	ResponsibleRoles ResponsibleRoleMultiplexer `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
 	// Identifies the parameter that will be filled in by the enclosed value element.
 	SetParameters SetParameterMultiplexer `xml:"set-parameter,omitempty" json:"set-parameters,omitempty"`
 	// Identifies which statements within a control are addressed.
 	Statements StatementMultiplexer `xml:"statement,omitempty" json:"statements,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Identifies which statements within a control are addressed.
@@ -130,14 +130,14 @@ type Statement struct {
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
-	// A reference to a local or remote resource
-	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// A name/value pair with optional explanatory remarks.
 	Annotations AnnotationMultiplexer `xml:"annotation,omitempty" json:"annotations,omitempty"`
+	// A reference to a local or remote resource
+	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// A reference to one or more roles with responsibility for performing a function relative to the control.
 	ResponsibleRoles ResponsibleRoleMultiplexer `xml:"responsible-role,omitempty" json:"responsible-roles,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // Loads a component definition from another resource.

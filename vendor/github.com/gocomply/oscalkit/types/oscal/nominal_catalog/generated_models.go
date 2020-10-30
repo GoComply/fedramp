@@ -30,14 +30,14 @@ type Param struct {
 	Descriptions []Usage `xml:"usage,omitempty" json:"descriptions,omitempty"`
 	// A formal or informal expression of a constraint or test
 	Constraints []Constraint `xml:"constraint,omitempty" json:"constraints,omitempty"`
-	// A reference to a local or remote resource
-	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// A prose statement that provides a recommendation for the use of a parameter.
 	Guidance []Guideline `xml:"guideline,omitempty" json:"guidance,omitempty"`
 	// A recommended parameter value or set of values.
 	Value *Value `xml:"value,omitempty" json:"value,omitempty"`
 	// A set of parameter value choices, that may be picked from to set the parameter value.
 	Select *Select `xml:"select,omitempty" json:"select,omitempty"`
+	// A reference to a local or remote resource
+	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 }
 
 // A prose statement that provides a recommendation for the use of a parameter.
@@ -75,10 +75,10 @@ type Part struct {
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// Prose permits multiple paragraphs, lists, tables etc.
 	Prose *Prose `xml:",any" json:"prose,omitempty"`
-	// A reference to a local or remote resource
-	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// A partition or component of a control or part
 	Parts []Part `xml:"part,omitempty" json:"parts,omitempty"`
+	// A reference to a local or remote resource
+	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 }
 
 // A placeholder for a missing value, in display.

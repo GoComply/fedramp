@@ -6,16 +6,16 @@ import ()
 // NOT TO BE USED IN A METASCHEMA
 type VALIDATIONRoot struct {
 
+	// Provides information about the publication and availability of the containing document.
+	Metadata *Metadata `xml:"metadata,omitempty" json:"metadata,omitempty"`
+	// A collection of citations and resource references.
+	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"backMatter,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// References a  defined in .
 	PartyUuid PartyUuid `xml:"party-uuid,omitempty" json:"party-uuid,omitempty"`
-	// Provides information about the publication and availability of the containing document.
-	Metadata *Metadata `xml:"metadata,omitempty" json:"metadata,omitempty"`
-	// A collection of citations and resource references.
-	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"backMatter,omitempty"`
 	// A name/value pair with optional explanatory remarks.
 	Annotation *Annotation `xml:"annotation,omitempty" json:"annotation,omitempty"`
 	// A reference to a set of organizations or persons that have responsibility for performing a referenced role relative to the parent context.
@@ -35,16 +35,14 @@ type Metadata struct {
 	Version Version `xml:"version,omitempty" json:"version,omitempty"`
 	// OSCAL model version.
 	OscalVersion OscalVersion `xml:"oscal-version,omitempty" json:"oscal-version,omitempty"`
+	// An entry in a sequential list of revisions to the containing document in reverse chronological order (i.e., most recent previous revision first).
+	RevisionHistory []Revision `xml:"revision-history>revision,omitempty" json:"revision-history,omitempty"`
 	// A document identifier qualified by an identifier .
 	DocumentIds []DocId `xml:"doc-id,omitempty" json:"document-ids,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// A reference to a local or remote resource
 	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// An entry in a sequential list of revisions to the containing document in reverse chronological order (i.e., most recent previous revision first).
-	RevisionHistory []Revision `xml:"revision-history>revision,omitempty" json:"revision-history,omitempty"`
 	// Defining a role to be assigned to a party
 	Roles []Role `xml:"role,omitempty" json:"roles,omitempty"`
 	// A location, with associated metadata that can be referenced.
@@ -53,6 +51,8 @@ type Metadata struct {
 	Parties []Party `xml:"party,omitempty" json:"parties,omitempty"`
 	// A reference to a set of organizations or persons that have responsibility for performing a referenced role relative to the parent context.
 	ResponsibleParties ResponsiblePartyMultiplexer `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // A collection of citations and resource references.
@@ -107,6 +107,8 @@ type Location struct {
 
 	// A title for display and navigation
 	Title *Title `xml:"title,omitempty" json:"title,omitempty"`
+	// A postal address.
+	Address *Address `xml:"address,omitempty" json:"address,omitempty"`
 	// Email address
 	EmailAddresses []Email `xml:"email,omitempty" json:"email-addresses,omitempty"`
 	// Contact number by telephone
@@ -115,14 +117,12 @@ type Location struct {
 	URLs []Url `xml:"url,omitempty" json:"URLs,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// A name/value pair with optional explanatory remarks.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to a local or remote resource
 	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// A postal address.
-	Address *Address `xml:"address,omitempty" json:"address,omitempty"`
-	// A name/value pair with optional explanatory remarks.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 }
 
 // A responsible entity, either singular (an organization or person) or collective (multiple persons)
@@ -141,8 +141,12 @@ type Party struct {
 	ExternalIds []ExternalId `xml:"external-id,omitempty" json:"external-ids,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// A name/value pair with optional explanatory remarks.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to a local or remote resource
 	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
+	// A postal address.
+	Addresses []Address `xml:"address,omitempty" json:"addresses,omitempty"`
 	// Email address
 	EmailAddresses []Email `xml:"email,omitempty" json:"email-addresses,omitempty"`
 	// Contact number by telephone
@@ -153,10 +157,6 @@ type Party struct {
 	LocationUuids []LocationUuid `xml:"location-uuid,omitempty" json:"location-uuids,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// A name/value pair with optional explanatory remarks.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
-	// A postal address.
-	Addresses []Address `xml:"address,omitempty" json:"addresses,omitempty"`
 }
 
 // A pointer to an external copy of a document with optional hash for verification
@@ -207,14 +207,14 @@ type Resource struct {
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// A document identifier qualified by an identifier .
 	DocumentIds []DocId `xml:"doc-id,omitempty" json:"document-ids,omitempty"`
-	//
-	Attachments []Base64 `xml:"base64,omitempty" json:"attachments,omitempty"`
-	// Additional commentary on the parent item.
-	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 	// A citation consisting of end note text and optional structured bibliographic data.
 	Citation *Citation `xml:"citation,omitempty" json:"citation,omitempty"`
 	// A pointer to an external copy of a document with optional hash for verification
 	Rlinks []Rlink `xml:"rlink,omitempty" json:"rlinks,omitempty"`
+	//
+	Attachments []Base64 `xml:"base64,omitempty" json:"attachments,omitempty"`
+	// Additional commentary on the parent item.
+	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
 
 // A citation consisting of end note text and optional structured bibliographic data.
@@ -242,12 +242,12 @@ type Role struct {
 	Desc Desc `xml:"desc,omitempty" json:"desc,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// A name/value pair with optional explanatory remarks.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to a local or remote resource
 	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// A name/value pair with optional explanatory remarks.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 }
 
 // A reference to a set of organizations or persons that have responsibility for performing a referenced role relative to the parent context.
@@ -260,12 +260,12 @@ type ResponsibleParty struct {
 	PartyUuids []PartyUuid `xml:"party-uuid,omitempty" json:"party-uuids,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
+	// A name/value pair with optional explanatory remarks.
+	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 	// A reference to a local or remote resource
 	Links []Link `xml:"link,omitempty" json:"links,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
-	// A name/value pair with optional explanatory remarks.
-	Annotations []Annotation `xml:"annotation,omitempty" json:"annotations,omitempty"`
 }
 
 // A reference to a local or remote resource
