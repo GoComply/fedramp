@@ -18,7 +18,7 @@ endif
 ci-update-bundled-deps: ci-update-fedramp-templates ci-update-fedramp-catalogs
 
 ci-update-fedramp-templates:
-	rm bundled/templates/FedRAMP-SSP-*-Baseline-Template.docx
+	rm bundled/templates/FedRAMP-SSP-*-Baseline-Template.docx bundled/templates/FedRAMP-SSP-OSCAL-Template.xml
 	wget -P bundled/templates/ https://www.fedramp.gov/assets/resources/templates/FedRAMP-SSP-High-Baseline-Template.docx https://www.fedramp.gov/assets/resources/templates/FedRAMP-SSP-Moderate-Baseline-Template.docx https://www.fedramp.gov/assets/resources/templates/FedRAMP-SSP-Low-Baseline-Template.docx https://raw.githubusercontent.com/GSA/fedramp-automation/master/templates/ssp/xml/FedRAMP-SSP-OSCAL-Template.xml
 
 XMLFORMAT=XMLLINT_INDENT='	' xmllint --format --nsclean
