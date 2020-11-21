@@ -30,12 +30,6 @@ func Convert(repoUri, outputDirectory string) error {
 		return err
 	}
 
-	var metadata ssp.Metadata
-	metadata.Title = &ssp.Title{PlainText: "FedRAMP System Security Plan (SSP)"}
-	metadata.LastModified = validation_root.LastModified(time.Now().Format(constants.FormatDatetimeTz))
-	metadata.Version = validation_root.Version("0.0.1")
-	metadata.OscalVersion = validation_root.OscalVersion(constants.LatestOscalVersion)
-
 	fedrampBaselines, err := fedramp.AvailableBaselines()
 	if err != nil {
 		return err
@@ -47,7 +41,7 @@ func Convert(repoUri, outputDirectory string) error {
 			return err
 		}
 		for _, baseline := range fedrampBaselines {
-			err = convertComponent(baseline, controls, metadata, outputDirectory)
+			err = convertComponent(baseline, controls, outputDirectory)
 			if err != nil {
 				return err
 			}
@@ -56,12 +50,18 @@ func Convert(repoUri, outputDirectory string) error {
 	return nil
 }
 
-func convertComponent(baseline fedramp.Baseline, component *Component, metadata ssp.Metadata, outputDirectory string) error {
+func convertComponent(baseline fedramp.Baseline, component *Component, outputDirectory string) error {
 	plan, err := fedramp.GSATemplate()
 	if err != nil {
 		return err
 	}
 	plan.Uuid = uuid.New().String()
+	var metadata ssp.Metadata
+	metadata.Title = &ssp.Title{PlainText: "FedRAMP System Security Plan (SSP)"}
+	metadata.LastModified = validation_root.LastModified(time.Now().Format(constants.FormatDatetimeTz))
+	metadata.Version = validation_root.Version("0.0.1")
+	metadata.OscalVersion = validation_root.OscalVersion(constants.LatestOscalVersion)
+
 	plan.Metadata = &metadata
 	plan.ImportProfile = &ssp.ImportProfile{
 		Href: baseline.ProfileURL(),
