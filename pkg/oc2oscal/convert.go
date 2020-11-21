@@ -56,13 +56,11 @@ func convertComponent(baseline fedramp.Baseline, component *Component, outputDir
 		return err
 	}
 	plan.Uuid = uuid.New().String()
-	var metadata ssp.Metadata
-	metadata.Title = &ssp.Title{PlainText: "FedRAMP System Security Plan (SSP)"}
-	metadata.LastModified = validation_root.LastModified(time.Now().Format(constants.FormatDatetimeTz))
-	metadata.Version = validation_root.Version("0.0.1")
-	metadata.OscalVersion = validation_root.OscalVersion(constants.LatestOscalVersion)
+	plan.Metadata.Title = &ssp.Title{PlainText: "FedRAMP System Security Plan (SSP)"}
+	plan.Metadata.LastModified = validation_root.LastModified(time.Now().Format(constants.FormatDatetimeTz))
+	plan.Metadata.Version = validation_root.Version("0.0.1")
+	plan.Metadata.OscalVersion = validation_root.OscalVersion(constants.LatestOscalVersion)
 
-	plan.Metadata = &metadata
 	plan.ImportProfile = &ssp.ImportProfile{
 		Href: baseline.ProfileURL(),
 	}
