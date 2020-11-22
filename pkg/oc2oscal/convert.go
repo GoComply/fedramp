@@ -9,10 +9,10 @@ import (
 	"github.com/gocomply/fedramp/pkg/oc2oscal/masonry"
 	"github.com/gocomply/oscalkit/pkg/oscal/constants"
 	"github.com/gocomply/oscalkit/pkg/oscal_source"
+	"github.com/gocomply/oscalkit/pkg/uuid"
 	"github.com/gocomply/oscalkit/types/oscal"
 	ssp "github.com/gocomply/oscalkit/types/oscal/system_security_plan"
 	"github.com/gocomply/oscalkit/types/oscal/validation_root"
-	"github.com/google/uuid"
 	"github.com/opencontrol/compliance-masonry/pkg/lib/common"
 )
 
@@ -55,7 +55,6 @@ func convertComponent(baseline fedramp.Baseline, component *Component, outputDir
 	if err != nil {
 		return err
 	}
-	plan.Uuid = uuid.New().String()
 	plan.Metadata.Title = &ssp.Title{PlainText: "FedRAMP System Security Plan (SSP)"}
 	plan.Metadata.LastModified = validation_root.LastModified(time.Now().Format(constants.FormatDatetimeTz))
 	plan.Metadata.Version = validation_root.Version("0.0.1")
@@ -66,18 +65,24 @@ func convertComponent(baseline fedramp.Baseline, component *Component, outputDir
 	}
 	plan.SystemCharacteristics = convertSystemCharacteristics(component)
 	sspComponent := buildSspComponent(component)
+	user := ssp.User{
+		RoleIds: []ssp.RoleId{
+			"generator",
+		}}
+	err = uuid.Refresh(&user)
+	if err != nil {
+		return err
+	}
+
 	plan.SystemImplementation = &ssp.SystemImplementation{
-		Users: []ssp.User{
-			ssp.User{
-				Uuid: uuid.New().String(),
-				RoleIds: []ssp.RoleId{
-					"generator",
-				},
-			},
-		},
+		Users:      []ssp.User{user},
 		Components: []ssp.Component{sspComponent},
 	}
 	plan.ControlImplementation, err = convertControlImplementation(baseline, component, &sspComponent)
+	if err != nil {
+		return err
+	}
+	err = uuid.Refresh(plan)
 	if err != nil {
 		return err
 	}
@@ -90,13 +95,17 @@ func convertComponent(baseline fedramp.Baseline, component *Component, outputDir
 }
 
 func buildSspComponent(oc *Component) ssp.Component {
-	return ssp.Component{
-		Uuid:          uuid.New().String(),
+	component := ssp.Component{
 		ComponentType: "system",
 		Title:         validation_root.ML("This system"),
 		Description:   validation_root.MML("The entire system as depicted in the system authorization boundary"),
 		Status:        &ssp.Status{State: "under-development"},
 	}
+	err := uuid.Refresh(&component)
+	if err != nil {
+		panic(err)
+	}
+	return component
 }
 
 func validate(filePath string) error {
@@ -130,14 +139,18 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 				}
 				continue
 			}
-			ci.ImplementedRequirements = append(ci.ImplementedRequirements, ssp.ImplementedRequirement{
-				Uuid:      uuid.New().String(),
+			ir := ssp.ImplementedRequirement{
 				ControlId: ctrl.Id,
 				Annotations: []ssp.Annotation{
 					fedrampImplementationStatus(sat.GetImplementationStatus()),
 				},
 				Statements: convertStatements(ctrl.Id, sat.GetNarratives(), sspComponent),
-			})
+			}
+			err := uuid.Refresh(&ir)
+			if err != nil {
+				return nil, err
+			}
+			ci.ImplementedRequirements = append(ci.ImplementedRequirements, ir)
 
 			for _, subctrl := range ctrl.Controls {
 				if len(subctrl.Controls) != 0 {
@@ -150,14 +163,18 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 					}
 					continue
 				}
-				ci.ImplementedRequirements = append(ci.ImplementedRequirements, ssp.ImplementedRequirement{
-					Uuid:      uuid.New().String(),
+				ir := ssp.ImplementedRequirement{
 					ControlId: subctrl.Id,
 					Annotations: []ssp.Annotation{
 						fedrampImplementationStatus(sat.GetImplementationStatus()),
 					},
 					Statements: convertStatements(subctrl.Id, sat.GetNarratives(), sspComponent),
-				})
+				}
+				err := uuid.Refresh(&ir)
+				if err != nil {
+					return nil, err
+				}
+				ci.ImplementedRequirements = append(ci.ImplementedRequirements, ir)
 			}
 		}
 	}
@@ -181,19 +198,24 @@ func newStatement(controlId, narrativeId, narrative string, sspComponent *ssp.Co
 	if narrativeId != "" {
 		narrativeSuffix = "." + narrativeId
 	}
-	return ssp.Statement{
-		Uuid:        uuid.New().String(),
-		StatementId: fmt.Sprintf("%s_stmt%s", controlId, narrativeSuffix),
-		ByComponents: []ssp.ByComponent{
-			ssp.ByComponent{
-				Uuid:          uuid.New().String(),
-				Description:   validation_root.MML("Describe how is the software component satisfying the control."),
-				Remarks:       validation_root.MML(narrative),
-				ComponentUuid: sspComponent.Uuid,
-			},
-		},
+	byComponent := ssp.ByComponent{
+		Description:   validation_root.MML("Describe how is the software component satisfying the control."),
+		Remarks:       validation_root.MML(narrative),
+		ComponentUuid: sspComponent.Uuid,
 	}
-
+	err := uuid.Refresh(&byComponent)
+	if err != nil {
+		panic(err)
+	}
+	statement := ssp.Statement{
+		StatementId:  fmt.Sprintf("%s_stmt%s", controlId, narrativeSuffix),
+		ByComponents: []ssp.ByComponent{byComponent},
+	}
+	err = uuid.Refresh(&statement)
+	if err != nil {
+		panic(err)
+	}
+	return statement
 }
 
 func fedrampImplementationStatus(status string) ssp.Annotation {
