@@ -64,7 +64,10 @@ func convertComponent(baseline fedramp.Baseline, component *Component, outputDir
 		Href: baseline.ProfileURL(),
 	}
 	plan.SystemCharacteristics = convertSystemCharacteristics(component)
-	sspComponent := buildSspComponent(component)
+	sspComponent, err := buildSspComponent(component)
+	if err != nil {
+		return err
+	}
 	user := ssp.User{
 		RoleIds: []ssp.RoleId{
 			"generator",
@@ -94,7 +97,7 @@ func convertComponent(baseline fedramp.Baseline, component *Component, outputDir
 	return validate(filePath)
 }
 
-func buildSspComponent(oc *Component) ssp.Component {
+func buildSspComponent(oc *Component) (ssp.Component, error) {
 	component := ssp.Component{
 		ComponentType: "system",
 		Title:         validation_root.ML("This system"),
@@ -102,10 +105,7 @@ func buildSspComponent(oc *Component) ssp.Component {
 		Status:        &ssp.Status{State: "under-development"},
 	}
 	err := uuid.Refresh(&component)
-	if err != nil {
-		panic(err)
-	}
-	return component
+	return component, err
 }
 
 func validate(filePath string) error {
@@ -139,14 +139,18 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 				}
 				continue
 			}
+			stmts, err := convertStatements(ctrl.Id, sat.GetNarratives(), sspComponent)
+			if err != nil {
+				return nil, err
+			}
 			ir := ssp.ImplementedRequirement{
 				ControlId: ctrl.Id,
 				Annotations: []ssp.Annotation{
 					fedrampImplementationStatus(sat.GetImplementationStatus()),
 				},
-				Statements: convertStatements(ctrl.Id, sat.GetNarratives(), sspComponent),
+				Statements: stmts,
 			}
-			err := uuid.Refresh(&ir)
+			err = uuid.Refresh(&ir)
 			if err != nil {
 				return nil, err
 			}
@@ -163,14 +167,18 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 					}
 					continue
 				}
+				stmts, err := convertStatements(subctrl.Id, sat.GetNarratives(), sspComponent)
+				if err != nil {
+					return nil, err
+				}
 				ir := ssp.ImplementedRequirement{
 					ControlId: subctrl.Id,
 					Annotations: []ssp.Annotation{
 						fedrampImplementationStatus(sat.GetImplementationStatus()),
 					},
-					Statements: convertStatements(subctrl.Id, sat.GetNarratives(), sspComponent),
+					Statements: stmts,
 				}
-				err := uuid.Refresh(&ir)
+				err = uuid.Refresh(&ir)
 				if err != nil {
 					return nil, err
 				}
@@ -181,19 +189,24 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 	return &ci, nil
 }
 
-func convertStatements(id string, narratives []common.Section, sspComponent *ssp.Component) []ssp.Statement {
+func convertStatements(id string, narratives []common.Section, sspComponent *ssp.Component) ([]ssp.Statement, error) {
 	var res []ssp.Statement
 	if len(narratives) == 1 {
-		return append(res, newStatement(id, "", narratives[0].GetText(), sspComponent))
+		stmt, err := newStatement(id, "", narratives[0].GetText(), sspComponent)
+		return append(res, *stmt), err
 	}
 
 	for _, narrative := range narratives {
-		res = append(res, newStatement(id, narrative.GetKey(), narrative.GetText(), sspComponent))
+		stmt, err := newStatement(id, narrative.GetKey(), narrative.GetText(), sspComponent)
+		if err != nil {
+			return nil, err
+		}
+		res = append(res, *stmt)
 	}
-	return res
+	return res, nil
 }
 
-func newStatement(controlId, narrativeId, narrative string, sspComponent *ssp.Component) ssp.Statement {
+func newStatement(controlId, narrativeId, narrative string, sspComponent *ssp.Component) (*ssp.Statement, error) {
 	narrativeSuffix := ""
 	if narrativeId != "" {
 		narrativeSuffix = "." + narrativeId
@@ -205,17 +218,14 @@ func newStatement(controlId, narrativeId, narrative string, sspComponent *ssp.Co
 	}
 	err := uuid.Refresh(&byComponent)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	statement := ssp.Statement{
 		StatementId:  fmt.Sprintf("%s_stmt%s", controlId, narrativeSuffix),
 		ByComponents: []ssp.ByComponent{byComponent},
 	}
 	err = uuid.Refresh(&statement)
-	if err != nil {
-		panic(err)
-	}
-	return statement
+	return &statement, err
 }
 
 func fedrampImplementationStatus(status string) ssp.Annotation {
