@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/gocomply/fedramp/pkg/oc2oscal"
+	"github.com/gocomply/oscalkit/pkg/oscal/constants"
 	"github.com/urfave/cli"
 )
 
@@ -25,10 +26,13 @@ var openControl = cli.Command{
 		if c.NArg() != 2 {
 			return cli.NewExitError("Missing masonry repository or output directory", 1)
 		}
+		if constants.NewDocumentFormat(format) == constants.UnknownFormat {
+			return cli.NewExitError("Unrecognized file format: "+format, 1)
+		}
 		return nil
 	},
 	Action: func(c *cli.Context) error {
-		err := oc2oscal.Convert(c.Args()[0], c.Args()[1])
+		err := oc2oscal.Convert(c.Args()[0], c.Args()[1], constants.NewDocumentFormat(format))
 		if err != nil {
 			return cli.NewExitError(err, 1)
 		}

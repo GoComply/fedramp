@@ -16,7 +16,7 @@ import (
 	"github.com/opencontrol/compliance-masonry/pkg/lib/common"
 )
 
-func Convert(repoUri, outputDirectory string) error {
+func Convert(repoUri, outputDirectory string, format constants.DocumentFormat) error {
 	workspace, err := masonry.Open(repoUri)
 	if err != nil {
 		return err
@@ -41,7 +41,7 @@ func Convert(repoUri, outputDirectory string) error {
 			return err
 		}
 		for _, baseline := range fedrampBaselines {
-			err = convertComponent(baseline, controls, outputDirectory)
+			err = convertComponent(baseline, controls, outputDirectory, format)
 			if err != nil {
 				return err
 			}
@@ -50,7 +50,7 @@ func Convert(repoUri, outputDirectory string) error {
 	return nil
 }
 
-func convertComponent(baseline fedramp.Baseline, component *Component, outputDirectory string) error {
+func convertComponent(baseline fedramp.Baseline, component *Component, outputDirectory string, format constants.DocumentFormat) error {
 	plan, err := fedramp.GSATemplate()
 	if err != nil {
 		return err
@@ -89,8 +89,8 @@ func convertComponent(baseline fedramp.Baseline, component *Component, outputDir
 	if err != nil {
 		return err
 	}
-	filePath := outputDirectory + "/" + component.GetKey() + "-fedramp-" + baseline.Level.Name() + ".xml"
-	err = writeSSP(plan, filePath)
+	filePath := outputDirectory + "/" + component.GetKey() + "-fedramp-" + baseline.Level.Name() + "." + format.String()
+	err = writeSSP(plan, filePath, format)
 	if err != nil {
 		return err
 	}
@@ -288,7 +288,7 @@ func staticSystemInformation() *ssp.SystemInformation {
 	return &sysinf
 }
 
-func writeSSP(plan *ssp.SystemSecurityPlan, outputFile string) error {
+func writeSSP(plan *ssp.SystemSecurityPlan, outputFile string, format constants.DocumentFormat) error {
 	destFile, err := os.Create(outputFile)
 	if err != nil {
 		return fmt.Errorf("Error opening output file %s: %s", outputFile, err)
@@ -296,5 +296,5 @@ func writeSSP(plan *ssp.SystemSecurityPlan, outputFile string) error {
 	defer destFile.Close()
 
 	output := oscal.OSCAL{SystemSecurityPlan: plan}
-	return output.XML(destFile, true)
+	return output.Write(destFile, format, true)
 }
