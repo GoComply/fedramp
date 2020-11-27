@@ -4,6 +4,7 @@
 package assessment_results
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -25,4 +26,30 @@ func (mplex *ResultsMultiplexer) UnmarshalJSON(b []byte) error {
 	}
 	(*mplex) = l
 	return nil
+}
+
+func (mplex *ResultsMultiplexer) MarshalJSON() ([]byte, error) {
+	js := bytes.NewBuffer([]byte{'['})
+
+	empty := true
+	for _, v := range *mplex {
+		if !empty {
+			if err := js.WriteByte(','); err != nil {
+				return []byte{}, err
+			}
+		}
+		empty = false
+
+		text, err := json.Marshal(v)
+		if err != nil {
+			return []byte{}, err
+		}
+		if _, err = js.Write(text); err != nil {
+			return []byte{}, err
+		}
+	}
+	if err := js.WriteByte(']'); err != nil {
+		return []byte{}, err
+	}
+	return js.Bytes(), nil
 }

@@ -4,6 +4,7 @@
 package component_definition
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -27,6 +28,32 @@ func (mplex *AnnotationMultiplexer) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+func (mplex *AnnotationMultiplexer) MarshalJSON() ([]byte, error) {
+	js := bytes.NewBuffer([]byte{'['})
+
+	empty := true
+	for _, v := range *mplex {
+		if !empty {
+			if err := js.WriteByte(','); err != nil {
+				return []byte{}, err
+			}
+		}
+		empty = false
+
+		text, err := json.Marshal(v)
+		if err != nil {
+			return []byte{}, err
+		}
+		if _, err = js.Write(text); err != nil {
+			return []byte{}, err
+		}
+	}
+	if err := js.WriteByte(']'); err != nil {
+		return []byte{}, err
+	}
+	return js.Bytes(), nil
+}
+
 type CapabilityMultiplexer []Capability
 
 func (mplex *CapabilityMultiplexer) UnmarshalJSON(b []byte) error {
@@ -42,6 +69,36 @@ func (mplex *CapabilityMultiplexer) UnmarshalJSON(b []byte) error {
 	}
 	(*mplex) = l
 	return nil
+}
+
+func (mplex *CapabilityMultiplexer) MarshalJSON() ([]byte, error) {
+	js := bytes.NewBuffer([]byte{'{'})
+
+	empty := true
+	for _, v := range *mplex {
+		if !empty {
+			if err := js.WriteByte(','); err != nil {
+				return []byte{}, err
+			}
+		}
+		empty = false
+
+		if _, err := js.WriteString("\"" + v.Uuid + "\":"); err != nil {
+			return []byte{}, err
+		}
+
+		text, err := json.Marshal(v)
+		if err != nil {
+			return []byte{}, err
+		}
+		if _, err = js.Write(text); err != nil {
+			return []byte{}, err
+		}
+	}
+	if err := js.WriteByte('}'); err != nil {
+		return []byte{}, err
+	}
+	return js.Bytes(), nil
 }
 
 type ComponentMultiplexer []Component
@@ -61,6 +118,36 @@ func (mplex *ComponentMultiplexer) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+func (mplex *ComponentMultiplexer) MarshalJSON() ([]byte, error) {
+	js := bytes.NewBuffer([]byte{'{'})
+
+	empty := true
+	for _, v := range *mplex {
+		if !empty {
+			if err := js.WriteByte(','); err != nil {
+				return []byte{}, err
+			}
+		}
+		empty = false
+
+		if _, err := js.WriteString("\"" + v.Uuid + "\":"); err != nil {
+			return []byte{}, err
+		}
+
+		text, err := json.Marshal(v)
+		if err != nil {
+			return []byte{}, err
+		}
+		if _, err = js.Write(text); err != nil {
+			return []byte{}, err
+		}
+	}
+	if err := js.WriteByte('}'); err != nil {
+		return []byte{}, err
+	}
+	return js.Bytes(), nil
+}
+
 type StatementMultiplexer []Statement
 
 func (mplex *StatementMultiplexer) UnmarshalJSON(b []byte) error {
@@ -76,4 +163,34 @@ func (mplex *StatementMultiplexer) UnmarshalJSON(b []byte) error {
 	}
 	(*mplex) = l
 	return nil
+}
+
+func (mplex *StatementMultiplexer) MarshalJSON() ([]byte, error) {
+	js := bytes.NewBuffer([]byte{'{'})
+
+	empty := true
+	for _, v := range *mplex {
+		if !empty {
+			if err := js.WriteByte(','); err != nil {
+				return []byte{}, err
+			}
+		}
+		empty = false
+
+		if _, err := js.WriteString("\"" + v.StatementId + "\":"); err != nil {
+			return []byte{}, err
+		}
+
+		text, err := json.Marshal(v)
+		if err != nil {
+			return []byte{}, err
+		}
+		if _, err = js.Write(text); err != nil {
+			return []byte{}, err
+		}
+	}
+	if err := js.WriteByte('}'); err != nil {
+		return []byte{}, err
+	}
+	return js.Bytes(), nil
 }

@@ -1,6 +1,7 @@
 package constants
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -24,6 +25,20 @@ func NewDocumentFormat(format string) DocumentFormat {
 		return YamlFormat
 	}
 	return UnknownFormat
+}
+
+func (f DocumentFormat) String() string {
+	switch f {
+	case XmlFormat:
+		return "xml"
+	case JsonFormat:
+		return "json"
+	case YamlFormat:
+		return "yaml"
+	case UnknownFormat:
+		return "unknown"
+	}
+	return fmt.Sprintf("unrecognized: %d", f)
 }
 
 type DocumentType int

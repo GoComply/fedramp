@@ -14,6 +14,7 @@ func (ir *ImplementedRequirement) SetUuid(uuid string) {
 func (st *Statement) SetUuid(uuid string) {
 	st.Uuid = uuid
 }
+
 func (ssp *SystemSecurityPlan) SetUuid(uuid string) {
 	ssp.Uuid = uuid
 }

@@ -47,6 +47,20 @@ func (m *Markup) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+func (m *Markup) MarshalJSON() ([]byte, error) {
+	plain := m.PlainString()
+	if strings.Contains(plain, "\n") {
+		plain = strings.ReplaceAll(plain, "\n", "\\n")
+	}
+	if strings.Contains(plain, "\t") {
+		plain = strings.ReplaceAll(plain, "\t", "\\t")
+	}
+	if strings.Contains(plain, "\"") {
+		plain = strings.ReplaceAll(plain, "\"", "\\\"")
+	}
+	return []byte("\"" + plain + "\""), nil
+}
+
 func (m *Markup) xmlToPlain() string {
 	re := regexp.MustCompile(`</p>`)
 	s := re.ReplaceAllString(m.Raw, "")

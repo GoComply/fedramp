@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 
@@ -35,7 +36,7 @@ type OSCAL struct {
 	Catalog *catalog.Catalog `json:"catalog,omitempty" yaml:"catalog,omitempty"`
 	// Declarations *Declarations `json:"declarations,omitempty" yaml:"declarations,omitempty"`
 	Profile                         *profile.Profile `json:"profile,omitempty" yaml:"profile,omitempty"`
-	*ssp.SystemSecurityPlan         `xml:"system-security-plan"`
+	*ssp.SystemSecurityPlan         `xml:"system-security-plan" json:"system-security-plan"`
 	*poam.PlanOfActionAndMilestones `xml:"plan-of-action-and-milestones"`
 	*sap.AssessmentPlan             `xml:"assessment-plan"`
 	*sar.AssessmentResults          `xml:"assessment-results"`
@@ -215,6 +216,19 @@ func (o *OSCAL) JSON(w io.Writer, prettify bool) error {
 // YAML writes the OSCAL object as YAML to the given writer
 func (o *OSCAL) YAML(w io.Writer) error {
 	return o.encode(encodeOptions{format: "yaml", writer: w})
+}
+
+// Write marshals OSCAL object as xml, json, or yaml
+func (o *OSCAL) Write(w io.Writer, format constants.DocumentFormat, prettify bool) error {
+	switch format {
+	case constants.XmlFormat:
+		return o.XML(w, prettify)
+	case constants.JsonFormat:
+		return o.JSON(w, prettify)
+	case constants.YamlFormat:
+		return o.YAML(w)
+	}
+	return fmt.Errorf("Unrecognized document format requested: %s", format.String())
 }
 
 type encodeOptions struct {

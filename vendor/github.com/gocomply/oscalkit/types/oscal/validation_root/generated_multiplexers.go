@@ -4,6 +4,7 @@
 package validation_root
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -22,4 +23,34 @@ func (mplex *ResponsiblePartyMultiplexer) UnmarshalJSON(b []byte) error {
 	}
 	(*mplex) = l
 	return nil
+}
+
+func (mplex *ResponsiblePartyMultiplexer) MarshalJSON() ([]byte, error) {
+	js := bytes.NewBuffer([]byte{'{'})
+
+	empty := true
+	for _, v := range *mplex {
+		if !empty {
+			if err := js.WriteByte(','); err != nil {
+				return []byte{}, err
+			}
+		}
+		empty = false
+
+		if _, err := js.WriteString("\"" + v.RoleId + "\":"); err != nil {
+			return []byte{}, err
+		}
+
+		text, err := json.Marshal(v)
+		if err != nil {
+			return []byte{}, err
+		}
+		if _, err = js.Write(text); err != nil {
+			return []byte{}, err
+		}
+	}
+	if err := js.WriteByte('}'); err != nil {
+		return []byte{}, err
+	}
+	return js.Bytes(), nil
 }
