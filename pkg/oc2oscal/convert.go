@@ -42,6 +42,7 @@ func Convert(repoUri, outputDirectory string, format constants.DocumentFormat) e
 			return err
 		}
 		for _, baseline := range fedrampBaselines {
+			log.Debugf("Converting opencontrols for %s to FedRAMP %s", component.GetKey(), baseline.Level.Name())
 			err = convertComponent(baseline, controls, outputDirectory, format)
 			if err != nil {
 				return err
