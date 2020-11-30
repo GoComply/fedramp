@@ -297,5 +297,9 @@ func writeSSP(plan *ssp.SystemSecurityPlan, outputFile string, format constants.
 	defer destFile.Close()
 
 	output := oscal.OSCAL{SystemSecurityPlan: plan}
-	return output.Write(destFile, format, true)
+	err = output.Write(destFile, format, true)
+	if err != nil {
+		return fmt.Errorf("Cannot write %s: %s", outputFile, err)
+	}
+	return nil
 }
