@@ -225,7 +225,8 @@ func newStatement(controlId, narrativeId, narrative string, sspComponent *ssp.Co
 	}
 	err := uuid.Refresh(&byComponent)
 	if err != nil {
-		return nil, err
+		log.Debugf("Narrative for %s_stmt%s was: '''%s'''", controlId, narrativeSuffix, narrative)
+		return nil, fmt.Errorf("Cannot convert %s_stmt%s to OSCAL: %s", controlId, narrativeSuffix, err)
 	}
 	statement := ssp.Statement{
 		StatementId:  fmt.Sprintf("%s_stmt%s", controlId, narrativeSuffix),
