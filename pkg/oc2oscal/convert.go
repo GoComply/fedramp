@@ -14,6 +14,7 @@ import (
 	ssp "github.com/gocomply/oscalkit/types/oscal/system_security_plan"
 	"github.com/gocomply/oscalkit/types/oscal/validation_root"
 	"github.com/opencontrol/compliance-masonry/pkg/lib/common"
+	log "github.com/sirupsen/logrus"
 )
 
 func Convert(repoUri, outputDirectory string, format constants.DocumentFormat) error {
@@ -135,7 +136,7 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 			sat := component.GetSatisfy(ctrl.Id)
 			if sat == nil {
 				if baseline.Level.Name() == "High" {
-					fmt.Printf("Did not found control response for %s in %s\n", ctrl.Id, component.GetKey())
+					log.Warnf("Did not found control response for %s in %s\n", ctrl.Id, component.GetKey())
 				}
 				continue
 			}
@@ -163,7 +164,7 @@ func convertControlImplementation(baseline fedramp.Baseline, component *Componen
 				sat = component.GetSatisfy(subctrl.Id)
 				if sat == nil {
 					if baseline.Level.Name() == "High" {
-						fmt.Printf("Did not found control response for %s in %s\n", subctrl.Id, component.GetKey())
+						log.Warnf("Did not found control response for %s in %s\n", subctrl.Id, component.GetKey())
 					}
 					continue
 				}
