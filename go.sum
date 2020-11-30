@@ -19,8 +19,8 @@ github.com/fsnotify/fsnotify v1.4.9 h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWo
 github.com/fsnotify/fsnotify v1.4.9/go.mod h1:znqG4EE+3YCdAaPaxE2ZRY/06pZUdp0tY4IgpuI1SZQ=
 github.com/gobuffalo/here v0.6.0 h1:hYrd0a6gDmWxBM4TnrGw8mQg24iSVoIkHEk7FodQcBI=
 github.com/gobuffalo/here v0.6.0/go.mod h1:wAG085dHOYqUpf+Ap+WOdrPTp5IYcDAs/x7PLa8Y5fM=
-github.com/gocomply/oscalkit v0.3.4-0.20201124133259-df9dc68b5071 h1:zdolNR+rFX4M8btL8iKwOlBIiya1j4euyEQdZU6033k=
-github.com/gocomply/oscalkit v0.3.4-0.20201124133259-df9dc68b5071/go.mod h1:1bejebA/OylesMKR6l08sgAZDdSSBtv/BhL6XmDxB94=
+github.com/gocomply/oscalkit v0.3.4 h1:3UpZG4ErYnAniuIZ+xvuh/W5tgs5cqi2APyOcqzbqq8=
+github.com/gocomply/oscalkit v0.3.4/go.mod h1:CqXSh1VcwukF5p7hQ4SSgd0/HnVAPmOCxF0slwbnhFc=
 github.com/golang/protobuf v1.2.0 h1:P3YflyNX/ehuJFLhxviNdFxQPkGK5cDcApsge1SqnvM=
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/golang/protobuf v1.4.0-rc.1/go.mod h1:ceaxUfeHdC40wWswd/P6IGgMaK3YpKi5j83Wpe3EHw8=
