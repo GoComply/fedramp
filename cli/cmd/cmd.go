@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/gocomply/fedramp/pkg/templater"
+	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 	"os"
 )
@@ -11,6 +12,19 @@ func Execute() error {
 	app := cli.NewApp()
 	app.Name = "gocomply_fedramp"
 	app.Usage = "OSCAL-FedRAMP Workbench"
+	app.Flags = []cli.Flag{
+		cli.BoolFlag{
+			Name:  "debug, d",
+			Usage: "enable debug command output",
+		},
+	}
+	app.Before = func(c *cli.Context) error {
+		if c.Bool("debug") {
+			logrus.SetLevel(logrus.DebugLevel)
+		}
+
+		return nil
+	}
 	app.Commands = []cli.Command{
 		convert,
 		openControl,
