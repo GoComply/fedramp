@@ -40,7 +40,7 @@ func (mplex *ObjectiveMultiplexer) MarshalJSON() ([]byte, error) {
 		}
 		empty = false
 
-		text, err := json.Marshal(v)
+		text, err := json.Marshal(&v)
 		if err != nil {
 			return []byte{}, err
 		}

@@ -13,15 +13,15 @@ import (
 type AssessmentCommon struct {
 
 	// Used by the assessment plan and POA&M to import information about the system.
-	ImportSsp *ImportSsp `xml:"import-ssp,omitempty" json:"importSsp,omitempty"`
+	ImportSsp *ImportSsp `xml:"import-ssp,omitempty" json:"import-ssp,omitempty"`
 	// Used by assessment-results to import information about the original plan for assessing the system.
-	ImportAp *ImportAp `xml:"import-ap,omitempty" json:"importAp,omitempty"`
+	ImportAp *ImportAp `xml:"import-ap,omitempty" json:"import-ap,omitempty"`
 	// Identifies the controls and control being assessed and their control objectives. In the assessment plans, these are the planned controls and objectives. In the assessment results, these are the actual controls and objectives, and reflects any changes from the plan.
 	Objectives *Objectives `xml:"objectives,omitempty" json:"objectives,omitempty"`
 	// Identifies the assets used to perform this assessment, such as the assessment team, scanning tools, and assumptions.
 	Assets *Assets `xml:"assets,omitempty" json:"assets,omitempty"`
 	// Identifies the assessment activities and schedule. In the assessment plan, these are planned activities. In the assessment results, these are the actual activities performed.
-	AssessmentActivities *AssessmentActivities `xml:"assessment-activities,omitempty" json:"assessmentActivities,omitempty"`
+	AssessmentActivities *AssessmentActivities `xml:"assessment-activities,omitempty" json:"assessment-activities,omitempty"`
 	// Used by the assessment results and POA&M. In the assessment results, this identifies all of the assessment observations and findings, initial and residual risks, deviations, and disposition. In the POA&M, this identifies initial and residual risks, deviations, and disposition.
 	Results *Results `xml:"results,omitempty" json:"results,omitempty"`
 }
@@ -434,7 +434,7 @@ type Finding struct {
 	// Date/time identifying when the finding information is out-of-date and no longer valid. Typically used with continuous assessment scenarios.
 	Expires Expires `xml:"expires,omitempty" json:"expires,omitempty"`
 	// Captures an assessors conclusions as to whether an objective is fully satisfied.
-	ObjectiveStatus *ObjectiveStatus `xml:"objective-status,omitempty" json:"objectiveStatus,omitempty"`
+	ObjectiveStatus *ObjectiveStatus `xml:"objective-status,omitempty" json:"objective-status,omitempty"`
 	// Identifies the implementation statement in the SSP to which this finding is related.
 	ImplementationStatementUuid ImplementationStatementUuid `xml:"implementation-statement-uuid,omitempty" json:"implementation-statement-uuid,omitempty"`
 	// Describes an individual observation.
@@ -544,7 +544,7 @@ type Risk struct {
 	// Describes the actions taken that resulted in the closure of the identified risk.
 	ClosureActions *ClosureActions `xml:"closure-actions,omitempty" json:"closure-actions,omitempty"`
 	// A log of events and actions taken towards the remediation of the associated risk.
-	RemediationTracking *RemediationTracking `xml:"remediation-tracking,omitempty" json:"remediationTracking,omitempty"`
+	RemediationTracking *RemediationTracking `xml:"remediation-tracking,omitempty" json:"remediation-tracking,omitempty"`
 	// References a  defined in .
 	PartyUuids []PartyUuid `xml:"party-uuid,omitempty" json:"party-uuids,omitempty"`
 }

@@ -25,7 +25,7 @@ type Profile struct {
 	// Set parameters or amend controls in resolution
 	Modify *Modify `xml:"modify,omitempty" json:"modify,omitempty"`
 	// A collection of citations and resource references.
-	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"backMatter,omitempty"`
+	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"back-matter,omitempty"`
 }
 
 // An Import element designates a catalog, profile, or other resource to be

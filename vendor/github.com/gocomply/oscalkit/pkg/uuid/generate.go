@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/sha1"
 	"encoding/json"
+	"fmt"
 	"github.com/google/uuid"
 )
 
@@ -20,7 +21,7 @@ func Refresh(element Uuindexable) error {
 	element.SetUuid("")
 	signature, err := marshal(element)
 	if err != nil {
-		return err
+		return fmt.Errorf("Cannot re-calculate UUID for %v: %s", element, err)
 	}
 	id := uuid.NewHash(sha1.New(), uuid.Nil, signature, 4)
 	element.SetUuid(id.String())

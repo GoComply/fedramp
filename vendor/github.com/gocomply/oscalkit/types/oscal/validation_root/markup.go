@@ -49,6 +49,9 @@ func (m *Markup) UnmarshalJSON(b []byte) error {
 
 func (m *Markup) MarshalJSON() ([]byte, error) {
 	plain := m.PlainString()
+	if strings.Contains(plain, "\\") {
+		plain = strings.ReplaceAll(plain, "\\", "\\\\")
+	}
 	if strings.Contains(plain, "\n") {
 		plain = strings.ReplaceAll(plain, "\n", "\\n")
 	}

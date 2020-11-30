@@ -19,7 +19,7 @@ type ComponentDefinition struct {
 	// A grouping of other components and/or capabilities.
 	Capabilities CapabilityMultiplexer `xml:"capability,omitempty" json:"capabilities,omitempty"`
 	// A collection of citations and resource references.
-	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"backMatter,omitempty"`
+	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"back-matter,omitempty"`
 }
 
 // A defined component that can be part of an implemented system.

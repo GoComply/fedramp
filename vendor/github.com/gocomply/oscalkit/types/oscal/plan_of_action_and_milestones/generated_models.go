@@ -18,15 +18,15 @@ type PlanOfActionAndMilestones struct {
 	// Provides information about the publication and availability of the containing document.
 	Metadata *Metadata `xml:"metadata,omitempty" json:"metadata,omitempty"`
 	// Used by the POA&M to import information about the system.
-	ImportSsp *ImportSsp `xml:"import-ssp,omitempty" json:"importSsp,omitempty"`
+	ImportSsp *ImportSsp `xml:"import-ssp,omitempty" json:"import-ssp,omitempty"`
 	// A unique identifier for the system described by this system security plan.
 	SystemId *SystemId `xml:"system-id,omitempty" json:"system-id,omitempty"`
 	// Allows components, and inventory-items to be defined within the POA&M for circumstances where no OSCAL-based SSP exists, or is not delivered with the POA&M.
-	LocalDefinitions *LocalDefinitions `xml:"local-definitions,omitempty" json:"localDefinitions,omitempty"`
+	LocalDefinitions *LocalDefinitions `xml:"local-definitions,omitempty" json:"local-definitions,omitempty"`
 	// This identifies initial and residual risks, deviations, and disposition.
-	PoamItems *PoamItems `xml:"poam-items,omitempty" json:"poamItems,omitempty"`
+	PoamItems *PoamItems `xml:"poam-items,omitempty" json:"poam-items,omitempty"`
 	// A collection of citations and resource references.
-	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"backMatter,omitempty"`
+	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"back-matter,omitempty"`
 }
 
 // Allows components, and inventory-items to be defined within the POA&M for circumstances where no OSCAL-based SSP exists, or is not delivered with the POA&M.
@@ -80,7 +80,7 @@ type PoamItem struct {
 	// Date/time identifying when the finding information is out-of-date and no longer valid. Typically used with continuous assessment scenarios.
 	Expires Expires `xml:"expires,omitempty" json:"expires,omitempty"`
 	// Captures an assessors conclusions as to whether an objective is fully satisfied.
-	ObjectiveStatus *ObjectiveStatus `xml:"objective-status,omitempty" json:"objectiveStatus,omitempty"`
+	ObjectiveStatus *ObjectiveStatus `xml:"objective-status,omitempty" json:"objective-status,omitempty"`
 	// Identifies the implementation statement in the SSP to which this finding is related.
 	ImplementationStatementUuid ImplementationStatementUuid `xml:"implementation-statement-uuid,omitempty" json:"implementation-statement-uuid,omitempty"`
 	// Describes an individual observation.

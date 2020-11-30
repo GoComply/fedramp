@@ -8,7 +8,7 @@ github.com/cpuguy83/go-md2man/v2/md2man
 github.com/fatih/set
 # github.com/gobuffalo/here v0.6.0
 github.com/gobuffalo/here
-# github.com/gocomply/oscalkit v0.3.4-0.20201124133259-df9dc68b5071
+# github.com/gocomply/oscalkit v0.3.4
 github.com/gocomply/oscalkit/pkg/bundled
 github.com/gocomply/oscalkit/pkg/json_validation
 github.com/gocomply/oscalkit/pkg/oscal/constants
@@ -78,9 +78,15 @@ github.com/santhosh-tekuri/jsonschema/loader
 github.com/santhosh-tekuri/jsonschema/mediatypes
 # github.com/shurcooL/sanitized_anchor_name v1.0.0
 github.com/shurcooL/sanitized_anchor_name
+# github.com/sirupsen/logrus v1.7.0
+github.com/sirupsen/logrus
 # github.com/urfave/cli v1.22.5
 github.com/urfave/cli
-# gopkg.in/yaml.v2 v2.3.1-0.20200602174213-b893565b90ca
+# golang.org/x/sys v0.0.0-20200824131525-c12d262b63d8
+golang.org/x/sys/internal/unsafeheader
+golang.org/x/sys/unix
+golang.org/x/sys/windows
+# gopkg.in/yaml.v2 v2.4.0
 gopkg.in/yaml.v2
 # vbom.ml/util v0.0.0-20180919145318-efcd4e0f9787
 vbom.ml/util/sortorder

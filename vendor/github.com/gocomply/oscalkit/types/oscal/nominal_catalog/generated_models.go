@@ -88,14 +88,14 @@ type Label = Markup
 type Usage struct {
 	// Unique identifier of the containing object
 	Id      string `xml:"id,attr,omitempty" json:"id,omitempty"`
-	Summary string `xml:",chardata" json:"summary,omitempty"`
+	Summary string `xml:",chardata" json:"summary"`
 }
 
 // A formal or informal expression of a constraint or test
 type Constraint struct {
 	// A formal (executable) expression of a constraint
 	Test   string `xml:"test,attr,omitempty" json:"test,omitempty"`
-	Detail string `xml:",chardata" json:"detail,omitempty"`
+	Detail string `xml:",chardata" json:"detail"`
 }
 
 // Indicates a permissible value for a parameter or property

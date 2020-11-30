@@ -24,7 +24,7 @@ type Catalog struct {
 	// A group of controls, or of groups of controls.
 	Groups []Group `xml:"group,omitempty" json:"groups,omitempty"`
 	// Back matter including references and resources.
-	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"backMatter,omitempty"`
+	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"back-matter,omitempty"`
 }
 
 // A group of controls, or of groups of controls.

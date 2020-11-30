@@ -9,7 +9,7 @@ type VALIDATIONRoot struct {
 	// Provides information about the publication and availability of the containing document.
 	Metadata *Metadata `xml:"metadata,omitempty" json:"metadata,omitempty"`
 	// A collection of citations and resource references.
-	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"backMatter,omitempty"`
+	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"back-matter,omitempty"`
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// Additional commentary on the parent item.
@@ -278,7 +278,7 @@ type Link struct {
 
 	// Describes the media type of the linked resource
 	MediaType string `xml:"media-type,attr,omitempty" json:"media-type,omitempty"`
-	Text      string `xml:",chardata" json:"text,omitempty"`
+	Text      string `xml:",chardata" json:"text"`
 }
 
 // The date and time this document was published.
@@ -301,7 +301,7 @@ type OscalVersion string
 type DocId struct {
 	// Qualifies the kind of document identifier.
 	Type       string `xml:"type,attr,omitempty" json:"type,omitempty"`
-	Identifier string `xml:",chardata" json:"identifier,omitempty"`
+	Identifier string `xml:",chardata" json:"identifier"`
 }
 
 // A value with a name, attributed to the containing control, part, or group.
@@ -317,7 +317,7 @@ type Prop struct {
 
 	// Indicating the type or classification of the containing object
 	Class string `xml:"class,attr,omitempty" json:"class,omitempty"`
-	Value string `xml:",chardata" json:"value,omitempty"`
+	Value string `xml:",chardata" json:"value"`
 }
 
 // References a  defined in .
@@ -332,7 +332,7 @@ type PartyUuid string
 type ExternalId struct {
 	// Indicating the type of identifier, address, email or other data item.
 	Type string `xml:"type,attr,omitempty" json:"type,omitempty"`
-	Id   string `xml:",chardata" json:"id,omitempty"`
+	Id   string `xml:",chardata" json:"id"`
 }
 
 // Identifies that the containing object is a member of the organization associated with the provided UUID.
@@ -375,7 +375,7 @@ type Email string
 type Phone struct {
 	// Indicates the type of phone number.
 	Type   string `xml:"type,attr,omitempty" json:"type,omitempty"`
-	Number string `xml:",chardata" json:"number,omitempty"`
+	Number string `xml:",chardata" json:"number"`
 }
 
 // URL for web site or Internet presence
@@ -393,7 +393,7 @@ type Text = Markup
 type Hash struct {
 	// Method by which a hash is derived
 	Algorithm string `xml:"algorithm,attr,omitempty" json:"algorithm,omitempty"`
-	Value     string `xml:",chardata" json:"value,omitempty"`
+	Value     string `xml:",chardata" json:"value"`
 }
 
 // A title for display and navigation
@@ -406,7 +406,7 @@ type Base64 struct {
 
 	// Describes the media type of the linked resource
 	MediaType string `xml:"media-type,attr,omitempty" json:"media-type,omitempty"`
-	Value     string `xml:",chardata" json:"value,omitempty"`
+	Value     string `xml:",chardata" json:"value"`
 }
 
 // A description supporting the parent item.

@@ -18,15 +18,15 @@ type SystemSecurityPlan struct {
 	// Provides information about the publication and availability of the containing document.
 	Metadata *Metadata `xml:"metadata,omitempty" json:"metadata,omitempty"`
 	// Used to import the OSCAL profile representing the system's control baseline.
-	ImportProfile *ImportProfile `xml:"import-profile,omitempty" json:"importProfile,omitempty"`
+	ImportProfile *ImportProfile `xml:"import-profile,omitempty" json:"import-profile,omitempty"`
 	// Contains the characteristics of the system, such as its name, purpose, and security impact level.
-	SystemCharacteristics *SystemCharacteristics `xml:"system-characteristics,omitempty" json:"systemCharacteristics,omitempty"`
+	SystemCharacteristics *SystemCharacteristics `xml:"system-characteristics,omitempty" json:"system-characteristics,omitempty"`
 	// Provides information as to how the system is implemented.
-	SystemImplementation *SystemImplementation `xml:"system-implementation,omitempty" json:"systemImplementation,omitempty"`
+	SystemImplementation *SystemImplementation `xml:"system-implementation,omitempty" json:"system-implementation,omitempty"`
 	// Describes how the system satisfies a set of controls.
-	ControlImplementation *ControlImplementation `xml:"control-implementation,omitempty" json:"controlImplementation,omitempty"`
+	ControlImplementation *ControlImplementation `xml:"control-implementation,omitempty" json:"control-implementation,omitempty"`
 	// A collection of citations and resource references.
-	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"backMatter,omitempty"`
+	BackMatter *BackMatter `xml:"back-matter,omitempty" json:"back-matter,omitempty"`
 }
 
 // Used to import the OSCAL profile representing the system's control baseline.
@@ -61,17 +61,17 @@ type SystemCharacteristics struct {
 	// The overall information system sensitivity categorization, such as defined by .
 	SecuritySensitivityLevel SecuritySensitivityLevel `xml:"security-sensitivity-level,omitempty" json:"security-sensitivity-level,omitempty"`
 	// Contains details about all information types that are stored, processed, or transmitted by the system, such as privacy information, and those defined in .
-	SystemInformation *SystemInformation `xml:"system-information,omitempty" json:"systemInformation,omitempty"`
+	SystemInformation *SystemInformation `xml:"system-information,omitempty" json:"system-information,omitempty"`
 	// The overall level of expected impact resulting from unauthorized disclosure, modification, or loss of access to information.
-	SecurityImpactLevel *SecurityImpactLevel `xml:"security-impact-level,omitempty" json:"securityImpactLevel,omitempty"`
+	SecurityImpactLevel *SecurityImpactLevel `xml:"security-impact-level,omitempty" json:"security-impact-level,omitempty"`
 	// Describes the operational status of the system.
 	Status *Status `xml:"status,omitempty" json:"status,omitempty"`
 	// A description of this system's authorization boundary, optionally supplemented by diagrams that illustrate the authorization boundary.
-	AuthorizationBoundary *AuthorizationBoundary `xml:"authorization-boundary,omitempty" json:"authorizationBoundary,omitempty"`
+	AuthorizationBoundary *AuthorizationBoundary `xml:"authorization-boundary,omitempty" json:"authorization-boundary,omitempty"`
 	// A description of the system's network architecture, optionally supplemented by diagrams that illustrate the network architecture.
-	NetworkArchitecture *NetworkArchitecture `xml:"network-architecture,omitempty" json:"networkArchitecture,omitempty"`
+	NetworkArchitecture *NetworkArchitecture `xml:"network-architecture,omitempty" json:"network-architecture,omitempty"`
 	// A description of the logical flow of information within the system and across its boundaries, optionally supplemented by diagrams that illustrate these flows.
-	DataFlow *DataFlow `xml:"data-flow,omitempty" json:"dataFlow,omitempty"`
+	DataFlow *DataFlow `xml:"data-flow,omitempty" json:"data-flow,omitempty"`
 	// A reference to a set of organizations or persons that have responsibility for performing a referenced role relative to the parent context.
 	ResponsibleParties ResponsiblePartyMultiplexer `xml:"responsible-party,omitempty" json:"responsible-parties,omitempty"`
 	// Additional commentary on the parent item.
@@ -102,15 +102,15 @@ type InformationType struct {
 	// A description supporting the parent item.
 	Description *Description `xml:"description,omitempty" json:"description,omitempty"`
 	// An identifier qualified by the given identification  used, such as NIST SP 800-60.
-	InformationTypeIds []InformationTypeId `xml:"information-type-id,omitempty" json:"information-type-ids,omitempty"`
+	InformationTypeIds InformationTypeIdMultiplexer `xml:"information-type-id,omitempty" json:"information-type-ids,omitempty"`
 	// A value with a name, attributed to the containing control, part, or group.
 	Properties []Prop `xml:"prop,omitempty" json:"properties,omitempty"`
 	// The expected level of impact resulting from the unauthorized disclosure of information.
-	ConfidentialityImpact *ConfidentialityImpact `xml:"confidentiality-impact,omitempty" json:"confidentialityImpact,omitempty"`
+	ConfidentialityImpact *ConfidentialityImpact `xml:"confidentiality-impact,omitempty" json:"confidentiality-impact,omitempty"`
 	// The expected level of impact resulting from the unauthorized modification of information.
-	IntegrityImpact *IntegrityImpact `xml:"integrity-impact,omitempty" json:"integrityImpact,omitempty"`
+	IntegrityImpact *IntegrityImpact `xml:"integrity-impact,omitempty" json:"integrity-impact,omitempty"`
 	// The expected level of impact resulting from the disruption of access to or use of information or the information system.
-	AvailabilityImpact *AvailabilityImpact `xml:"availability-impact,omitempty" json:"availabilityImpact,omitempty"`
+	AvailabilityImpact *AvailabilityImpact `xml:"availability-impact,omitempty" json:"availability-impact,omitempty"`
 }
 
 // The expected level of impact resulting from the unauthorized disclosure of information.
@@ -280,7 +280,7 @@ type SystemImplementation struct {
 	// A defined component that can be part of an implemented system.
 	Components ComponentMultiplexer `xml:"component,omitempty" json:"components,omitempty"`
 	// A set of  entries that represent the managed inventory instances of the system.
-	SystemInventory *SystemInventory `xml:"system-inventory,omitempty" json:"systemInventory,omitempty"`
+	SystemInventory *SystemInventory `xml:"system-inventory,omitempty" json:"system-inventory,omitempty"`
 	// Additional commentary on the parent item.
 	Remarks *Remarks `xml:"remarks,omitempty" json:"remarks,omitempty"`
 }
@@ -613,7 +613,7 @@ type Satisfied struct {
 type SystemId struct {
 	// Identifies the identification system from which the provided identifier was assigned.
 	IdentifierType string `xml:"identifier-type,attr,omitempty" json:"identifier-type,omitempty"`
-	Id             string `xml:",chardata" json:"id,omitempty"`
+	Id             string `xml:",chardata" json:"id"`
 }
 
 // The full name of the system.
@@ -632,7 +632,7 @@ type SecuritySensitivityLevel string
 type InformationTypeId struct {
 	// Specifies the information type identification system used.
 	System string `xml:"system,attr,omitempty" json:"system,omitempty"`
-	Id     string `xml:",chardata" json:"id,omitempty"`
+	Id     string `xml:",chardata" json:"id"`
 }
 
 // The prescribed base (Confidentiality, Integrity, or Availability) security impact level.
