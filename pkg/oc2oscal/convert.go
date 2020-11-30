@@ -112,10 +112,15 @@ func buildSspComponent(oc *Component) (ssp.Component, error) {
 func validate(filePath string) error {
 	os, err := oscal_source.Open(filePath)
 	if err != nil {
-		return err
+		return fmt.Errorf("Cannot read %s for validation: %s", filePath, err)
 	}
 	defer os.Close()
-	return os.Validate()
+	err = os.Validate()
+	if err != nil {
+		return fmt.Errorf("Cannot validate %s: %s", filePath, err)
+	}
+	log.Debugf("Exported file has validated successfully: %s", filePath)
+	return err
 }
 
 func convertControlImplementation(baseline fedramp.Baseline, component *Component, sspComponent *ssp.Component) (*ssp.ControlImplementation, error) {
