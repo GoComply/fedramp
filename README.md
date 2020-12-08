@@ -12,7 +12,23 @@ This is open source tool that manipulates official FedRAMP assets. Everyone is w
 ## Developer Resources
  - [Guide to OSCAL-based FedRAMP](https://github.com/GSA/fedramp-automation/raw/master/documents/FedRAMP_OSCAL_Vendor_Resources.pdf)
 
-## Exemplary usage
+## Exemplary usage - inside of container
+
+Easiest way to reap the fruits of the GoComply/fedramp tool is to use ready made GoComply container. For instance, following command can be issued to generate OSCAL formatted FedRAMP SSPs within a container
+
+```
+podman run \
+  --rm -t --security-opt label=disable \
+  -v $(pwd):/shared-dir \
+  quay.io/gocomply/gocomply sh -c "\
+      cd /shared-dir && \
+      gocomply_fedramp opencontrol https://github.com/ComplianceAsCode/redhat oscal.xml/"
+  find oscal.xml/ -type f
+  ```
+  
+  And by the way, results of this particular command can be reviewed online under [ComplianceAsCode/oscal](https://github.com/ComplianceAsCode/oscal) project.
+
+## Exemplary usage - outside of container
 
 Build project (install golang as prerequisite)
 
