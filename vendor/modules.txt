@@ -37,6 +37,9 @@ github.com/jbowtie/gokogiri/html
 github.com/jbowtie/gokogiri/util
 github.com/jbowtie/gokogiri/xml
 github.com/jbowtie/gokogiri/xpath
+# github.com/magefile/mage v1.10.0
+github.com/magefile/mage/mg
+github.com/magefile/mage/sh
 # github.com/markbates/pkger v0.17.1
 github.com/markbates/pkger
 github.com/markbates/pkger/here
@@ -78,7 +81,7 @@ github.com/santhosh-tekuri/jsonschema/loader
 github.com/santhosh-tekuri/jsonschema/mediatypes
 # github.com/shurcooL/sanitized_anchor_name v1.0.0
 github.com/shurcooL/sanitized_anchor_name
-# github.com/sirupsen/logrus v1.7.0
+# github.com/sirupsen/logrus v1.8.0
 github.com/sirupsen/logrus
 # github.com/urfave/cli v1.22.5
 github.com/urfave/cli
