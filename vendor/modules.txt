@@ -80,7 +80,7 @@ github.com/santhosh-tekuri/jsonschema/mediatypes
 github.com/shurcooL/sanitized_anchor_name
 # github.com/sirupsen/logrus v1.7.0
 github.com/sirupsen/logrus
-# github.com/urfave/cli v1.22.5
+# github.com/urfave/cli v1.22.6
 github.com/urfave/cli
 # golang.org/x/sys v0.0.0-20200824131525-c12d262b63d8
 golang.org/x/sys/internal/unsafeheader
