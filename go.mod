@@ -10,5 +10,5 @@ require (
 	github.com/opencontrol/compliance-masonry v1.1.7-0.20200827173050-70bb3370161e
 	github.com/opencontrol/doc-template v0.0.0-20190718133209-dc8b9ba59eec
 	github.com/sirupsen/logrus v1.9.0
-	github.com/urfave/cli v1.22.11
+	github.com/urfave/cli v1.22.12
 )
