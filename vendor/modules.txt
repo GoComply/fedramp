@@ -2,7 +2,7 @@
 github.com/Masterminds/vcs
 # github.com/blang/semver v2.2.0+incompatible
 github.com/blang/semver
-# github.com/cpuguy83/go-md2man/v2 v2.0.2
+# github.com/cpuguy83/go-md2man/v2 v2.0.4
 github.com/cpuguy83/go-md2man/v2/md2man
 # github.com/fatih/set v0.2.1
 github.com/fatih/set
@@ -78,7 +78,7 @@ github.com/santhosh-tekuri/jsonschema/loader
 github.com/santhosh-tekuri/jsonschema/mediatypes
 # github.com/sirupsen/logrus v1.9.3
 github.com/sirupsen/logrus
-# github.com/urfave/cli v1.22.14
+# github.com/urfave/cli v1.22.15
 github.com/urfave/cli
 # golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8
 golang.org/x/sys/internal/unsafeheader
