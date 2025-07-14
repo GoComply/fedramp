@@ -1,0 +1,81 @@
+# Production Dockerfile for FedRAMP R5 Balance & 20x Server
+
+# Build stage
+FROM golang:1.21-alpine AS builder
+
+# Install build dependencies
+RUN apk add --no-cache git make gcc musl-dev
+
+# Set working directory
+WORKDIR /build
+
+# Copy go mod files
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Build the binary with optimizations
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
+    -ldflags="-w -s -X main.Version=$(git describe --tags --always) -X main.BuildTime=$(date -u +%Y%m%d.%H%M%S)" \
+    -a -installsuffix cgo \
+    -o fedramp-server \
+    cmd/server/main.go
+
+# Runtime stage
+FROM alpine:3.19
+
+# Install runtime dependencies
+RUN apk --no-cache add ca-certificates tzdata curl
+
+# Create non-root user
+RUN addgroup -g 1000 -S fedramp && \
+    adduser -u 1000 -S fedramp -G fedramp
+
+# Set working directory
+WORKDIR /app
+
+# Copy binary from builder
+COPY --from=builder /build/fedramp-server /app/
+COPY --from=builder /build/web /app/web
+COPY --from=builder /build/bundled /app/bundled
+
+# Create necessary directories
+RUN mkdir -p /app/logs /app/uploads /app/temp && \
+    chown -R fedramp:fedramp /app
+
+# Security: Set file permissions
+RUN chmod 755 /app/fedramp-server && \
+    chmod -R 644 /app/web/* && \
+    find /app/web -type d -exec chmod 755 {} \;
+
+# Switch to non-root user
+USER fedramp
+
+# Expose ports
+EXPOSE 8080 9090
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8080/api/v1/health || exit 1
+
+# Set environment defaults
+ENV SERVER_PORT=8080 \
+    SERVER_HOST=0.0.0.0 \
+    LOG_LEVEL=info \
+    LOG_FORMAT=json \
+    ENABLE_METRICS=true \
+    METRICS_PORT=9090
+
+# Add labels for metadata
+LABEL maintainer="your-email@domain.com" \
+      version="1.0.0" \
+      description="FedRAMP R5 Balance & 20x API Server" \
+      org.opencontainers.image.source="https://github.com/yflop/fedramp"
+
+# Run the server
+ENTRYPOINT ["/app/fedramp-server"]
+CMD ["serve"] 

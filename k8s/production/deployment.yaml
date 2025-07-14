@@ -1,0 +1,204 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fedramp-api
+  namespace: fedramp-prod
+  labels:
+    app: fedramp-api
+    version: v1.0.0
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fedramp-api
+  template:
+    metadata:
+      labels:
+        app: fedramp-api
+        version: v1.0.0
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: fedramp-api
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+      - name: fedramp-api
+        image: your-registry.com/fedramp-server:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
+        env:
+        - name: ENV
+          value: "production"
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: fedramp-db-secret
+              key: host
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: fedramp-db-secret
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fedramp-db-secret
+              key: password
+        - name: DB_NAME
+          value: "fedramp_prod"
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: fedramp-config
+              key: redis.host
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fedramp-redis-secret
+              key: password
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: fedramp-auth-secret
+              key: jwt-secret
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "2000m"
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: logs
+          mountPath: /app/logs
+        - name: uploads
+          mountPath: /app/uploads
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+      volumes:
+      - name: logs
+        emptyDir: {}
+      - name: uploads
+        persistentVolumeClaim:
+          claimName: fedramp-uploads-pvc
+      nodeSelector:
+        workload: api
+      tolerations:
+      - key: "workload"
+        operator: "Equal"
+        value: "api"
+        effect: "NoSchedule"
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - fedramp-api
+              topologyKey: kubernetes.io/hostname
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fedramp-api
+  namespace: fedramp-prod
+  labels:
+    app: fedramp-api
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+    protocol: TCP
+  - name: metrics
+    port: 9090
+    targetPort: metrics
+    protocol: TCP
+  selector:
+    app: fedramp-api
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: fedramp-api-hpa
+  namespace: fedramp-prod
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: fedramp-api
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 10
+        periodSeconds: 60
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: fedramp-api-pdb
+  namespace: fedramp-prod
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: fedramp-api 

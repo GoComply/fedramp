@@ -28,6 +28,11 @@ func Execute() error {
 	app.Commands = []cli.Command{
 		convert,
 		openControl,
+		scnCommand,
+		ksiCommand,
+		masCommand,
+		ssadCommand,
+		FRMR(),
 	}
 
 	return app.Run(os.Args)

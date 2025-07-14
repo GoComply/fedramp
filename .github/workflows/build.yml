@@ -11,13 +11,13 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        go-version: [1.13.x, 1.14.x]
+        go-version: [1.19.x, 1.20.x]
 
     runs-on: ${{ matrix.os }}
     steps:
 
     - name: Set up Go ${{ matrix.go-version }}
-      uses: actions/setup-go@v1
+      uses: actions/setup-go@v4
       with:
         go-version: ${{ matrix.go-version }}
       id: go
@@ -28,10 +28,13 @@ jobs:
     - name: Get Go dependencies
       run: go get -v -t -d ./...
 
-    - name: Build
+    - name: Install pkger
       run: |
-        export PATH=~/go/bin:$PATH
-        make build
+        go install -v github.com/markbates/pkger/cmd/pkger@v0.17.1
+        echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+
+    - name: Build
+      run: make build
 
     - name: Unit tests
       run: go test ./...

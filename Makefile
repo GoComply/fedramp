@@ -1,5 +1,6 @@
 GO=GO111MODULE=on go
 GOBUILD=$(GO) build
+PKGER_BIN := $(shell command -v pkger 2> /dev/null)
 
 all: build
 
@@ -7,12 +8,16 @@ build: bundled/pkged.go
 	$(GOBUILD) ./cli/gocomply_fedramp
 
 bundled/pkged.go: pkger README.md
-	pkger -o bundled
+ifdef PKGER_BIN
+	$(PKGER_BIN) -o bundled
+else
+	GO111MODULE=on go run -mod=mod github.com/markbates/pkger/cmd/pkger -o bundled
+endif
 
 .PHONY: pkger vendor
 pkger:
 ifeq ("$(wildcard $(GOPATH)/bin/pkger)","")
-	go get -u -v github.com/markbates/pkger/cmd/pkger
+	go install -v github.com/markbates/pkger/cmd/pkger@v0.17.1
 endif
 
 ci-update-bundled-deps: ci-update-fedramp-templates ci-update-fedramp-catalogs
